@@ -1,0 +1,198 @@
+generator clinet {
+    provider = "prisma-client-js"
+    output = "../src/generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+   
+}
+
+enum Role {
+    CUSTOMER
+    TRADIE
+    ADMIN
+}
+
+enum JobStatus { 
+DRAFT
+OPEN
+IN_PROGRESS
+COMPLETED
+CANCELLED
+DISPUTED
+
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+    COMPLETED
+}
+enum PaymentStatus {
+PENDING
+PROCESSING
+SUCCEEDED
+FAILED
+REFUNDED
+}
+enum NotificationType {
+    EMAIL 
+    SMS
+    PUSH
+}
+    model User {
+    id String @id @default(uuid())
+    email String @unique
+    password String
+    role Role @default(CUSTOMER)
+    isVerified Boolean @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    profile Profile?
+    jobsPosted Job[] @relation("CustomerJobs")
+    jobsAssigned Job[] @relation("TradieJobs")
+    bookings Booking[] @relation("CustomerBookings")
+    assignJobs Booking[] @relation("TradieBookings")
+    reviewsGiven Review[] @relation("ReviewsGiven")
+    reviewsRecieved Review[] @relation("ReviewsReceived")
+    notifications Notification[]
+    stripeAccount StripeAccount?
+
+    @@map("users")
+}
+model Profile {
+    id String @id @default(uuid())
+    userId String @unique
+    firstName String
+    lastName String
+    phone String?
+    avatarUrl String?
+    bio String?
+    abn String?
+    suburb String?
+    state String ?
+    postcode String?
+    trades String?
+    licenceNo String?  //tradie License Number
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user User @relation(fields: [userId], references :[id], onDelete:Cascade )
+
+    @@map("profiles")
+}
+
+model Job {
+   id            String     @id @default(uuid())
+  customerId    String
+  tradieId      String?
+  title         String
+  description   String
+  category      String     // e.g. "plumbing", "electrical"
+  suburb        String
+  state         String
+  postcode      String
+  status        JobStatus  @default(DRAFT)
+  budgetMin     Decimal?   @db.Decimal(10, 2)
+  budgetMax     Decimal?   @db.Decimal(10, 2)
+  scheduledAt   DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  customer      User       @relation("CustomerJobs", fields: [customerId], references: [id])
+  tradie        User?      @relation("TradieJobs", fields: [tradieId], references: [id])
+  booking       Booking?
+  images        JobImage[]
+
+  @@map("jobs")
+}
+model JobImage {
+    id String @id @default(uuid())
+    jobId String
+    url String //S3 Url
+    createdAt DateTime @default(now()) 
+    job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+}
+model Booking {
+  id            String        @id @default(uuid())
+  jobId         String        @unique
+  customerId    String
+  tradieId      String
+  status        BookingStatus @default(PENDING)
+  scheduledAt   DateTime
+  totalAmount   Decimal       @db.Decimal(10, 2)
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  job           Job           @relation(fields: [jobId], references: [id])
+  customer      User          @relation("CustomerBookings", fields: [customerId], references: [id])
+  tradie        User          @relation("TradieBookings", fields: [tradieId], references: [id])
+  payment       Payment?
+  review        Review?
+
+  @@map("bookings")
+}
+
+model Payment {
+  id                String        @id @default(uuid())
+  bookingId         String        @unique
+  stripePaymentId   String        @unique
+  amount            Decimal       @db.Decimal(10, 2)
+  platformFee       Decimal       @db.Decimal(10, 2)  // your cut
+  currency          String        @default("aud")
+  status            PaymentStatus @default(PENDING)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  booking           Booking       @relation(fields: [bookingId], references: [id])
+
+  @@map("payments")
+}
+model Review {
+  id          String   @id @default(uuid())
+  bookingId   String   @unique
+  reviewerId  String
+  revieweeId  String
+  rating      Int      // 1-5
+  comment     String?
+  createdAt   DateTime @default(now())
+
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+  reviewer    User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  reviewee    User     @relation("ReviewsReceived", fields: [revieweeId], references: [id])
+
+  @@map("reviews")
+}
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String
+  isRead    Boolean          @default(false)
+  sentAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+model StripeAccount {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  stripeAccountId String   @unique   // Stripe Connect account ID
+  chargesEnabled  Boolean  @default(false)
+  payoutsEnabled  Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("stripe_accounts")
+}
+
+
