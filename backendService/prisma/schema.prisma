@@ -71,10 +71,12 @@ model Profile {
     avatarUrl String?
     bio String?
     abn String?
+    addressLine1  String?   
+    addressLine2  String?  
     suburb String?
     state String ?
     postcode String?
-    trades String?
+    trades String[] //eg ['plumbing', 'electrical', 'painting']
     licenceNo String?  //tradie License Number
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -114,6 +116,7 @@ model JobImage {
     url String //S3 Url
     createdAt DateTime @default(now()) 
     job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+    @@map("job_images")
 
 }
 model Booking {

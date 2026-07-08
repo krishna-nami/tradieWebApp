@@ -8,8 +8,8 @@ const MODE = process.env.NODE_ENV || "developement";
 
 const startServer = async () => {
   const server = app.listen(PORT, () => {
-    console.log(`The server is runnning on http://localhost:${PORT}`);
-    console.log(`Environment is ${MODE}`);
+    console.info(`The server is runnning on http://localhost:${PORT}`);
+    console.info(`Environment is ${MODE}`);
   });
 
   //Starts the server,
@@ -19,10 +19,10 @@ const startServer = async () => {
   });
 
   const gracefulShutdown = (signal: string) => {
-    console.log(`${signal} recieved, sutting down Gracefully`);
+    console.info(`${signal} recieved, sutting down Gracefully`);
 
     server.close(() => {
-      console.log("server Closed Successfullly");
+      console.info("server Closed Successfullly");
       process.exit(0);
     });
   };
