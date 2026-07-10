@@ -7,15 +7,20 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
+  if (res.headersSent) {
+    return next(err);
+  }
   if (err instanceof ApiError) {
-    return res.status(err.statuscode).json({
+    return res.status(err.statusCode).json({
       success: false,
       message: err.message,
       errors: err.errors ?? null,
     });
   }
+  console.error("Unhandled error:", err);
   return res.status(500).json({
     success: false,
-    messsage: "Internal Server Error",
+    message: "Internal Server Error",
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
 };

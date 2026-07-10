@@ -8,8 +8,8 @@ app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
-  const kri = req.body;
-  res.json({ message: "This is our first landing page" });
+  const kri = req.body || "statics requests";
+  res.json({ message: "This is our first landing page " + kri });
 });
 
 export default app;
