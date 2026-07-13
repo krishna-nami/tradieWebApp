@@ -1,8 +1,11 @@
 import { Response, Request } from "express";
-import { RegisterInput, registerSchema } from "../validators/auth.validator.js";
+import {
+  loginSchema,
+  RegisterInput,
+  registerSchema,
+} from "../validators/auth.validator.js";
 import { ApiError } from "../utils/ApiError.js";
 import * as authService from "../services/auth.service.js";
-import { json } from "zod";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const register = async (req: Request, res: Response) => {
@@ -90,5 +93,55 @@ export const resendVerification = async (req: Request, res: Response) => {
     .status(200)
     .json(new ApiResponse(200, "Verification email sent", null));
 };
-export const login = (req: Request, res: Response) => {};
-export const logout = (req: Request, res: Response) => {};
+
+// Login User
+export const login = async (req: Request, res: Response) => {
+  const result = loginSchema.safeParse(req.body);
+  if (!result.success) {
+    throw new ApiError(400, "Please fill email or password corectly");
+  }
+
+  const { email, password } = result.data.body;
+
+  const { user, accessToken, refreshToken } = await authService.userLogin(
+    email,
+    password,
+  );
+
+  //set refresh Token cookie
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  // 4. Send response
+  return res.status(200).json(
+    new ApiResponse(200, "Login successful", {
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        isVerified: user.isVerified,
+        profile: {
+          firstName: user.profile?.firstName,
+          lastName: user.profile?.lastName,
+          phone: user.profile?.phone ?? null,
+        },
+      },
+      accessToken,
+    }),
+  );
+};
+export const logout = (req: Request, res: Response) => {
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NPTE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, " Log-out Out Successfully", null));
+};

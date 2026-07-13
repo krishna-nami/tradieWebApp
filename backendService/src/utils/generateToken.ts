@@ -32,3 +32,19 @@ export const generateRefreshToken = (payload: RefreshTokenPayload) => {
     expiresIn: REFRESH_TOKEN_EXPIRY,
   });
 };
+// ─── VERIFY tokens ─────────────────────────────────────────────────
+
+export const verifyAccessToken = (token: string): AccessTokenPayload => {
+  if (!ACCESS_TOKEN_SECRET) {
+    throw new ApiError(400, "Token is empty");
+  }
+
+  return jwt.verify(token, ACCESS_TOKEN_SECRET) as AccessTokenPayload;
+};
+
+export const verifyRefreshToken = (token: string): RefreshTokenPayload => {
+  if (!REFRESH_TOKEN_SECRET) {
+    throw new ApiError(400, "Token is empty");
+  }
+  return jwt.verify(token, REFRESH_TOKEN_SECRET) as RefreshTokenPayload;
+};

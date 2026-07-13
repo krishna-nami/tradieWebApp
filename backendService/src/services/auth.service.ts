@@ -10,7 +10,7 @@ import { ApiError } from "../utils/ApiError.js";
 const SALT_NUMBER = 12;
 
 export const findUserByEmail = async (email: string) => {
-  return prisma.user.findUnique({
+  return await prisma.user.findUnique({
     where: { email },
   });
 };
@@ -121,4 +121,27 @@ export const resendVerificationtoken = async (email: string) => {
   });
 
   return { user, emailVerifyToken };
+};
+
+export const userLogin = async (email: string, password: string) => {
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { profile: true },
+  });
+  if (!user) {
+    throw new ApiError(401, "Invalid User name or Password");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid User Name or Password");
+  }
+  if (!user.isVerified) {
+    throw new ApiError(400, "Please Verifify your account");
+  }
+  const accessToken = generateAccessToken({ userId: user.id, role: user.role });
+
+  const refreshToken = generateRefreshToken({ userId: user.id });
+
+  return { user, accessToken, refreshToken };
 };
