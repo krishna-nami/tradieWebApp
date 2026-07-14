@@ -44,24 +44,27 @@ enum NotificationType {
 }
 
 model User {
-  id                String         @id @default(uuid())
-  email             String         @unique
-  password          String
-  role              Role           @default(CUSTOMER)
-  isVerified        Boolean        @default(false)
-  emailVerifyToken  String?
-  emailVerifyExpiry DateTime?
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  profile           Profile?
-  jobsPosted        Job[]          @relation("CustomerJobs")
-  jobsAssigned      Job[]          @relation("TradieJobs")
-  bookings          Booking[]      @relation("CustomerBookings")
-  assignJobs        Booking[]      @relation("TradieBookings")
-  reviewsGiven      Review[]       @relation("ReviewsGiven")
-  reviewsRecieved   Review[]       @relation("ReviewsReceived")
-  notifications     Notification[]
-  stripeAccount     StripeAccount?
+  id                  String    @id @default(uuid())
+  email               String    @unique
+  password            String
+  role                Role      @default(CUSTOMER)
+  isVerified          Boolean   @default(false)
+  emailVerifyToken    String?
+  emailVerifyExpiry   DateTime?
+  passwordResettoken  String?
+  passwordResetExpiry DateTime?
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  profile         Profile?
+  jobsPosted      Job[]          @relation("CustomerJobs")
+  jobsAssigned    Job[]          @relation("TradieJobs")
+  bookings        Booking[]      @relation("CustomerBookings")
+  assignJobs      Booking[]      @relation("TradieBookings")
+  reviewsGiven    Review[]       @relation("ReviewsGiven")
+  reviewsRecieved Review[]       @relation("ReviewsReceived")
+  notifications   Notification[]
+  stripeAccount   StripeAccount?
 
   @@map("users")
 }

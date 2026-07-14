@@ -1,8 +1,14 @@
 import { Response, Request } from "express";
 import {
+  ChangePasswordInput,
+  changePasswordSchema,
+  ForgetPasswordInput,
+  forgetPasswordSchema,
   loginSchema,
   RegisterInput,
   registerSchema,
+  ResetPasswordInput,
+  resetPasswordSchema,
 } from "../validators/auth.validator.js";
 import { ApiError } from "../utils/ApiError.js";
 import * as authService from "../services/auth.service.js";
@@ -96,7 +102,7 @@ export const resendVerification = async (req: Request, res: Response) => {
 
 // Login User
 export const login = async (req: Request, res: Response) => {
-  const result = loginSchema.safeParse(req.body);
+  const result = loginSchema.safeParse({ body: req.body });
   if (!result.success) {
     throw new ApiError(400, "Please fill email or password corectly");
   }
@@ -144,4 +150,64 @@ export const logout = (req: Request, res: Response) => {
   return res
     .status(200)
     .json(new ApiResponse(200, " Log-out Out Successfully", null));
+};
+
+//forget password
+export const forgetPassword = async (req: Request, res: Response) => {
+  const result = forgetPasswordSchema.safeParse({ body: req.body });
+  if (!result.success) {
+    throw new ApiError(
+      400,
+      result.error.issues[0]?.message ?? "Validation Failed",
+    );
+  }
+  const data: ForgetPasswordInput = result.data.body;
+  await authService.forgetPasswordService(data);
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        "If an account exist, a resent link has been sent.",
+        null,
+      ),
+    );
+};
+export const resetPassword = async (req: Request, res: Response) => {
+  const result = resetPasswordSchema.safeParse({ body: req.body });
+  if (!result.success) {
+    throw new ApiError(
+      400,
+      result.error.issues[0]?.message ?? "Validation Failed",
+    );
+  }
+  const data: ResetPasswordInput = result.data.body;
+  await authService.resetPasswordService(data);
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, "Password reset Successfully", null));
+};
+
+//Protected Routes
+//change password
+export const changePassword = async (req: Request, res: Response) => {
+  const result = changePasswordSchema.safeParse({ body: req.body });
+  if (!result.success) {
+    throw new ApiError(
+      400,
+      result.error.issues[0]?.message ?? "Validation Failed",
+    );
+  }
+  const data: ChangePasswordInput = result.data.body;
+  const userId = req.user?.id;
+  if (!userId) {
+    throw new ApiError(401, "UnAuthorized");
+  }
+
+  await authService.changePasswordService(data, userId);
+  res
+    .status(200)
+    .json(new ApiResponse(200, "Password changed Successfully", null));
 };

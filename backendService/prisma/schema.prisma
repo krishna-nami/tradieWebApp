@@ -50,6 +50,9 @@ enum NotificationType {
     isVerified Boolean @default(false)
     emailVerifyToken String?
     emailVerifyExpiry DateTime?
+    passwordResettoken String?
+    passwordResetExpiry DateTime?
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     profile Profile?

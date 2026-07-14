@@ -4,10 +4,17 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../utils/generateToken.js";
-import { RegisterInput } from "../validators/auth.validator.js";
+import {
+  ChangePasswordInput,
+  ForgetPasswordInput,
+  RegisterInput,
+  ResetPasswordInput,
+} from "../validators/auth.validator.js";
 import { prisma } from "../config/db.js";
 import { ApiError } from "../utils/ApiError.js";
+
 const SALT_NUMBER = 12;
+const RESET_TOKEN_EXPIRY_MS = 15 * 60 * 1000;
 
 export const findUserByEmail = async (email: string) => {
   return await prisma.user.findUnique({
@@ -144,4 +151,83 @@ export const userLogin = async (email: string, password: string) => {
   const refreshToken = generateRefreshToken({ userId: user.id });
 
   return { user, accessToken, refreshToken };
+};
+export const forgetPasswordService = async (data: ForgetPasswordInput) => {
+  const { email } = data;
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new ApiError(400, "There is no account with this email");
+  }
+  const rawToken = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(rawToken)
+    .digest("hex");
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      passwordResettoken: hashedToken,
+      passwordResetExpiry: new Date(Date.now() + RESET_TOKEN_EXPIRY_MS),
+    },
+  });
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${rawToken}`;
+
+  //Push to que- notidication microservices and send email from Resend
+};
+
+export const resetPasswordService = async (data: ResetPasswordInput) => {
+  const { token, password } = data;
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+  const user = await prisma.user.findFirst({
+    where: {
+      passwordResettoken: hashedToken,
+      passwordResetExpiry: { gt: new Date() },
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(400, " Reset Token is invalid or has expired");
+  }
+
+  const hashPassword = await bcrypt.hash(password, SALT_NUMBER);
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      password: hashPassword,
+      passwordResettoken: null,
+      passwordResetExpiry: null,
+    },
+  });
+};
+export const changePasswordService = async (
+  data: ChangePasswordInput,
+  userId: string,
+) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  if (!user) {
+    throw new ApiError(404, "User not Found");
+  }
+  const isMatch = await bcrypt.compare(data.currentPassword, user.password);
+  if (!isMatch) {
+    throw new ApiError(401, "Current Password is incorrect");
+  }
+  const isSame = await bcrypt.compare(data.newPassword, user.password);
+  if (isSame) {
+    throw new ApiError(
+      400,
+      "New Password must be different than current password",
+    );
+  }
+  const hashPassword = await bcrypt.hash(data.newPassword, SALT_NUMBER);
+  await prisma.user.update({
+    where: { id: userId },
+    data: { password: hashPassword },
+  });
 };

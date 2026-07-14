@@ -92,7 +92,17 @@ export const loginSchema = z.object({
   body: z.object({
     email: z.email({ error: "Invalid email address" }).toLowerCase().trim(),
 
-    password: z.string({ error: "Password is required" }),
+    password: z
+      .string({ error: "Password is required" })
+      .min(8, { error: "Password must be atleast 8 charactors" })
+      .max(64, { error: "Password must be less than 64 charactors" })
+      .regex(/[A-Z]/, {
+        error: "Password must contain at least one upper letter",
+      })
+      .regex(/[a-z]/, {
+        error: "Password must have at least one lower letters",
+      })
+      .regex(/[0-9]/, { error: "Password must contain atleast one number" }),
   }),
 });
 
@@ -102,7 +112,41 @@ export const refreshTokenSchema = z.object({
     refreshToken: z.string({ error: "Refresh token is required" }),
   }),
 });
+export const forgetPasswordSchema = z.object({
+  body: z.object({
+    email: z.email({ error: "Invalid email address" }).toLowerCase().trim(),
+  }),
+});
+export const resetPasswordSchema = z.object({
+  body: z.object({
+    token: z.string().min(1, "Reset Token is required"),
+    password: z
+      .string({ error: "Password is required" })
+      .min(8, { error: "Password must be atleast 8 charactors" })
+      .max(64, { error: "Password must be less than 64 charactors" })
+      .regex(/[A-Z]/, {
+        error: "Password must contain at least one upper letter",
+      })
+      .regex(/[a-z]/, {
+        error: "Password must have at least one lower letters",
+      })
+      .regex(/[0-9]/, { error: "Password must contain atleast one number" }),
+  }),
+});
+export const changePasswordSchema = z.object({
+  body: z.object({
+    currentPassword: z.string().min(1, "Current password is required"),
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must contain an uppercase letter")
+      .regex(/[0-9]/, "Must contain a number"),
+  }),
+});
 
 export type RegisterInput = z.infer<typeof registerSchema>["body"];
 export type LoginInput = z.infer<typeof loginSchema>["body"];
 export type RefereshTokenIput = z.infer<typeof refreshTokenSchema>["body"];
+export type ForgetPasswordInput = z.infer<typeof forgetPasswordSchema>["body"];
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>["body"];
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>["body"];
