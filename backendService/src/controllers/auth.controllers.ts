@@ -17,9 +17,19 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 export const register = async (req: Request, res: Response) => {
   const result = registerSchema.safeParse({ body: req.body });
   if (!result.success) {
-    throw new ApiError(400, "Validation Failed", result.error.issues);
+    const fieldErrors = result.error.issues.map((issue) => ({
+      field: issue.path.join("."),
+      message: issue.message,
+    }));
+
+    throw new ApiError(
+      400,
+      result.error.issues[0]?.message ?? "validation failed",
+      fieldErrors,
+    );
   }
   const data: RegisterInput = result.data.body;
+
   const existUser = await authService.findUserByEmail(data.email);
   if (existUser) {
     throw new ApiError(409, "This account is Already Exist");
@@ -36,7 +46,7 @@ export const register = async (req: Request, res: Response) => {
   //   token: emailVerifyToken,
   // });
 
-  console.info(`Email verify token for ${user.email}: ${emailVerifyToken}`);
+  console.info(`Email verify token for ${user.email}:${emailVerifyToken}`);
 
   //set refresh token in httpOnly cookie
 
@@ -143,7 +153,7 @@ export const login = async (req: Request, res: Response) => {
 export const logout = (req: Request, res: Response) => {
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure: process.env.NPTE_ENV === "production",
+    secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
 

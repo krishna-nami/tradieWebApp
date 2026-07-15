@@ -15,14 +15,11 @@ interface RefreshTokenPayload {
 
 export const generateAccessToken = (payload: AccessTokenPayload) => {
   if (!ACCESS_TOKEN_SECRET) {
-    throw new ApiError(400, "Token is empty");
+    throw new ApiError(500, "Access Token  must configured");
   }
-  return (
-    jwt.sign(payload, ACCESS_TOKEN_SECRET),
-    {
-      expiresIn: ACCESS_TOKEN_EXPIRY,
-    }
-  );
+  return jwt.sign(payload, ACCESS_TOKEN_SECRET, {
+    expiresIn: ACCESS_TOKEN_EXPIRY,
+  });
 };
 export const generateRefreshToken = (payload: RefreshTokenPayload) => {
   if (!REFRESH_TOKEN_SECRET) {

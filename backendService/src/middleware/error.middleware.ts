@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { ApiError } from "../utils/ApiError.js";
+import { ZodError, treeifyError } from "zod";
 
 export const errorMiddleware = (
   err: Error,
@@ -15,6 +16,14 @@ export const errorMiddleware = (
       success: false,
       message: err.message,
       errors: err.errors ?? null,
+    });
+  }
+  if (err instanceof ZodError) {
+    const tree = treeifyError(err);
+    return res.status(400).json({
+      success: false,
+      message: err.issues[0]?.message ?? "Validation failed",
+      errors: tree,
     });
   }
   console.error("Unhandled error:", err);

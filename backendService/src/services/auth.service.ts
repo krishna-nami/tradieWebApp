@@ -40,6 +40,7 @@ export const userRegister = async (data: RegisterInput) => {
   const passwordHash = await bcrypt.hash(password, SALT_NUMBER);
 
   const emailVerifyToken = crypto.randomBytes(32).toString("hex");
+
   //email verify toekn last for 24 hours ~1d
   const emailVerifyExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const user = await prisma.user.create({
@@ -72,6 +73,7 @@ export const userRegister = async (data: RegisterInput) => {
     userId: user.id,
     role: user.role,
   });
+
   const refreshtoken = generateRefreshToken({
     userId: user.id,
   });
