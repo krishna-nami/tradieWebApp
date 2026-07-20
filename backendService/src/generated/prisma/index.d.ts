@@ -3177,6 +3177,7 @@ export namespace Prisma {
     state: string | null
     postcode: string | null
     licenceNo: string | null
+    isAvailable: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3196,6 +3197,7 @@ export namespace Prisma {
     state: string | null
     postcode: string | null
     licenceNo: string | null
+    isAvailable: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3216,6 +3218,7 @@ export namespace Prisma {
     postcode: number
     trades: number
     licenceNo: number
+    isAvailable: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3237,6 +3240,7 @@ export namespace Prisma {
     state?: true
     postcode?: true
     licenceNo?: true
+    isAvailable?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3256,6 +3260,7 @@ export namespace Prisma {
     state?: true
     postcode?: true
     licenceNo?: true
+    isAvailable?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3276,6 +3281,7 @@ export namespace Prisma {
     postcode?: true
     trades?: true
     licenceNo?: true
+    isAvailable?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3369,6 +3375,7 @@ export namespace Prisma {
     postcode: string | null
     trades: string[]
     licenceNo: string | null
+    isAvailable: boolean
     createdAt: Date
     updatedAt: Date
     _count: ProfileCountAggregateOutputType | null
@@ -3406,6 +3413,7 @@ export namespace Prisma {
     postcode?: boolean
     trades?: boolean
     licenceNo?: boolean
+    isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3427,6 +3435,7 @@ export namespace Prisma {
     postcode?: boolean
     trades?: boolean
     licenceNo?: boolean
+    isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3448,6 +3457,7 @@ export namespace Prisma {
     postcode?: boolean
     trades?: boolean
     licenceNo?: boolean
+    isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3469,11 +3479,12 @@ export namespace Prisma {
     postcode?: boolean
     trades?: boolean
     licenceNo?: boolean
+    isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "trades" | "licenceNo" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "trades" | "licenceNo" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3505,6 +3516,7 @@ export namespace Prisma {
       postcode: string | null
       trades: string[]
       licenceNo: string | null
+      isAvailable: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["profile"]>
@@ -3946,6 +3958,7 @@ export namespace Prisma {
     readonly postcode: FieldRef<"Profile", 'String'>
     readonly trades: FieldRef<"Profile", 'String[]'>
     readonly licenceNo: FieldRef<"Profile", 'String'>
+    readonly isAvailable: FieldRef<"Profile", 'Boolean'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
   }
@@ -12495,6 +12508,7 @@ export namespace Prisma {
     postcode: 'postcode',
     trades: 'trades',
     licenceNo: 'licenceNo',
+    isAvailable: 'isAvailable',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12912,6 +12926,7 @@ export namespace Prisma {
     postcode?: StringNullableFilter<"Profile"> | string | null
     trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableFilter<"Profile"> | string | null
+    isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12933,6 +12948,7 @@ export namespace Prisma {
     postcode?: SortOrderInput | SortOrder
     trades?: SortOrder
     licenceNo?: SortOrderInput | SortOrder
+    isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -12957,6 +12973,7 @@ export namespace Prisma {
     postcode?: StringNullableFilter<"Profile"> | string | null
     trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableFilter<"Profile"> | string | null
+    isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12978,6 +12995,7 @@ export namespace Prisma {
     postcode?: SortOrderInput | SortOrder
     trades?: SortOrder
     licenceNo?: SortOrderInput | SortOrder
+    isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
@@ -13004,6 +13022,7 @@ export namespace Prisma {
     postcode?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    isAvailable?: BoolWithAggregatesFilter<"Profile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
   }
@@ -13707,6 +13726,7 @@ export namespace Prisma {
     postcode?: string | null
     trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
+    isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProfileInput
@@ -13728,6 +13748,7 @@ export namespace Prisma {
     postcode?: string | null
     trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
+    isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13747,6 +13768,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
@@ -13768,6 +13790,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13788,6 +13811,7 @@ export namespace Prisma {
     postcode?: string | null
     trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
+    isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13807,6 +13831,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13827,6 +13852,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14681,6 +14707,7 @@ export namespace Prisma {
     postcode?: SortOrder
     trades?: SortOrder
     licenceNo?: SortOrder
+    isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14700,6 +14727,7 @@ export namespace Prisma {
     state?: SortOrder
     postcode?: SortOrder
     licenceNo?: SortOrder
+    isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14719,6 +14747,7 @@ export namespace Prisma {
     state?: SortOrder
     postcode?: SortOrder
     licenceNo?: SortOrder
+    isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16275,6 +16304,7 @@ export namespace Prisma {
     postcode?: string | null
     trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
+    isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16294,6 +16324,7 @@ export namespace Prisma {
     postcode?: string | null
     trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
+    isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16614,6 +16645,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16633,6 +16665,7 @@ export namespace Prisma {
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
     trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

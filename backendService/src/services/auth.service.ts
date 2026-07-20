@@ -27,7 +27,6 @@ export const userRegister = async (data: RegisterInput) => {
     password,
     role,
     firstName,
-    abn,
     lastName,
     phone,
     addressLine1,
@@ -35,7 +34,6 @@ export const userRegister = async (data: RegisterInput) => {
     postcode,
     addressLine2,
     suburb,
-    licenceNo,
   } = data;
   const passwordHash = await bcrypt.hash(password, SALT_NUMBER);
 
@@ -55,8 +53,7 @@ export const userRegister = async (data: RegisterInput) => {
           firstName,
           lastName,
           phone: phone ?? null,
-          abn: abn ?? null,
-          licenceNo: licenceNo ?? null,
+
           addressLine1: addressLine1 ?? null, // ← add
           addressLine2: addressLine2 ?? null, // ← add
           suburb: suburb ?? null, // ← add

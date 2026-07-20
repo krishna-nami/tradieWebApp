@@ -1,9 +1,11 @@
 import { Router } from "express";
 import authRoutes from "./auth.routes.js";
+import tradieRoutes from "./tradie.routes.js";
+import userRoutes from "./user.routes.js";
 
 const router = Router();
 
 router.use("/auth", authRoutes);
-router.use("/users");
-router.use("/tradies");
+router.use("/users", userRoutes);
+router.use("/tradies", tradieRoutes);
 export default router;

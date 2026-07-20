@@ -150,6 +150,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   postcode: 'postcode',
   trades: 'trades',
   licenceNo: 'licenceNo',
+  isAvailable: 'isAvailable',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -38,14 +38,6 @@ export const registerSchema = z.object({
           error: "invalid Australian Phone Number ",
         })
         .optional(),
-      abn: z
-        .string()
-        .regex(/^\d{11}$/, { error: "ABN must be exactly 11 digit" })
-        .optional(),
-      licenceNo: z
-        .string()
-        .max(50, { error: "Licesne number too long" })
-        .optional(),
 
       addressLine1: z
         .string()
@@ -73,19 +65,7 @@ export const registerSchema = z.object({
     .refine((data) => data.password === data.confirmPassword, {
       error: "Passwords do not match",
       path: ["confirmPassword"],
-    })
-    .refine(
-      (data) => {
-        if (data.role === "TRADIE") {
-          return !!data.abn;
-        }
-        return true;
-      },
-      {
-        error: "ABN is required for tradie registration",
-        path: ["abn"],
-      },
-    ),
+    }),
 });
 
 export const loginSchema = z.object({
