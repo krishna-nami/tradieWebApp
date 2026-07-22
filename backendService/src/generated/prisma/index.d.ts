@@ -24,6 +24,16 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
 /**
+ * Model TradieAvailabilitySlot
+ * 
+ */
+export type TradieAvailabilitySlot = $Result.DefaultSelection<Prisma.$TradieAvailabilitySlotPayload>
+/**
+ * Model TradieSpecialisation
+ * 
+ */
+export type TradieSpecialisation = $Result.DefaultSelection<Prisma.$TradieSpecialisationPayload>
+/**
  * Model Job
  * 
  */
@@ -84,6 +94,19 @@ export const JobStatus: {
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
 
 
+export const DayOfWeek: {
+  MON: 'MON',
+  TUE: 'TUE',
+  WED: 'WED',
+  THU: 'THU',
+  FRI: 'FRI',
+  SAT: 'SAT',
+  SUN: 'SUN'
+};
+
+export type DayOfWeek = (typeof DayOfWeek)[keyof typeof DayOfWeek]
+
+
 export const BookingStatus: {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
@@ -122,6 +145,10 @@ export const Role: typeof $Enums.Role
 export type JobStatus = $Enums.JobStatus
 
 export const JobStatus: typeof $Enums.JobStatus
+
+export type DayOfWeek = $Enums.DayOfWeek
+
+export const DayOfWeek: typeof $Enums.DayOfWeek
 
 export type BookingStatus = $Enums.BookingStatus
 
@@ -275,6 +302,26 @@ export class PrismaClient<
     * ```
     */
   get profile(): Prisma.ProfileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tradieAvailabilitySlot`: Exposes CRUD operations for the **TradieAvailabilitySlot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TradieAvailabilitySlots
+    * const tradieAvailabilitySlots = await prisma.tradieAvailabilitySlot.findMany()
+    * ```
+    */
+  get tradieAvailabilitySlot(): Prisma.TradieAvailabilitySlotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tradieSpecialisation`: Exposes CRUD operations for the **TradieSpecialisation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TradieSpecialisations
+    * const tradieSpecialisations = await prisma.tradieSpecialisation.findMany()
+    * ```
+    */
+  get tradieSpecialisation(): Prisma.TradieSpecialisationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.job`: Exposes CRUD operations for the **Job** model.
@@ -781,6 +828,8 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Profile: 'Profile',
+    TradieAvailabilitySlot: 'TradieAvailabilitySlot',
+    TradieSpecialisation: 'TradieSpecialisation',
     Job: 'Job',
     JobImage: 'JobImage',
     Booking: 'Booking',
@@ -803,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "job" | "jobImage" | "booking" | "payment" | "review" | "notification" | "stripeAccount"
+      modelProps: "user" | "profile" | "tradieAvailabilitySlot" | "tradieSpecialisation" | "job" | "jobImage" | "booking" | "payment" | "review" | "notification" | "stripeAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -952,6 +1001,154 @@ export namespace Prisma {
           count: {
             args: Prisma.ProfileCountArgs<ExtArgs>
             result: $Utils.Optional<ProfileCountAggregateOutputType> | number
+          }
+        }
+      }
+      TradieAvailabilitySlot: {
+        payload: Prisma.$TradieAvailabilitySlotPayload<ExtArgs>
+        fields: Prisma.TradieAvailabilitySlotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TradieAvailabilitySlotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TradieAvailabilitySlotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          findFirst: {
+            args: Prisma.TradieAvailabilitySlotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TradieAvailabilitySlotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          findMany: {
+            args: Prisma.TradieAvailabilitySlotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>[]
+          }
+          create: {
+            args: Prisma.TradieAvailabilitySlotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          createMany: {
+            args: Prisma.TradieAvailabilitySlotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TradieAvailabilitySlotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>[]
+          }
+          delete: {
+            args: Prisma.TradieAvailabilitySlotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          update: {
+            args: Prisma.TradieAvailabilitySlotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          deleteMany: {
+            args: Prisma.TradieAvailabilitySlotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TradieAvailabilitySlotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TradieAvailabilitySlotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>[]
+          }
+          upsert: {
+            args: Prisma.TradieAvailabilitySlotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieAvailabilitySlotPayload>
+          }
+          aggregate: {
+            args: Prisma.TradieAvailabilitySlotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTradieAvailabilitySlot>
+          }
+          groupBy: {
+            args: Prisma.TradieAvailabilitySlotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TradieAvailabilitySlotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TradieAvailabilitySlotCountArgs<ExtArgs>
+            result: $Utils.Optional<TradieAvailabilitySlotCountAggregateOutputType> | number
+          }
+        }
+      }
+      TradieSpecialisation: {
+        payload: Prisma.$TradieSpecialisationPayload<ExtArgs>
+        fields: Prisma.TradieSpecialisationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TradieSpecialisationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TradieSpecialisationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          findFirst: {
+            args: Prisma.TradieSpecialisationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TradieSpecialisationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          findMany: {
+            args: Prisma.TradieSpecialisationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>[]
+          }
+          create: {
+            args: Prisma.TradieSpecialisationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          createMany: {
+            args: Prisma.TradieSpecialisationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TradieSpecialisationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>[]
+          }
+          delete: {
+            args: Prisma.TradieSpecialisationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          update: {
+            args: Prisma.TradieSpecialisationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          deleteMany: {
+            args: Prisma.TradieSpecialisationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TradieSpecialisationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TradieSpecialisationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>[]
+          }
+          upsert: {
+            args: Prisma.TradieSpecialisationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradieSpecialisationPayload>
+          }
+          aggregate: {
+            args: Prisma.TradieSpecialisationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTradieSpecialisation>
+          }
+          groupBy: {
+            args: Prisma.TradieSpecialisationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TradieSpecialisationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TradieSpecialisationCountArgs<ExtArgs>
+            result: $Utils.Optional<TradieSpecialisationCountAggregateOutputType> | number
           }
         }
       }
@@ -1583,6 +1780,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     profile?: ProfileOmit
+    tradieAvailabilitySlot?: TradieAvailabilitySlotOmit
+    tradieSpecialisation?: TradieSpecialisationOmit
     job?: JobOmit
     jobImage?: JobImageOmit
     booking?: BookingOmit
@@ -1747,6 +1946,46 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+
+  /**
+   * Count Type ProfileCountOutputType
+   */
+
+  export type ProfileCountOutputType = {
+    specialisations: number
+    availabilitySlots: number
+  }
+
+  export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    specialisations?: boolean | ProfileCountOutputTypeCountSpecialisationsArgs
+    availabilitySlots?: boolean | ProfileCountOutputTypeCountAvailabilitySlotsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfileCountOutputType
+     */
+    select?: ProfileCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountSpecialisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradieSpecialisationWhereInput
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountAvailabilitySlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradieAvailabilitySlotWhereInput
   }
 
 
@@ -3216,7 +3455,6 @@ export namespace Prisma {
     suburb: number
     state: number
     postcode: number
-    trades: number
     licenceNo: number
     isAvailable: number
     createdAt: number
@@ -3279,7 +3517,6 @@ export namespace Prisma {
     suburb?: true
     state?: true
     postcode?: true
-    trades?: true
     licenceNo?: true
     isAvailable?: true
     createdAt?: true
@@ -3373,7 +3610,6 @@ export namespace Prisma {
     suburb: string | null
     state: string | null
     postcode: string | null
-    trades: string[]
     licenceNo: string | null
     isAvailable: boolean
     createdAt: Date
@@ -3411,12 +3647,14 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
-    trades?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    specialisations?: boolean | Profile$specialisationsArgs<ExtArgs>
+    availabilitySlots?: boolean | Profile$availabilitySlotsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3433,7 +3671,6 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
-    trades?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
@@ -3455,7 +3692,6 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
-    trades?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
@@ -3477,16 +3713,18 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
-    trades?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "trades" | "licenceNo" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "licenceNo" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    specialisations?: boolean | Profile$specialisationsArgs<ExtArgs>
+    availabilitySlots?: boolean | Profile$availabilitySlotsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3498,6 +3736,8 @@ export namespace Prisma {
   export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profile"
     objects: {
+      specialisations: Prisma.$TradieSpecialisationPayload<ExtArgs>[]
+      availabilitySlots: Prisma.$TradieAvailabilitySlotPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3514,7 +3754,6 @@ export namespace Prisma {
       suburb: string | null
       state: string | null
       postcode: string | null
-      trades: string[]
       licenceNo: string | null
       isAvailable: boolean
       createdAt: Date
@@ -3913,6 +4152,8 @@ export namespace Prisma {
    */
   export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    specialisations<T extends Profile$specialisationsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$specialisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    availabilitySlots<T extends Profile$availabilitySlotsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$availabilitySlotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3956,7 +4197,6 @@ export namespace Prisma {
     readonly suburb: FieldRef<"Profile", 'String'>
     readonly state: FieldRef<"Profile", 'String'>
     readonly postcode: FieldRef<"Profile", 'String'>
-    readonly trades: FieldRef<"Profile", 'String[]'>
     readonly licenceNo: FieldRef<"Profile", 'String'>
     readonly isAvailable: FieldRef<"Profile", 'Boolean'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
@@ -4362,6 +4602,54 @@ export namespace Prisma {
   }
 
   /**
+   * Profile.specialisations
+   */
+  export type Profile$specialisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    where?: TradieSpecialisationWhereInput
+    orderBy?: TradieSpecialisationOrderByWithRelationInput | TradieSpecialisationOrderByWithRelationInput[]
+    cursor?: TradieSpecialisationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TradieSpecialisationScalarFieldEnum | TradieSpecialisationScalarFieldEnum[]
+  }
+
+  /**
+   * Profile.availabilitySlots
+   */
+  export type Profile$availabilitySlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    where?: TradieAvailabilitySlotWhereInput
+    orderBy?: TradieAvailabilitySlotOrderByWithRelationInput | TradieAvailabilitySlotOrderByWithRelationInput[]
+    cursor?: TradieAvailabilitySlotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TradieAvailabilitySlotScalarFieldEnum | TradieAvailabilitySlotScalarFieldEnum[]
+  }
+
+  /**
    * Profile without action
    */
   export type ProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4377,6 +4665,2192 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TradieAvailabilitySlot
+   */
+
+  export type AggregateTradieAvailabilitySlot = {
+    _count: TradieAvailabilitySlotCountAggregateOutputType | null
+    _min: TradieAvailabilitySlotMinAggregateOutputType | null
+    _max: TradieAvailabilitySlotMaxAggregateOutputType | null
+  }
+
+  export type TradieAvailabilitySlotMinAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    day: $Enums.DayOfWeek | null
+    startTime: string | null
+    endTime: string | null
+  }
+
+  export type TradieAvailabilitySlotMaxAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    day: $Enums.DayOfWeek | null
+    startTime: string | null
+    endTime: string | null
+  }
+
+  export type TradieAvailabilitySlotCountAggregateOutputType = {
+    id: number
+    profileId: number
+    day: number
+    startTime: number
+    endTime: number
+    _all: number
+  }
+
+
+  export type TradieAvailabilitySlotMinAggregateInputType = {
+    id?: true
+    profileId?: true
+    day?: true
+    startTime?: true
+    endTime?: true
+  }
+
+  export type TradieAvailabilitySlotMaxAggregateInputType = {
+    id?: true
+    profileId?: true
+    day?: true
+    startTime?: true
+    endTime?: true
+  }
+
+  export type TradieAvailabilitySlotCountAggregateInputType = {
+    id?: true
+    profileId?: true
+    day?: true
+    startTime?: true
+    endTime?: true
+    _all?: true
+  }
+
+  export type TradieAvailabilitySlotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TradieAvailabilitySlot to aggregate.
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieAvailabilitySlots to fetch.
+     */
+    orderBy?: TradieAvailabilitySlotOrderByWithRelationInput | TradieAvailabilitySlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TradieAvailabilitySlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieAvailabilitySlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieAvailabilitySlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TradieAvailabilitySlots
+    **/
+    _count?: true | TradieAvailabilitySlotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TradieAvailabilitySlotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TradieAvailabilitySlotMaxAggregateInputType
+  }
+
+  export type GetTradieAvailabilitySlotAggregateType<T extends TradieAvailabilitySlotAggregateArgs> = {
+        [P in keyof T & keyof AggregateTradieAvailabilitySlot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTradieAvailabilitySlot[P]>
+      : GetScalarType<T[P], AggregateTradieAvailabilitySlot[P]>
+  }
+
+
+
+
+  export type TradieAvailabilitySlotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradieAvailabilitySlotWhereInput
+    orderBy?: TradieAvailabilitySlotOrderByWithAggregationInput | TradieAvailabilitySlotOrderByWithAggregationInput[]
+    by: TradieAvailabilitySlotScalarFieldEnum[] | TradieAvailabilitySlotScalarFieldEnum
+    having?: TradieAvailabilitySlotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TradieAvailabilitySlotCountAggregateInputType | true
+    _min?: TradieAvailabilitySlotMinAggregateInputType
+    _max?: TradieAvailabilitySlotMaxAggregateInputType
+  }
+
+  export type TradieAvailabilitySlotGroupByOutputType = {
+    id: string
+    profileId: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+    _count: TradieAvailabilitySlotCountAggregateOutputType | null
+    _min: TradieAvailabilitySlotMinAggregateOutputType | null
+    _max: TradieAvailabilitySlotMaxAggregateOutputType | null
+  }
+
+  type GetTradieAvailabilitySlotGroupByPayload<T extends TradieAvailabilitySlotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TradieAvailabilitySlotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TradieAvailabilitySlotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TradieAvailabilitySlotGroupByOutputType[P]>
+            : GetScalarType<T[P], TradieAvailabilitySlotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TradieAvailabilitySlotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    day?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieAvailabilitySlot"]>
+
+  export type TradieAvailabilitySlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    day?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieAvailabilitySlot"]>
+
+  export type TradieAvailabilitySlotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    day?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieAvailabilitySlot"]>
+
+  export type TradieAvailabilitySlotSelectScalar = {
+    id?: boolean
+    profileId?: boolean
+    day?: boolean
+    startTime?: boolean
+    endTime?: boolean
+  }
+
+  export type TradieAvailabilitySlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profileId" | "day" | "startTime" | "endTime", ExtArgs["result"]["tradieAvailabilitySlot"]>
+  export type TradieAvailabilitySlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+  export type TradieAvailabilitySlotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+  export type TradieAvailabilitySlotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tradie?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+
+  export type $TradieAvailabilitySlotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TradieAvailabilitySlot"
+    objects: {
+      tradie: Prisma.$ProfilePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      profileId: string
+      day: $Enums.DayOfWeek
+      startTime: string
+      endTime: string
+    }, ExtArgs["result"]["tradieAvailabilitySlot"]>
+    composites: {}
+  }
+
+  type TradieAvailabilitySlotGetPayload<S extends boolean | null | undefined | TradieAvailabilitySlotDefaultArgs> = $Result.GetResult<Prisma.$TradieAvailabilitySlotPayload, S>
+
+  type TradieAvailabilitySlotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TradieAvailabilitySlotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TradieAvailabilitySlotCountAggregateInputType | true
+    }
+
+  export interface TradieAvailabilitySlotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TradieAvailabilitySlot'], meta: { name: 'TradieAvailabilitySlot' } }
+    /**
+     * Find zero or one TradieAvailabilitySlot that matches the filter.
+     * @param {TradieAvailabilitySlotFindUniqueArgs} args - Arguments to find a TradieAvailabilitySlot
+     * @example
+     * // Get one TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TradieAvailabilitySlotFindUniqueArgs>(args: SelectSubset<T, TradieAvailabilitySlotFindUniqueArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TradieAvailabilitySlot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TradieAvailabilitySlotFindUniqueOrThrowArgs} args - Arguments to find a TradieAvailabilitySlot
+     * @example
+     * // Get one TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TradieAvailabilitySlotFindUniqueOrThrowArgs>(args: SelectSubset<T, TradieAvailabilitySlotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TradieAvailabilitySlot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotFindFirstArgs} args - Arguments to find a TradieAvailabilitySlot
+     * @example
+     * // Get one TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TradieAvailabilitySlotFindFirstArgs>(args?: SelectSubset<T, TradieAvailabilitySlotFindFirstArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TradieAvailabilitySlot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotFindFirstOrThrowArgs} args - Arguments to find a TradieAvailabilitySlot
+     * @example
+     * // Get one TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TradieAvailabilitySlotFindFirstOrThrowArgs>(args?: SelectSubset<T, TradieAvailabilitySlotFindFirstOrThrowArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TradieAvailabilitySlots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TradieAvailabilitySlots
+     * const tradieAvailabilitySlots = await prisma.tradieAvailabilitySlot.findMany()
+     * 
+     * // Get first 10 TradieAvailabilitySlots
+     * const tradieAvailabilitySlots = await prisma.tradieAvailabilitySlot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tradieAvailabilitySlotWithIdOnly = await prisma.tradieAvailabilitySlot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TradieAvailabilitySlotFindManyArgs>(args?: SelectSubset<T, TradieAvailabilitySlotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TradieAvailabilitySlot.
+     * @param {TradieAvailabilitySlotCreateArgs} args - Arguments to create a TradieAvailabilitySlot.
+     * @example
+     * // Create one TradieAvailabilitySlot
+     * const TradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.create({
+     *   data: {
+     *     // ... data to create a TradieAvailabilitySlot
+     *   }
+     * })
+     * 
+     */
+    create<T extends TradieAvailabilitySlotCreateArgs>(args: SelectSubset<T, TradieAvailabilitySlotCreateArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TradieAvailabilitySlots.
+     * @param {TradieAvailabilitySlotCreateManyArgs} args - Arguments to create many TradieAvailabilitySlots.
+     * @example
+     * // Create many TradieAvailabilitySlots
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TradieAvailabilitySlotCreateManyArgs>(args?: SelectSubset<T, TradieAvailabilitySlotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TradieAvailabilitySlots and returns the data saved in the database.
+     * @param {TradieAvailabilitySlotCreateManyAndReturnArgs} args - Arguments to create many TradieAvailabilitySlots.
+     * @example
+     * // Create many TradieAvailabilitySlots
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TradieAvailabilitySlots and only return the `id`
+     * const tradieAvailabilitySlotWithIdOnly = await prisma.tradieAvailabilitySlot.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TradieAvailabilitySlotCreateManyAndReturnArgs>(args?: SelectSubset<T, TradieAvailabilitySlotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TradieAvailabilitySlot.
+     * @param {TradieAvailabilitySlotDeleteArgs} args - Arguments to delete one TradieAvailabilitySlot.
+     * @example
+     * // Delete one TradieAvailabilitySlot
+     * const TradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.delete({
+     *   where: {
+     *     // ... filter to delete one TradieAvailabilitySlot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TradieAvailabilitySlotDeleteArgs>(args: SelectSubset<T, TradieAvailabilitySlotDeleteArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TradieAvailabilitySlot.
+     * @param {TradieAvailabilitySlotUpdateArgs} args - Arguments to update one TradieAvailabilitySlot.
+     * @example
+     * // Update one TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TradieAvailabilitySlotUpdateArgs>(args: SelectSubset<T, TradieAvailabilitySlotUpdateArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TradieAvailabilitySlots.
+     * @param {TradieAvailabilitySlotDeleteManyArgs} args - Arguments to filter TradieAvailabilitySlots to delete.
+     * @example
+     * // Delete a few TradieAvailabilitySlots
+     * const { count } = await prisma.tradieAvailabilitySlot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TradieAvailabilitySlotDeleteManyArgs>(args?: SelectSubset<T, TradieAvailabilitySlotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TradieAvailabilitySlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TradieAvailabilitySlots
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TradieAvailabilitySlotUpdateManyArgs>(args: SelectSubset<T, TradieAvailabilitySlotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TradieAvailabilitySlots and returns the data updated in the database.
+     * @param {TradieAvailabilitySlotUpdateManyAndReturnArgs} args - Arguments to update many TradieAvailabilitySlots.
+     * @example
+     * // Update many TradieAvailabilitySlots
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TradieAvailabilitySlots and only return the `id`
+     * const tradieAvailabilitySlotWithIdOnly = await prisma.tradieAvailabilitySlot.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TradieAvailabilitySlotUpdateManyAndReturnArgs>(args: SelectSubset<T, TradieAvailabilitySlotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TradieAvailabilitySlot.
+     * @param {TradieAvailabilitySlotUpsertArgs} args - Arguments to update or create a TradieAvailabilitySlot.
+     * @example
+     * // Update or create a TradieAvailabilitySlot
+     * const tradieAvailabilitySlot = await prisma.tradieAvailabilitySlot.upsert({
+     *   create: {
+     *     // ... data to create a TradieAvailabilitySlot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TradieAvailabilitySlot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TradieAvailabilitySlotUpsertArgs>(args: SelectSubset<T, TradieAvailabilitySlotUpsertArgs<ExtArgs>>): Prisma__TradieAvailabilitySlotClient<$Result.GetResult<Prisma.$TradieAvailabilitySlotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TradieAvailabilitySlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotCountArgs} args - Arguments to filter TradieAvailabilitySlots to count.
+     * @example
+     * // Count the number of TradieAvailabilitySlots
+     * const count = await prisma.tradieAvailabilitySlot.count({
+     *   where: {
+     *     // ... the filter for the TradieAvailabilitySlots we want to count
+     *   }
+     * })
+    **/
+    count<T extends TradieAvailabilitySlotCountArgs>(
+      args?: Subset<T, TradieAvailabilitySlotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TradieAvailabilitySlotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TradieAvailabilitySlot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TradieAvailabilitySlotAggregateArgs>(args: Subset<T, TradieAvailabilitySlotAggregateArgs>): Prisma.PrismaPromise<GetTradieAvailabilitySlotAggregateType<T>>
+
+    /**
+     * Group by TradieAvailabilitySlot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieAvailabilitySlotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TradieAvailabilitySlotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TradieAvailabilitySlotGroupByArgs['orderBy'] }
+        : { orderBy?: TradieAvailabilitySlotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TradieAvailabilitySlotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTradieAvailabilitySlotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TradieAvailabilitySlot model
+   */
+  readonly fields: TradieAvailabilitySlotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TradieAvailabilitySlot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TradieAvailabilitySlotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tradie<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TradieAvailabilitySlot model
+   */
+  interface TradieAvailabilitySlotFieldRefs {
+    readonly id: FieldRef<"TradieAvailabilitySlot", 'String'>
+    readonly profileId: FieldRef<"TradieAvailabilitySlot", 'String'>
+    readonly day: FieldRef<"TradieAvailabilitySlot", 'DayOfWeek'>
+    readonly startTime: FieldRef<"TradieAvailabilitySlot", 'String'>
+    readonly endTime: FieldRef<"TradieAvailabilitySlot", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TradieAvailabilitySlot findUnique
+   */
+  export type TradieAvailabilitySlotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieAvailabilitySlot to fetch.
+     */
+    where: TradieAvailabilitySlotWhereUniqueInput
+  }
+
+  /**
+   * TradieAvailabilitySlot findUniqueOrThrow
+   */
+  export type TradieAvailabilitySlotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieAvailabilitySlot to fetch.
+     */
+    where: TradieAvailabilitySlotWhereUniqueInput
+  }
+
+  /**
+   * TradieAvailabilitySlot findFirst
+   */
+  export type TradieAvailabilitySlotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieAvailabilitySlot to fetch.
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieAvailabilitySlots to fetch.
+     */
+    orderBy?: TradieAvailabilitySlotOrderByWithRelationInput | TradieAvailabilitySlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TradieAvailabilitySlots.
+     */
+    cursor?: TradieAvailabilitySlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieAvailabilitySlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieAvailabilitySlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieAvailabilitySlots.
+     */
+    distinct?: TradieAvailabilitySlotScalarFieldEnum | TradieAvailabilitySlotScalarFieldEnum[]
+  }
+
+  /**
+   * TradieAvailabilitySlot findFirstOrThrow
+   */
+  export type TradieAvailabilitySlotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieAvailabilitySlot to fetch.
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieAvailabilitySlots to fetch.
+     */
+    orderBy?: TradieAvailabilitySlotOrderByWithRelationInput | TradieAvailabilitySlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TradieAvailabilitySlots.
+     */
+    cursor?: TradieAvailabilitySlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieAvailabilitySlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieAvailabilitySlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieAvailabilitySlots.
+     */
+    distinct?: TradieAvailabilitySlotScalarFieldEnum | TradieAvailabilitySlotScalarFieldEnum[]
+  }
+
+  /**
+   * TradieAvailabilitySlot findMany
+   */
+  export type TradieAvailabilitySlotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieAvailabilitySlots to fetch.
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieAvailabilitySlots to fetch.
+     */
+    orderBy?: TradieAvailabilitySlotOrderByWithRelationInput | TradieAvailabilitySlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TradieAvailabilitySlots.
+     */
+    cursor?: TradieAvailabilitySlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieAvailabilitySlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieAvailabilitySlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieAvailabilitySlots.
+     */
+    distinct?: TradieAvailabilitySlotScalarFieldEnum | TradieAvailabilitySlotScalarFieldEnum[]
+  }
+
+  /**
+   * TradieAvailabilitySlot create
+   */
+  export type TradieAvailabilitySlotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TradieAvailabilitySlot.
+     */
+    data: XOR<TradieAvailabilitySlotCreateInput, TradieAvailabilitySlotUncheckedCreateInput>
+  }
+
+  /**
+   * TradieAvailabilitySlot createMany
+   */
+  export type TradieAvailabilitySlotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TradieAvailabilitySlots.
+     */
+    data: TradieAvailabilitySlotCreateManyInput | TradieAvailabilitySlotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TradieAvailabilitySlot createManyAndReturn
+   */
+  export type TradieAvailabilitySlotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * The data used to create many TradieAvailabilitySlots.
+     */
+    data: TradieAvailabilitySlotCreateManyInput | TradieAvailabilitySlotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TradieAvailabilitySlot update
+   */
+  export type TradieAvailabilitySlotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TradieAvailabilitySlot.
+     */
+    data: XOR<TradieAvailabilitySlotUpdateInput, TradieAvailabilitySlotUncheckedUpdateInput>
+    /**
+     * Choose, which TradieAvailabilitySlot to update.
+     */
+    where: TradieAvailabilitySlotWhereUniqueInput
+  }
+
+  /**
+   * TradieAvailabilitySlot updateMany
+   */
+  export type TradieAvailabilitySlotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TradieAvailabilitySlots.
+     */
+    data: XOR<TradieAvailabilitySlotUpdateManyMutationInput, TradieAvailabilitySlotUncheckedUpdateManyInput>
+    /**
+     * Filter which TradieAvailabilitySlots to update
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * Limit how many TradieAvailabilitySlots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TradieAvailabilitySlot updateManyAndReturn
+   */
+  export type TradieAvailabilitySlotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * The data used to update TradieAvailabilitySlots.
+     */
+    data: XOR<TradieAvailabilitySlotUpdateManyMutationInput, TradieAvailabilitySlotUncheckedUpdateManyInput>
+    /**
+     * Filter which TradieAvailabilitySlots to update
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * Limit how many TradieAvailabilitySlots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TradieAvailabilitySlot upsert
+   */
+  export type TradieAvailabilitySlotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TradieAvailabilitySlot to update in case it exists.
+     */
+    where: TradieAvailabilitySlotWhereUniqueInput
+    /**
+     * In case the TradieAvailabilitySlot found by the `where` argument doesn't exist, create a new TradieAvailabilitySlot with this data.
+     */
+    create: XOR<TradieAvailabilitySlotCreateInput, TradieAvailabilitySlotUncheckedCreateInput>
+    /**
+     * In case the TradieAvailabilitySlot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TradieAvailabilitySlotUpdateInput, TradieAvailabilitySlotUncheckedUpdateInput>
+  }
+
+  /**
+   * TradieAvailabilitySlot delete
+   */
+  export type TradieAvailabilitySlotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+    /**
+     * Filter which TradieAvailabilitySlot to delete.
+     */
+    where: TradieAvailabilitySlotWhereUniqueInput
+  }
+
+  /**
+   * TradieAvailabilitySlot deleteMany
+   */
+  export type TradieAvailabilitySlotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TradieAvailabilitySlots to delete
+     */
+    where?: TradieAvailabilitySlotWhereInput
+    /**
+     * Limit how many TradieAvailabilitySlots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TradieAvailabilitySlot without action
+   */
+  export type TradieAvailabilitySlotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieAvailabilitySlot
+     */
+    select?: TradieAvailabilitySlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieAvailabilitySlot
+     */
+    omit?: TradieAvailabilitySlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieAvailabilitySlotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TradieSpecialisation
+   */
+
+  export type AggregateTradieSpecialisation = {
+    _count: TradieSpecialisationCountAggregateOutputType | null
+    _avg: TradieSpecialisationAvgAggregateOutputType | null
+    _sum: TradieSpecialisationSumAggregateOutputType | null
+    _min: TradieSpecialisationMinAggregateOutputType | null
+    _max: TradieSpecialisationMaxAggregateOutputType | null
+  }
+
+  export type TradieSpecialisationAvgAggregateOutputType = {
+    yearsExperience: number | null
+  }
+
+  export type TradieSpecialisationSumAggregateOutputType = {
+    yearsExperience: number | null
+  }
+
+  export type TradieSpecialisationMinAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    trade: string | null
+    yearsExperience: number | null
+    certification: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TradieSpecialisationMaxAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    trade: string | null
+    yearsExperience: number | null
+    certification: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TradieSpecialisationCountAggregateOutputType = {
+    id: number
+    profileId: number
+    trade: number
+    yearsExperience: number
+    certification: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TradieSpecialisationAvgAggregateInputType = {
+    yearsExperience?: true
+  }
+
+  export type TradieSpecialisationSumAggregateInputType = {
+    yearsExperience?: true
+  }
+
+  export type TradieSpecialisationMinAggregateInputType = {
+    id?: true
+    profileId?: true
+    trade?: true
+    yearsExperience?: true
+    certification?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TradieSpecialisationMaxAggregateInputType = {
+    id?: true
+    profileId?: true
+    trade?: true
+    yearsExperience?: true
+    certification?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TradieSpecialisationCountAggregateInputType = {
+    id?: true
+    profileId?: true
+    trade?: true
+    yearsExperience?: true
+    certification?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TradieSpecialisationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TradieSpecialisation to aggregate.
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieSpecialisations to fetch.
+     */
+    orderBy?: TradieSpecialisationOrderByWithRelationInput | TradieSpecialisationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TradieSpecialisationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieSpecialisations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieSpecialisations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TradieSpecialisations
+    **/
+    _count?: true | TradieSpecialisationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TradieSpecialisationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TradieSpecialisationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TradieSpecialisationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TradieSpecialisationMaxAggregateInputType
+  }
+
+  export type GetTradieSpecialisationAggregateType<T extends TradieSpecialisationAggregateArgs> = {
+        [P in keyof T & keyof AggregateTradieSpecialisation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTradieSpecialisation[P]>
+      : GetScalarType<T[P], AggregateTradieSpecialisation[P]>
+  }
+
+
+
+
+  export type TradieSpecialisationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradieSpecialisationWhereInput
+    orderBy?: TradieSpecialisationOrderByWithAggregationInput | TradieSpecialisationOrderByWithAggregationInput[]
+    by: TradieSpecialisationScalarFieldEnum[] | TradieSpecialisationScalarFieldEnum
+    having?: TradieSpecialisationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TradieSpecialisationCountAggregateInputType | true
+    _avg?: TradieSpecialisationAvgAggregateInputType
+    _sum?: TradieSpecialisationSumAggregateInputType
+    _min?: TradieSpecialisationMinAggregateInputType
+    _max?: TradieSpecialisationMaxAggregateInputType
+  }
+
+  export type TradieSpecialisationGroupByOutputType = {
+    id: string
+    profileId: string
+    trade: string
+    yearsExperience: number | null
+    certification: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TradieSpecialisationCountAggregateOutputType | null
+    _avg: TradieSpecialisationAvgAggregateOutputType | null
+    _sum: TradieSpecialisationSumAggregateOutputType | null
+    _min: TradieSpecialisationMinAggregateOutputType | null
+    _max: TradieSpecialisationMaxAggregateOutputType | null
+  }
+
+  type GetTradieSpecialisationGroupByPayload<T extends TradieSpecialisationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TradieSpecialisationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TradieSpecialisationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TradieSpecialisationGroupByOutputType[P]>
+            : GetScalarType<T[P], TradieSpecialisationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TradieSpecialisationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    trade?: boolean
+    yearsExperience?: boolean
+    certification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieSpecialisation"]>
+
+  export type TradieSpecialisationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    trade?: boolean
+    yearsExperience?: boolean
+    certification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieSpecialisation"]>
+
+  export type TradieSpecialisationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    trade?: boolean
+    yearsExperience?: boolean
+    certification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tradieSpecialisation"]>
+
+  export type TradieSpecialisationSelectScalar = {
+    id?: boolean
+    profileId?: boolean
+    trade?: boolean
+    yearsExperience?: boolean
+    certification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TradieSpecialisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profileId" | "trade" | "yearsExperience" | "certification" | "createdAt" | "updatedAt", ExtArgs["result"]["tradieSpecialisation"]>
+  export type TradieSpecialisationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+  export type TradieSpecialisationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+  export type TradieSpecialisationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }
+
+  export type $TradieSpecialisationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TradieSpecialisation"
+    objects: {
+      profile: Prisma.$ProfilePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      profileId: string
+      trade: string
+      yearsExperience: number | null
+      certification: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tradieSpecialisation"]>
+    composites: {}
+  }
+
+  type TradieSpecialisationGetPayload<S extends boolean | null | undefined | TradieSpecialisationDefaultArgs> = $Result.GetResult<Prisma.$TradieSpecialisationPayload, S>
+
+  type TradieSpecialisationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TradieSpecialisationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TradieSpecialisationCountAggregateInputType | true
+    }
+
+  export interface TradieSpecialisationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TradieSpecialisation'], meta: { name: 'TradieSpecialisation' } }
+    /**
+     * Find zero or one TradieSpecialisation that matches the filter.
+     * @param {TradieSpecialisationFindUniqueArgs} args - Arguments to find a TradieSpecialisation
+     * @example
+     * // Get one TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TradieSpecialisationFindUniqueArgs>(args: SelectSubset<T, TradieSpecialisationFindUniqueArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TradieSpecialisation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TradieSpecialisationFindUniqueOrThrowArgs} args - Arguments to find a TradieSpecialisation
+     * @example
+     * // Get one TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TradieSpecialisationFindUniqueOrThrowArgs>(args: SelectSubset<T, TradieSpecialisationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TradieSpecialisation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationFindFirstArgs} args - Arguments to find a TradieSpecialisation
+     * @example
+     * // Get one TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TradieSpecialisationFindFirstArgs>(args?: SelectSubset<T, TradieSpecialisationFindFirstArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TradieSpecialisation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationFindFirstOrThrowArgs} args - Arguments to find a TradieSpecialisation
+     * @example
+     * // Get one TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TradieSpecialisationFindFirstOrThrowArgs>(args?: SelectSubset<T, TradieSpecialisationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TradieSpecialisations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TradieSpecialisations
+     * const tradieSpecialisations = await prisma.tradieSpecialisation.findMany()
+     * 
+     * // Get first 10 TradieSpecialisations
+     * const tradieSpecialisations = await prisma.tradieSpecialisation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tradieSpecialisationWithIdOnly = await prisma.tradieSpecialisation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TradieSpecialisationFindManyArgs>(args?: SelectSubset<T, TradieSpecialisationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TradieSpecialisation.
+     * @param {TradieSpecialisationCreateArgs} args - Arguments to create a TradieSpecialisation.
+     * @example
+     * // Create one TradieSpecialisation
+     * const TradieSpecialisation = await prisma.tradieSpecialisation.create({
+     *   data: {
+     *     // ... data to create a TradieSpecialisation
+     *   }
+     * })
+     * 
+     */
+    create<T extends TradieSpecialisationCreateArgs>(args: SelectSubset<T, TradieSpecialisationCreateArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TradieSpecialisations.
+     * @param {TradieSpecialisationCreateManyArgs} args - Arguments to create many TradieSpecialisations.
+     * @example
+     * // Create many TradieSpecialisations
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TradieSpecialisationCreateManyArgs>(args?: SelectSubset<T, TradieSpecialisationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TradieSpecialisations and returns the data saved in the database.
+     * @param {TradieSpecialisationCreateManyAndReturnArgs} args - Arguments to create many TradieSpecialisations.
+     * @example
+     * // Create many TradieSpecialisations
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TradieSpecialisations and only return the `id`
+     * const tradieSpecialisationWithIdOnly = await prisma.tradieSpecialisation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TradieSpecialisationCreateManyAndReturnArgs>(args?: SelectSubset<T, TradieSpecialisationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TradieSpecialisation.
+     * @param {TradieSpecialisationDeleteArgs} args - Arguments to delete one TradieSpecialisation.
+     * @example
+     * // Delete one TradieSpecialisation
+     * const TradieSpecialisation = await prisma.tradieSpecialisation.delete({
+     *   where: {
+     *     // ... filter to delete one TradieSpecialisation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TradieSpecialisationDeleteArgs>(args: SelectSubset<T, TradieSpecialisationDeleteArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TradieSpecialisation.
+     * @param {TradieSpecialisationUpdateArgs} args - Arguments to update one TradieSpecialisation.
+     * @example
+     * // Update one TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TradieSpecialisationUpdateArgs>(args: SelectSubset<T, TradieSpecialisationUpdateArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TradieSpecialisations.
+     * @param {TradieSpecialisationDeleteManyArgs} args - Arguments to filter TradieSpecialisations to delete.
+     * @example
+     * // Delete a few TradieSpecialisations
+     * const { count } = await prisma.tradieSpecialisation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TradieSpecialisationDeleteManyArgs>(args?: SelectSubset<T, TradieSpecialisationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TradieSpecialisations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TradieSpecialisations
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TradieSpecialisationUpdateManyArgs>(args: SelectSubset<T, TradieSpecialisationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TradieSpecialisations and returns the data updated in the database.
+     * @param {TradieSpecialisationUpdateManyAndReturnArgs} args - Arguments to update many TradieSpecialisations.
+     * @example
+     * // Update many TradieSpecialisations
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TradieSpecialisations and only return the `id`
+     * const tradieSpecialisationWithIdOnly = await prisma.tradieSpecialisation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TradieSpecialisationUpdateManyAndReturnArgs>(args: SelectSubset<T, TradieSpecialisationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TradieSpecialisation.
+     * @param {TradieSpecialisationUpsertArgs} args - Arguments to update or create a TradieSpecialisation.
+     * @example
+     * // Update or create a TradieSpecialisation
+     * const tradieSpecialisation = await prisma.tradieSpecialisation.upsert({
+     *   create: {
+     *     // ... data to create a TradieSpecialisation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TradieSpecialisation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TradieSpecialisationUpsertArgs>(args: SelectSubset<T, TradieSpecialisationUpsertArgs<ExtArgs>>): Prisma__TradieSpecialisationClient<$Result.GetResult<Prisma.$TradieSpecialisationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TradieSpecialisations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationCountArgs} args - Arguments to filter TradieSpecialisations to count.
+     * @example
+     * // Count the number of TradieSpecialisations
+     * const count = await prisma.tradieSpecialisation.count({
+     *   where: {
+     *     // ... the filter for the TradieSpecialisations we want to count
+     *   }
+     * })
+    **/
+    count<T extends TradieSpecialisationCountArgs>(
+      args?: Subset<T, TradieSpecialisationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TradieSpecialisationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TradieSpecialisation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TradieSpecialisationAggregateArgs>(args: Subset<T, TradieSpecialisationAggregateArgs>): Prisma.PrismaPromise<GetTradieSpecialisationAggregateType<T>>
+
+    /**
+     * Group by TradieSpecialisation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradieSpecialisationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TradieSpecialisationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TradieSpecialisationGroupByArgs['orderBy'] }
+        : { orderBy?: TradieSpecialisationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TradieSpecialisationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTradieSpecialisationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TradieSpecialisation model
+   */
+  readonly fields: TradieSpecialisationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TradieSpecialisation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TradieSpecialisationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TradieSpecialisation model
+   */
+  interface TradieSpecialisationFieldRefs {
+    readonly id: FieldRef<"TradieSpecialisation", 'String'>
+    readonly profileId: FieldRef<"TradieSpecialisation", 'String'>
+    readonly trade: FieldRef<"TradieSpecialisation", 'String'>
+    readonly yearsExperience: FieldRef<"TradieSpecialisation", 'Int'>
+    readonly certification: FieldRef<"TradieSpecialisation", 'String'>
+    readonly createdAt: FieldRef<"TradieSpecialisation", 'DateTime'>
+    readonly updatedAt: FieldRef<"TradieSpecialisation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TradieSpecialisation findUnique
+   */
+  export type TradieSpecialisationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieSpecialisation to fetch.
+     */
+    where: TradieSpecialisationWhereUniqueInput
+  }
+
+  /**
+   * TradieSpecialisation findUniqueOrThrow
+   */
+  export type TradieSpecialisationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieSpecialisation to fetch.
+     */
+    where: TradieSpecialisationWhereUniqueInput
+  }
+
+  /**
+   * TradieSpecialisation findFirst
+   */
+  export type TradieSpecialisationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieSpecialisation to fetch.
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieSpecialisations to fetch.
+     */
+    orderBy?: TradieSpecialisationOrderByWithRelationInput | TradieSpecialisationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TradieSpecialisations.
+     */
+    cursor?: TradieSpecialisationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieSpecialisations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieSpecialisations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieSpecialisations.
+     */
+    distinct?: TradieSpecialisationScalarFieldEnum | TradieSpecialisationScalarFieldEnum[]
+  }
+
+  /**
+   * TradieSpecialisation findFirstOrThrow
+   */
+  export type TradieSpecialisationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieSpecialisation to fetch.
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieSpecialisations to fetch.
+     */
+    orderBy?: TradieSpecialisationOrderByWithRelationInput | TradieSpecialisationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TradieSpecialisations.
+     */
+    cursor?: TradieSpecialisationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieSpecialisations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieSpecialisations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieSpecialisations.
+     */
+    distinct?: TradieSpecialisationScalarFieldEnum | TradieSpecialisationScalarFieldEnum[]
+  }
+
+  /**
+   * TradieSpecialisation findMany
+   */
+  export type TradieSpecialisationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter, which TradieSpecialisations to fetch.
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TradieSpecialisations to fetch.
+     */
+    orderBy?: TradieSpecialisationOrderByWithRelationInput | TradieSpecialisationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TradieSpecialisations.
+     */
+    cursor?: TradieSpecialisationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TradieSpecialisations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TradieSpecialisations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TradieSpecialisations.
+     */
+    distinct?: TradieSpecialisationScalarFieldEnum | TradieSpecialisationScalarFieldEnum[]
+  }
+
+  /**
+   * TradieSpecialisation create
+   */
+  export type TradieSpecialisationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TradieSpecialisation.
+     */
+    data: XOR<TradieSpecialisationCreateInput, TradieSpecialisationUncheckedCreateInput>
+  }
+
+  /**
+   * TradieSpecialisation createMany
+   */
+  export type TradieSpecialisationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TradieSpecialisations.
+     */
+    data: TradieSpecialisationCreateManyInput | TradieSpecialisationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TradieSpecialisation createManyAndReturn
+   */
+  export type TradieSpecialisationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * The data used to create many TradieSpecialisations.
+     */
+    data: TradieSpecialisationCreateManyInput | TradieSpecialisationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TradieSpecialisation update
+   */
+  export type TradieSpecialisationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TradieSpecialisation.
+     */
+    data: XOR<TradieSpecialisationUpdateInput, TradieSpecialisationUncheckedUpdateInput>
+    /**
+     * Choose, which TradieSpecialisation to update.
+     */
+    where: TradieSpecialisationWhereUniqueInput
+  }
+
+  /**
+   * TradieSpecialisation updateMany
+   */
+  export type TradieSpecialisationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TradieSpecialisations.
+     */
+    data: XOR<TradieSpecialisationUpdateManyMutationInput, TradieSpecialisationUncheckedUpdateManyInput>
+    /**
+     * Filter which TradieSpecialisations to update
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * Limit how many TradieSpecialisations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TradieSpecialisation updateManyAndReturn
+   */
+  export type TradieSpecialisationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * The data used to update TradieSpecialisations.
+     */
+    data: XOR<TradieSpecialisationUpdateManyMutationInput, TradieSpecialisationUncheckedUpdateManyInput>
+    /**
+     * Filter which TradieSpecialisations to update
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * Limit how many TradieSpecialisations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TradieSpecialisation upsert
+   */
+  export type TradieSpecialisationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TradieSpecialisation to update in case it exists.
+     */
+    where: TradieSpecialisationWhereUniqueInput
+    /**
+     * In case the TradieSpecialisation found by the `where` argument doesn't exist, create a new TradieSpecialisation with this data.
+     */
+    create: XOR<TradieSpecialisationCreateInput, TradieSpecialisationUncheckedCreateInput>
+    /**
+     * In case the TradieSpecialisation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TradieSpecialisationUpdateInput, TradieSpecialisationUncheckedUpdateInput>
+  }
+
+  /**
+   * TradieSpecialisation delete
+   */
+  export type TradieSpecialisationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
+    /**
+     * Filter which TradieSpecialisation to delete.
+     */
+    where: TradieSpecialisationWhereUniqueInput
+  }
+
+  /**
+   * TradieSpecialisation deleteMany
+   */
+  export type TradieSpecialisationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TradieSpecialisations to delete
+     */
+    where?: TradieSpecialisationWhereInput
+    /**
+     * Limit how many TradieSpecialisations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TradieSpecialisation without action
+   */
+  export type TradieSpecialisationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradieSpecialisation
+     */
+    select?: TradieSpecialisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TradieSpecialisation
+     */
+    omit?: TradieSpecialisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradieSpecialisationInclude<ExtArgs> | null
   }
 
 
@@ -12506,7 +14980,6 @@ export namespace Prisma {
     suburb: 'suburb',
     state: 'state',
     postcode: 'postcode',
-    trades: 'trades',
     licenceNo: 'licenceNo',
     isAvailable: 'isAvailable',
     createdAt: 'createdAt',
@@ -12514,6 +14987,30 @@ export namespace Prisma {
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
+  export const TradieAvailabilitySlotScalarFieldEnum: {
+    id: 'id',
+    profileId: 'profileId',
+    day: 'day',
+    startTime: 'startTime',
+    endTime: 'endTime'
+  };
+
+  export type TradieAvailabilitySlotScalarFieldEnum = (typeof TradieAvailabilitySlotScalarFieldEnum)[keyof typeof TradieAvailabilitySlotScalarFieldEnum]
+
+
+  export const TradieSpecialisationScalarFieldEnum: {
+    id: 'id',
+    profileId: 'profileId',
+    trade: 'trade',
+    yearsExperience: 'yearsExperience',
+    certification: 'certification',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TradieSpecialisationScalarFieldEnum = (typeof TradieSpecialisationScalarFieldEnum)[keyof typeof TradieSpecialisationScalarFieldEnum]
 
 
   export const JobScalarFieldEnum: {
@@ -12698,6 +15195,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DayOfWeek'
+   */
+  export type EnumDayOfWeekFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DayOfWeek'>
+    
+
+
+  /**
+   * Reference to a field of type 'DayOfWeek[]'
+   */
+  export type ListEnumDayOfWeekFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DayOfWeek[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'JobStatus'
    */
   export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>
@@ -12750,20 +15275,6 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -12924,11 +15435,12 @@ export namespace Prisma {
     suburb?: StringNullableFilter<"Profile"> | string | null
     state?: StringNullableFilter<"Profile"> | string | null
     postcode?: StringNullableFilter<"Profile"> | string | null
-    trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableFilter<"Profile"> | string | null
     isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
+    specialisations?: TradieSpecialisationListRelationFilter
+    availabilitySlots?: TradieAvailabilitySlotListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -12946,11 +15458,12 @@ export namespace Prisma {
     suburb?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     postcode?: SortOrderInput | SortOrder
-    trades?: SortOrder
     licenceNo?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    specialisations?: TradieSpecialisationOrderByRelationAggregateInput
+    availabilitySlots?: TradieAvailabilitySlotOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -12971,11 +15484,12 @@ export namespace Prisma {
     suburb?: StringNullableFilter<"Profile"> | string | null
     state?: StringNullableFilter<"Profile"> | string | null
     postcode?: StringNullableFilter<"Profile"> | string | null
-    trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableFilter<"Profile"> | string | null
     isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
+    specialisations?: TradieSpecialisationListRelationFilter
+    availabilitySlots?: TradieAvailabilitySlotListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -12993,7 +15507,6 @@ export namespace Prisma {
     suburb?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     postcode?: SortOrderInput | SortOrder
-    trades?: SortOrder
     licenceNo?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
@@ -13020,11 +15533,133 @@ export namespace Prisma {
     suburb?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     state?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     postcode?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    trades?: StringNullableListFilter<"Profile">
     licenceNo?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     isAvailable?: BoolWithAggregatesFilter<"Profile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
+  }
+
+  export type TradieAvailabilitySlotWhereInput = {
+    AND?: TradieAvailabilitySlotWhereInput | TradieAvailabilitySlotWhereInput[]
+    OR?: TradieAvailabilitySlotWhereInput[]
+    NOT?: TradieAvailabilitySlotWhereInput | TradieAvailabilitySlotWhereInput[]
+    id?: StringFilter<"TradieAvailabilitySlot"> | string
+    profileId?: StringFilter<"TradieAvailabilitySlot"> | string
+    day?: EnumDayOfWeekFilter<"TradieAvailabilitySlot"> | $Enums.DayOfWeek
+    startTime?: StringFilter<"TradieAvailabilitySlot"> | string
+    endTime?: StringFilter<"TradieAvailabilitySlot"> | string
+    tradie?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+  }
+
+  export type TradieAvailabilitySlotOrderByWithRelationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    day?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tradie?: ProfileOrderByWithRelationInput
+  }
+
+  export type TradieAvailabilitySlotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TradieAvailabilitySlotWhereInput | TradieAvailabilitySlotWhereInput[]
+    OR?: TradieAvailabilitySlotWhereInput[]
+    NOT?: TradieAvailabilitySlotWhereInput | TradieAvailabilitySlotWhereInput[]
+    profileId?: StringFilter<"TradieAvailabilitySlot"> | string
+    day?: EnumDayOfWeekFilter<"TradieAvailabilitySlot"> | $Enums.DayOfWeek
+    startTime?: StringFilter<"TradieAvailabilitySlot"> | string
+    endTime?: StringFilter<"TradieAvailabilitySlot"> | string
+    tradie?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+  }, "id">
+
+  export type TradieAvailabilitySlotOrderByWithAggregationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    day?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    _count?: TradieAvailabilitySlotCountOrderByAggregateInput
+    _max?: TradieAvailabilitySlotMaxOrderByAggregateInput
+    _min?: TradieAvailabilitySlotMinOrderByAggregateInput
+  }
+
+  export type TradieAvailabilitySlotScalarWhereWithAggregatesInput = {
+    AND?: TradieAvailabilitySlotScalarWhereWithAggregatesInput | TradieAvailabilitySlotScalarWhereWithAggregatesInput[]
+    OR?: TradieAvailabilitySlotScalarWhereWithAggregatesInput[]
+    NOT?: TradieAvailabilitySlotScalarWhereWithAggregatesInput | TradieAvailabilitySlotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TradieAvailabilitySlot"> | string
+    profileId?: StringWithAggregatesFilter<"TradieAvailabilitySlot"> | string
+    day?: EnumDayOfWeekWithAggregatesFilter<"TradieAvailabilitySlot"> | $Enums.DayOfWeek
+    startTime?: StringWithAggregatesFilter<"TradieAvailabilitySlot"> | string
+    endTime?: StringWithAggregatesFilter<"TradieAvailabilitySlot"> | string
+  }
+
+  export type TradieSpecialisationWhereInput = {
+    AND?: TradieSpecialisationWhereInput | TradieSpecialisationWhereInput[]
+    OR?: TradieSpecialisationWhereInput[]
+    NOT?: TradieSpecialisationWhereInput | TradieSpecialisationWhereInput[]
+    id?: StringFilter<"TradieSpecialisation"> | string
+    profileId?: StringFilter<"TradieSpecialisation"> | string
+    trade?: StringFilter<"TradieSpecialisation"> | string
+    yearsExperience?: IntNullableFilter<"TradieSpecialisation"> | number | null
+    certification?: StringNullableFilter<"TradieSpecialisation"> | string | null
+    createdAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+    updatedAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+  }
+
+  export type TradieSpecialisationOrderByWithRelationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    trade?: SortOrder
+    yearsExperience?: SortOrderInput | SortOrder
+    certification?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    profile?: ProfileOrderByWithRelationInput
+  }
+
+  export type TradieSpecialisationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    profileId_trade?: TradieSpecialisationProfileIdTradeCompoundUniqueInput
+    AND?: TradieSpecialisationWhereInput | TradieSpecialisationWhereInput[]
+    OR?: TradieSpecialisationWhereInput[]
+    NOT?: TradieSpecialisationWhereInput | TradieSpecialisationWhereInput[]
+    profileId?: StringFilter<"TradieSpecialisation"> | string
+    trade?: StringFilter<"TradieSpecialisation"> | string
+    yearsExperience?: IntNullableFilter<"TradieSpecialisation"> | number | null
+    certification?: StringNullableFilter<"TradieSpecialisation"> | string | null
+    createdAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+    updatedAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+  }, "id" | "profileId_trade">
+
+  export type TradieSpecialisationOrderByWithAggregationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    trade?: SortOrder
+    yearsExperience?: SortOrderInput | SortOrder
+    certification?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TradieSpecialisationCountOrderByAggregateInput
+    _avg?: TradieSpecialisationAvgOrderByAggregateInput
+    _max?: TradieSpecialisationMaxOrderByAggregateInput
+    _min?: TradieSpecialisationMinOrderByAggregateInput
+    _sum?: TradieSpecialisationSumOrderByAggregateInput
+  }
+
+  export type TradieSpecialisationScalarWhereWithAggregatesInput = {
+    AND?: TradieSpecialisationScalarWhereWithAggregatesInput | TradieSpecialisationScalarWhereWithAggregatesInput[]
+    OR?: TradieSpecialisationScalarWhereWithAggregatesInput[]
+    NOT?: TradieSpecialisationScalarWhereWithAggregatesInput | TradieSpecialisationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TradieSpecialisation"> | string
+    profileId?: StringWithAggregatesFilter<"TradieSpecialisation"> | string
+    trade?: StringWithAggregatesFilter<"TradieSpecialisation"> | string
+    yearsExperience?: IntNullableWithAggregatesFilter<"TradieSpecialisation"> | number | null
+    certification?: StringNullableWithAggregatesFilter<"TradieSpecialisation"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TradieSpecialisation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TradieSpecialisation"> | Date | string
   }
 
   export type JobWhereInput = {
@@ -13724,11 +16359,12 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
-    trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    specialisations?: TradieSpecialisationCreateNestedManyWithoutProfileInput
+    availabilitySlots?: TradieAvailabilitySlotCreateNestedManyWithoutTradieInput
     user: UserCreateNestedOneWithoutProfileInput
   }
 
@@ -13746,11 +16382,12 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
-    trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    specialisations?: TradieSpecialisationUncheckedCreateNestedManyWithoutProfileInput
+    availabilitySlots?: TradieAvailabilitySlotUncheckedCreateNestedManyWithoutTradieInput
   }
 
   export type ProfileUpdateInput = {
@@ -13766,11 +16403,12 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUpdateManyWithoutProfileNestedInput
+    availabilitySlots?: TradieAvailabilitySlotUpdateManyWithoutTradieNestedInput
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
@@ -13788,11 +16426,12 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUncheckedUpdateManyWithoutProfileNestedInput
+    availabilitySlots?: TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -13809,7 +16448,6 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
-    trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -13829,7 +16467,6 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13850,9 +16487,132 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieAvailabilitySlotCreateInput = {
+    id?: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+    tradie: ProfileCreateNestedOneWithoutAvailabilitySlotsInput
+  }
+
+  export type TradieAvailabilitySlotUncheckedCreateInput = {
+    id?: string
+    profileId: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+  }
+
+  export type TradieAvailabilitySlotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tradie?: ProfileUpdateOneRequiredWithoutAvailabilitySlotsNestedInput
+  }
+
+  export type TradieAvailabilitySlotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TradieAvailabilitySlotCreateManyInput = {
+    id?: string
+    profileId: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+  }
+
+  export type TradieAvailabilitySlotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TradieAvailabilitySlotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TradieSpecialisationCreateInput = {
+    id?: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile: ProfileCreateNestedOneWithoutSpecialisationsInput
+  }
+
+  export type TradieSpecialisationUncheckedCreateInput = {
+    id?: string
+    profileId: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradieSpecialisationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneRequiredWithoutSpecialisationsNestedInput
+  }
+
+  export type TradieSpecialisationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieSpecialisationCreateManyInput = {
+    id?: string
+    profileId: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradieSpecialisationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieSpecialisationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14678,17 +17438,29 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
+  export type TradieSpecialisationListRelationFilter = {
+    every?: TradieSpecialisationWhereInput
+    some?: TradieSpecialisationWhereInput
+    none?: TradieSpecialisationWhereInput
+  }
+
+  export type TradieAvailabilitySlotListRelationFilter = {
+    every?: TradieAvailabilitySlotWhereInput
+    some?: TradieAvailabilitySlotWhereInput
+    none?: TradieAvailabilitySlotWhereInput
   }
 
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type TradieSpecialisationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TradieAvailabilitySlotOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProfileCountOrderByAggregateInput = {
@@ -14705,7 +17477,6 @@ export namespace Prisma {
     suburb?: SortOrder
     state?: SortOrder
     postcode?: SortOrder
-    trades?: SortOrder
     licenceNo?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
@@ -14750,6 +17521,122 @@ export namespace Prisma {
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumDayOfWeekFilter<$PrismaModel = never> = {
+    equals?: $Enums.DayOfWeek | EnumDayOfWeekFieldRefInput<$PrismaModel>
+    in?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    not?: NestedEnumDayOfWeekFilter<$PrismaModel> | $Enums.DayOfWeek
+  }
+
+  export type ProfileScalarRelationFilter = {
+    is?: ProfileWhereInput
+    isNot?: ProfileWhereInput
+  }
+
+  export type TradieAvailabilitySlotCountOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    day?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type TradieAvailabilitySlotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    day?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type TradieAvailabilitySlotMinOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    day?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+  }
+
+  export type EnumDayOfWeekWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DayOfWeek | EnumDayOfWeekFieldRefInput<$PrismaModel>
+    in?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    not?: NestedEnumDayOfWeekWithAggregatesFilter<$PrismaModel> | $Enums.DayOfWeek
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDayOfWeekFilter<$PrismaModel>
+    _max?: NestedEnumDayOfWeekFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type TradieSpecialisationProfileIdTradeCompoundUniqueInput = {
+    profileId: string
+    trade: string
+  }
+
+  export type TradieSpecialisationCountOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    trade?: SortOrder
+    yearsExperience?: SortOrder
+    certification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradieSpecialisationAvgOrderByAggregateInput = {
+    yearsExperience?: SortOrder
+  }
+
+  export type TradieSpecialisationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    trade?: SortOrder
+    yearsExperience?: SortOrder
+    certification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradieSpecialisationMinOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    trade?: SortOrder
+    yearsExperience?: SortOrder
+    certification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradieSpecialisationSumOrderByAggregateInput = {
+    yearsExperience?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumJobStatusFilter<$PrismaModel = never> = {
@@ -15605,8 +18492,18 @@ export namespace Prisma {
     update?: XOR<XOR<StripeAccountUpdateToOneWithWhereWithoutUserInput, StripeAccountUpdateWithoutUserInput>, StripeAccountUncheckedUpdateWithoutUserInput>
   }
 
-  export type ProfileCreatetradesInput = {
-    set: string[]
+  export type TradieSpecialisationCreateNestedManyWithoutProfileInput = {
+    create?: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput> | TradieSpecialisationCreateWithoutProfileInput[] | TradieSpecialisationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: TradieSpecialisationCreateOrConnectWithoutProfileInput | TradieSpecialisationCreateOrConnectWithoutProfileInput[]
+    createMany?: TradieSpecialisationCreateManyProfileInputEnvelope
+    connect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+  }
+
+  export type TradieAvailabilitySlotCreateNestedManyWithoutTradieInput = {
+    create?: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput> | TradieAvailabilitySlotCreateWithoutTradieInput[] | TradieAvailabilitySlotUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: TradieAvailabilitySlotCreateOrConnectWithoutTradieInput | TradieAvailabilitySlotCreateOrConnectWithoutTradieInput[]
+    createMany?: TradieAvailabilitySlotCreateManyTradieInputEnvelope
+    connect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutProfileInput = {
@@ -15615,9 +18512,46 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ProfileUpdatetradesInput = {
-    set?: string[]
-    push?: string | string[]
+  export type TradieSpecialisationUncheckedCreateNestedManyWithoutProfileInput = {
+    create?: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput> | TradieSpecialisationCreateWithoutProfileInput[] | TradieSpecialisationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: TradieSpecialisationCreateOrConnectWithoutProfileInput | TradieSpecialisationCreateOrConnectWithoutProfileInput[]
+    createMany?: TradieSpecialisationCreateManyProfileInputEnvelope
+    connect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+  }
+
+  export type TradieAvailabilitySlotUncheckedCreateNestedManyWithoutTradieInput = {
+    create?: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput> | TradieAvailabilitySlotCreateWithoutTradieInput[] | TradieAvailabilitySlotUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: TradieAvailabilitySlotCreateOrConnectWithoutTradieInput | TradieAvailabilitySlotCreateOrConnectWithoutTradieInput[]
+    createMany?: TradieAvailabilitySlotCreateManyTradieInputEnvelope
+    connect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+  }
+
+  export type TradieSpecialisationUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput> | TradieSpecialisationCreateWithoutProfileInput[] | TradieSpecialisationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: TradieSpecialisationCreateOrConnectWithoutProfileInput | TradieSpecialisationCreateOrConnectWithoutProfileInput[]
+    upsert?: TradieSpecialisationUpsertWithWhereUniqueWithoutProfileInput | TradieSpecialisationUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: TradieSpecialisationCreateManyProfileInputEnvelope
+    set?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    disconnect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    delete?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    connect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    update?: TradieSpecialisationUpdateWithWhereUniqueWithoutProfileInput | TradieSpecialisationUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: TradieSpecialisationUpdateManyWithWhereWithoutProfileInput | TradieSpecialisationUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: TradieSpecialisationScalarWhereInput | TradieSpecialisationScalarWhereInput[]
+  }
+
+  export type TradieAvailabilitySlotUpdateManyWithoutTradieNestedInput = {
+    create?: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput> | TradieAvailabilitySlotCreateWithoutTradieInput[] | TradieAvailabilitySlotUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: TradieAvailabilitySlotCreateOrConnectWithoutTradieInput | TradieAvailabilitySlotCreateOrConnectWithoutTradieInput[]
+    upsert?: TradieAvailabilitySlotUpsertWithWhereUniqueWithoutTradieInput | TradieAvailabilitySlotUpsertWithWhereUniqueWithoutTradieInput[]
+    createMany?: TradieAvailabilitySlotCreateManyTradieInputEnvelope
+    set?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    disconnect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    delete?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    connect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    update?: TradieAvailabilitySlotUpdateWithWhereUniqueWithoutTradieInput | TradieAvailabilitySlotUpdateWithWhereUniqueWithoutTradieInput[]
+    updateMany?: TradieAvailabilitySlotUpdateManyWithWhereWithoutTradieInput | TradieAvailabilitySlotUpdateManyWithWhereWithoutTradieInput[]
+    deleteMany?: TradieAvailabilitySlotScalarWhereInput | TradieAvailabilitySlotScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutProfileNestedInput = {
@@ -15626,6 +18560,74 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutProfileInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationUncheckedUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput> | TradieSpecialisationCreateWithoutProfileInput[] | TradieSpecialisationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: TradieSpecialisationCreateOrConnectWithoutProfileInput | TradieSpecialisationCreateOrConnectWithoutProfileInput[]
+    upsert?: TradieSpecialisationUpsertWithWhereUniqueWithoutProfileInput | TradieSpecialisationUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: TradieSpecialisationCreateManyProfileInputEnvelope
+    set?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    disconnect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    delete?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    connect?: TradieSpecialisationWhereUniqueInput | TradieSpecialisationWhereUniqueInput[]
+    update?: TradieSpecialisationUpdateWithWhereUniqueWithoutProfileInput | TradieSpecialisationUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: TradieSpecialisationUpdateManyWithWhereWithoutProfileInput | TradieSpecialisationUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: TradieSpecialisationScalarWhereInput | TradieSpecialisationScalarWhereInput[]
+  }
+
+  export type TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieNestedInput = {
+    create?: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput> | TradieAvailabilitySlotCreateWithoutTradieInput[] | TradieAvailabilitySlotUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: TradieAvailabilitySlotCreateOrConnectWithoutTradieInput | TradieAvailabilitySlotCreateOrConnectWithoutTradieInput[]
+    upsert?: TradieAvailabilitySlotUpsertWithWhereUniqueWithoutTradieInput | TradieAvailabilitySlotUpsertWithWhereUniqueWithoutTradieInput[]
+    createMany?: TradieAvailabilitySlotCreateManyTradieInputEnvelope
+    set?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    disconnect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    delete?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    connect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
+    update?: TradieAvailabilitySlotUpdateWithWhereUniqueWithoutTradieInput | TradieAvailabilitySlotUpdateWithWhereUniqueWithoutTradieInput[]
+    updateMany?: TradieAvailabilitySlotUpdateManyWithWhereWithoutTradieInput | TradieAvailabilitySlotUpdateManyWithWhereWithoutTradieInput[]
+    deleteMany?: TradieAvailabilitySlotScalarWhereInput | TradieAvailabilitySlotScalarWhereInput[]
+  }
+
+  export type ProfileCreateNestedOneWithoutAvailabilitySlotsInput = {
+    create?: XOR<ProfileCreateWithoutAvailabilitySlotsInput, ProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutAvailabilitySlotsInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type EnumDayOfWeekFieldUpdateOperationsInput = {
+    set?: $Enums.DayOfWeek
+  }
+
+  export type ProfileUpdateOneRequiredWithoutAvailabilitySlotsNestedInput = {
+    create?: XOR<ProfileCreateWithoutAvailabilitySlotsInput, ProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutAvailabilitySlotsInput
+    upsert?: ProfileUpsertWithoutAvailabilitySlotsInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutAvailabilitySlotsInput, ProfileUpdateWithoutAvailabilitySlotsInput>, ProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+  }
+
+  export type ProfileCreateNestedOneWithoutSpecialisationsInput = {
+    create?: XOR<ProfileCreateWithoutSpecialisationsInput, ProfileUncheckedCreateWithoutSpecialisationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutSpecialisationsInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ProfileUpdateOneRequiredWithoutSpecialisationsNestedInput = {
+    create?: XOR<ProfileCreateWithoutSpecialisationsInput, ProfileUncheckedCreateWithoutSpecialisationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutSpecialisationsInput
+    upsert?: ProfileUpsertWithoutSpecialisationsInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutSpecialisationsInput, ProfileUpdateWithoutSpecialisationsInput>, ProfileUncheckedUpdateWithoutSpecialisationsInput>
   }
 
   export type UserCreateNestedOneWithoutJobsPostedInput = {
@@ -16140,6 +19142,50 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumDayOfWeekFilter<$PrismaModel = never> = {
+    equals?: $Enums.DayOfWeek | EnumDayOfWeekFieldRefInput<$PrismaModel>
+    in?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    not?: NestedEnumDayOfWeekFilter<$PrismaModel> | $Enums.DayOfWeek
+  }
+
+  export type NestedEnumDayOfWeekWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DayOfWeek | EnumDayOfWeekFieldRefInput<$PrismaModel>
+    in?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
+    not?: NestedEnumDayOfWeekWithAggregatesFilter<$PrismaModel> | $Enums.DayOfWeek
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDayOfWeekFilter<$PrismaModel>
+    _max?: NestedEnumDayOfWeekFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
     in?: $Enums.JobStatus[] | ListEnumJobStatusFieldRefInput<$PrismaModel>
@@ -16302,11 +19348,12 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
-    trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    specialisations?: TradieSpecialisationCreateNestedManyWithoutProfileInput
+    availabilitySlots?: TradieAvailabilitySlotCreateNestedManyWithoutTradieInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -16322,11 +19369,12 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
-    trades?: ProfileCreatetradesInput | string[]
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    specialisations?: TradieSpecialisationUncheckedCreateNestedManyWithoutProfileInput
+    availabilitySlots?: TradieAvailabilitySlotUncheckedCreateNestedManyWithoutTradieInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -16643,11 +19691,12 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUpdateManyWithoutProfileNestedInput
+    availabilitySlots?: TradieAvailabilitySlotUpdateManyWithoutTradieNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -16663,11 +19712,12 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
-    trades?: ProfileUpdatetradesInput | string[]
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUncheckedUpdateManyWithoutProfileNestedInput
+    availabilitySlots?: TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieNestedInput
   }
 
   export type JobUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -16876,6 +19926,58 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TradieSpecialisationCreateWithoutProfileInput = {
+    id?: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradieSpecialisationUncheckedCreateWithoutProfileInput = {
+    id?: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradieSpecialisationCreateOrConnectWithoutProfileInput = {
+    where: TradieSpecialisationWhereUniqueInput
+    create: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationCreateManyProfileInputEnvelope = {
+    data: TradieSpecialisationCreateManyProfileInput | TradieSpecialisationCreateManyProfileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TradieAvailabilitySlotCreateWithoutTradieInput = {
+    id?: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+  }
+
+  export type TradieAvailabilitySlotUncheckedCreateWithoutTradieInput = {
+    id?: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+  }
+
+  export type TradieAvailabilitySlotCreateOrConnectWithoutTradieInput = {
+    where: TradieAvailabilitySlotWhereUniqueInput
+    create: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput>
+  }
+
+  export type TradieAvailabilitySlotCreateManyTradieInputEnvelope = {
+    data: TradieAvailabilitySlotCreateManyTradieInput | TradieAvailabilitySlotCreateManyTradieInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserCreateWithoutProfileInput = {
     id?: string
     email: string
@@ -16923,6 +20025,62 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutProfileInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationUpsertWithWhereUniqueWithoutProfileInput = {
+    where: TradieSpecialisationWhereUniqueInput
+    update: XOR<TradieSpecialisationUpdateWithoutProfileInput, TradieSpecialisationUncheckedUpdateWithoutProfileInput>
+    create: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationUpdateWithWhereUniqueWithoutProfileInput = {
+    where: TradieSpecialisationWhereUniqueInput
+    data: XOR<TradieSpecialisationUpdateWithoutProfileInput, TradieSpecialisationUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationUpdateManyWithWhereWithoutProfileInput = {
+    where: TradieSpecialisationScalarWhereInput
+    data: XOR<TradieSpecialisationUpdateManyMutationInput, TradieSpecialisationUncheckedUpdateManyWithoutProfileInput>
+  }
+
+  export type TradieSpecialisationScalarWhereInput = {
+    AND?: TradieSpecialisationScalarWhereInput | TradieSpecialisationScalarWhereInput[]
+    OR?: TradieSpecialisationScalarWhereInput[]
+    NOT?: TradieSpecialisationScalarWhereInput | TradieSpecialisationScalarWhereInput[]
+    id?: StringFilter<"TradieSpecialisation"> | string
+    profileId?: StringFilter<"TradieSpecialisation"> | string
+    trade?: StringFilter<"TradieSpecialisation"> | string
+    yearsExperience?: IntNullableFilter<"TradieSpecialisation"> | number | null
+    certification?: StringNullableFilter<"TradieSpecialisation"> | string | null
+    createdAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+    updatedAt?: DateTimeFilter<"TradieSpecialisation"> | Date | string
+  }
+
+  export type TradieAvailabilitySlotUpsertWithWhereUniqueWithoutTradieInput = {
+    where: TradieAvailabilitySlotWhereUniqueInput
+    update: XOR<TradieAvailabilitySlotUpdateWithoutTradieInput, TradieAvailabilitySlotUncheckedUpdateWithoutTradieInput>
+    create: XOR<TradieAvailabilitySlotCreateWithoutTradieInput, TradieAvailabilitySlotUncheckedCreateWithoutTradieInput>
+  }
+
+  export type TradieAvailabilitySlotUpdateWithWhereUniqueWithoutTradieInput = {
+    where: TradieAvailabilitySlotWhereUniqueInput
+    data: XOR<TradieAvailabilitySlotUpdateWithoutTradieInput, TradieAvailabilitySlotUncheckedUpdateWithoutTradieInput>
+  }
+
+  export type TradieAvailabilitySlotUpdateManyWithWhereWithoutTradieInput = {
+    where: TradieAvailabilitySlotScalarWhereInput
+    data: XOR<TradieAvailabilitySlotUpdateManyMutationInput, TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieInput>
+  }
+
+  export type TradieAvailabilitySlotScalarWhereInput = {
+    AND?: TradieAvailabilitySlotScalarWhereInput | TradieAvailabilitySlotScalarWhereInput[]
+    OR?: TradieAvailabilitySlotScalarWhereInput[]
+    NOT?: TradieAvailabilitySlotScalarWhereInput | TradieAvailabilitySlotScalarWhereInput[]
+    id?: StringFilter<"TradieAvailabilitySlot"> | string
+    profileId?: StringFilter<"TradieAvailabilitySlot"> | string
+    day?: EnumDayOfWeekFilter<"TradieAvailabilitySlot"> | $Enums.DayOfWeek
+    startTime?: StringFilter<"TradieAvailabilitySlot"> | string
+    endTime?: StringFilter<"TradieAvailabilitySlot"> | string
   }
 
   export type UserUpsertWithoutProfileInput = {
@@ -16978,6 +20136,206 @@ export namespace Prisma {
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type ProfileCreateWithoutAvailabilitySlotsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    abn?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    suburb?: string | null
+    state?: string | null
+    postcode?: string | null
+    licenceNo?: string | null
+    isAvailable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    specialisations?: TradieSpecialisationCreateNestedManyWithoutProfileInput
+    user: UserCreateNestedOneWithoutProfileInput
+  }
+
+  export type ProfileUncheckedCreateWithoutAvailabilitySlotsInput = {
+    id?: string
+    userId: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    abn?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    suburb?: string | null
+    state?: string | null
+    postcode?: string | null
+    licenceNo?: string | null
+    isAvailable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    specialisations?: TradieSpecialisationUncheckedCreateNestedManyWithoutProfileInput
+  }
+
+  export type ProfileCreateOrConnectWithoutAvailabilitySlotsInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutAvailabilitySlotsInput, ProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+  }
+
+  export type ProfileUpsertWithoutAvailabilitySlotsInput = {
+    update: XOR<ProfileUpdateWithoutAvailabilitySlotsInput, ProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+    create: XOR<ProfileCreateWithoutAvailabilitySlotsInput, ProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutAvailabilitySlotsInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutAvailabilitySlotsInput, ProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+  }
+
+  export type ProfileUpdateWithoutAvailabilitySlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    abn?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    suburb?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUpdateManyWithoutProfileNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutAvailabilitySlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    abn?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    suburb?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    specialisations?: TradieSpecialisationUncheckedUpdateManyWithoutProfileNestedInput
+  }
+
+  export type ProfileCreateWithoutSpecialisationsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    abn?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    suburb?: string | null
+    state?: string | null
+    postcode?: string | null
+    licenceNo?: string | null
+    isAvailable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    availabilitySlots?: TradieAvailabilitySlotCreateNestedManyWithoutTradieInput
+    user: UserCreateNestedOneWithoutProfileInput
+  }
+
+  export type ProfileUncheckedCreateWithoutSpecialisationsInput = {
+    id?: string
+    userId: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    abn?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    suburb?: string | null
+    state?: string | null
+    postcode?: string | null
+    licenceNo?: string | null
+    isAvailable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    availabilitySlots?: TradieAvailabilitySlotUncheckedCreateNestedManyWithoutTradieInput
+  }
+
+  export type ProfileCreateOrConnectWithoutSpecialisationsInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutSpecialisationsInput, ProfileUncheckedCreateWithoutSpecialisationsInput>
+  }
+
+  export type ProfileUpsertWithoutSpecialisationsInput = {
+    update: XOR<ProfileUpdateWithoutSpecialisationsInput, ProfileUncheckedUpdateWithoutSpecialisationsInput>
+    create: XOR<ProfileCreateWithoutSpecialisationsInput, ProfileUncheckedCreateWithoutSpecialisationsInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutSpecialisationsInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutSpecialisationsInput, ProfileUncheckedUpdateWithoutSpecialisationsInput>
+  }
+
+  export type ProfileUpdateWithoutSpecialisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    abn?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    suburb?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilitySlots?: TradieAvailabilitySlotUpdateManyWithoutTradieNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutSpecialisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    abn?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    suburb?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilitySlots?: TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieNestedInput
   }
 
   export type UserCreateWithoutJobsPostedInput = {
@@ -18746,6 +22104,70 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieSpecialisationCreateManyProfileInput = {
+    id?: string
+    trade: string
+    yearsExperience?: number | null
+    certification?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradieAvailabilitySlotCreateManyTradieInput = {
+    id?: string
+    day: $Enums.DayOfWeek
+    startTime: string
+    endTime: string
+  }
+
+  export type TradieSpecialisationUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieSpecialisationUncheckedUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieSpecialisationUncheckedUpdateManyWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trade?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradieAvailabilitySlotUpdateWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TradieAvailabilitySlotUncheckedUpdateWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TradieAvailabilitySlotUncheckedUpdateManyWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
   }
 
   export type JobImageCreateManyJobInput = {

@@ -1,14 +1,14 @@
-import { ZodType } from "zod";
+import { z, ZodType } from "zod";
 import { ApiError } from "./ApiError.js";
 
-export const validateRequest = <T>(
-  schema: ZodType<{ body: T }>,
-  body: unknown,
-): T => {
-  const result = schema.safeParse({ body });
+export const validateRequest = <T extends ZodType>(
+  schema: T,
+  data: unknown,
+): z.infer<T> => {
+  const result = schema.safeParse(data);
   if (!result.success) {
     const fieldErrors = result.error.issues.map((issue) => ({
-      field: issue.path.slice(1).join("."),
+      field: issue.path.join("."),
       message: issue.message,
     }));
     throw new ApiError(
@@ -17,5 +17,5 @@ export const validateRequest = <T>(
       fieldErrors,
     );
   }
-  return result.data.body;
+  return result.data;
 };

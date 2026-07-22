@@ -27,7 +27,7 @@ export const updateUserController = async (req: Request, res: Response) => {
   if (!userId) {
     throw new ApiError(401, "You are unauthorized");
   }
-  const data: UpdateUserInput = validateRequest(updateProfileSchema, req.body);
+  const data: UpdateUserInput = validateRequest(updateProfileSchema, req);
 
   const updatedUser = await updateUserService(data, userId);
   return res

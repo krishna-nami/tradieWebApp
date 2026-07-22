@@ -23,6 +23,15 @@ CANCELLED
 DISPUTED
 
 }
+enum DayOfWeek {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
 
 enum BookingStatus {
     PENDING
@@ -81,14 +90,38 @@ model Profile {
     suburb String?
     state String ?
     postcode String?
-    trades String[] //eg ['plumbing', 'electrical', 'painting']
+   specialisations   TradieSpecialisation[] 
     licenceNo String?  //tradie License Number
     isAvailable Boolean @default(true) 
+    availabilitySlots TradieAvailabilitySlot[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     user User @relation(fields: [userId], references :[id], onDelete:Cascade )
 
     @@map("profiles")
+}
+model TradieAvailabilitySlot {
+  id        String    @id @default(uuid())
+  profileId  String
+  tradie    Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  day       DayOfWeek
+  startTime String
+  endTime   String
+  
+
+  @@index([profileId, day])
+}
+model TradieSpecialisation {
+  id              String   @id @default(uuid())
+  profileId       String
+  profile         Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  trade           String   // e.g. "Plumbing", "Electrical", "Painting"
+  yearsExperience Int?
+  certification   String?  // e.g. cert/licence name for THIS specific trade
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([profileId, trade])
 }
 
 model Job {

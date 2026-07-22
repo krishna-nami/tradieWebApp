@@ -2,7 +2,11 @@ import { Router } from "express";
 import { requireAuth } from "../middleware/auth.middleware.js";
 import { requireRole } from "../middleware/role.middleware.js";
 import {
+  addSpecilisationController,
+  getAvailabilityController,
   getTradieByIdController,
+  removeSpecialisationController,
+  setAvailabilityController,
   traideProfileConroller,
   updateProfileController,
 } from "../controllers/tradie.controlers.js";
@@ -10,7 +14,6 @@ import {
 const tradieRoutes = Router();
 
 //public Routes
-tradieRoutes.get("/:id", getTradieByIdController);
 
 //Protected Routes
 tradieRoutes.post(
@@ -29,5 +32,36 @@ tradieRoutes.put(
 // tradieRoutes.post("/specilisations");
 // tradieRoutes.delete("/specilisation/:id");
 // tradieRoutes.post("/documents");
+///Availability
+tradieRoutes.put(
+  "/availability",
+  requireAuth,
+  requireRole("TRADIE"),
+  setAvailabilityController,
+);
+
+tradieRoutes.get(
+  "/availability",
+  requireAuth,
+  requireRole("TRADIE"),
+  getAvailabilityController,
+);
+tradieRoutes.post(
+  "/specialisations",
+  requireAuth,
+  requireRole("TRADIE"),
+  addSpecilisationController,
+);
+
+//. Dynamics Routes
+tradieRoutes.delete(
+  "/specialisations/:id",
+  requireAuth,
+  requireRole("TRADIE"),
+  removeSpecialisationController,
+);
+
+tradieRoutes.get("/:id", getTradieByIdController);
 
 export default tradieRoutes;
+``;

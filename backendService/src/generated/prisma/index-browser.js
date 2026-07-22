@@ -148,9 +148,26 @@ exports.Prisma.ProfileScalarFieldEnum = {
   suburb: 'suburb',
   state: 'state',
   postcode: 'postcode',
-  trades: 'trades',
   licenceNo: 'licenceNo',
   isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TradieAvailabilitySlotScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  day: 'day',
+  startTime: 'startTime',
+  endTime: 'endTime'
+};
+
+exports.Prisma.TradieSpecialisationScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  trade: 'trade',
+  yearsExperience: 'yearsExperience',
+  certification: 'certification',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -257,6 +274,16 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.DayOfWeek = exports.$Enums.DayOfWeek = {
+  MON: 'MON',
+  TUE: 'TUE',
+  WED: 'WED',
+  THU: 'THU',
+  FRI: 'FRI',
+  SAT: 'SAT',
+  SUN: 'SUN'
+};
+
 exports.JobStatus = exports.$Enums.JobStatus = {
   DRAFT: 'DRAFT',
   OPEN: 'OPEN',
@@ -290,6 +317,8 @@ exports.NotificationType = exports.$Enums.NotificationType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Profile: 'Profile',
+  TradieAvailabilitySlot: 'TradieAvailabilitySlot',
+  TradieSpecialisation: 'TradieSpecialisation',
   Job: 'Job',
   JobImage: 'JobImage',
   Booking: 'Booking',

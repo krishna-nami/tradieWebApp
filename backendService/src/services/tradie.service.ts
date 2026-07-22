@@ -1,4 +1,5 @@
 import {
+  AddSpecialisationInput,
   TradieProfileInput,
   UpdateTraideProfileInput,
 } from "../validators/tradie.validator.js";
@@ -6,6 +7,7 @@ import { prisma } from "../config/db.js";
 
 import { Prisma } from "../generated/prisma/index.js";
 import { ApiError } from "../utils/ApiError.js";
+import { AvailabilityInput } from "../validators/availability.validators.js";
 
 export const traideProfileService = async (
   data: TradieProfileInput,
@@ -118,4 +120,108 @@ export const getTradieByIdService = async (tradieId: string) => {
     throw new ApiError(404, "Tradie not Found");
   }
   return tradie;
+};
+
+export const setAvailabilityService = async (
+  data: AvailabilityInput,
+  id: string,
+) => {
+  const profile = await prisma.profile.findUnique({ where: { userId: id } });
+  if (!profile) {
+    throw new ApiError(404, " Traide profile not found");
+  }
+  const slotsCreate = data.availability.flatMap((day) => {
+    return day.slots.map((slot) => ({
+      profileId: profile.id,
+      day: day.day,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+    }));
+  });
+  await prisma.$transaction([
+    prisma.tradieAvailabilitySlot.deleteMany({
+      where: { profileId: profile.id },
+    }),
+    prisma.tradieAvailabilitySlot.createMany({ data: slotsCreate }),
+  ]);
+  return getAvailabilityService(id);
+};
+export const getAvailabilityService = async (id: string) => {
+  console.log(id);
+  if (!id) {
+    console.log("Id not forunt");
+  }
+  const profile = await prisma.profile.findUnique({ where: { userId: id } });
+  if (!profile) {
+    throw new ApiError(404, " Tradie not Found Now");
+  }
+  const slots = await prisma.tradieAvailabilitySlot.findMany({
+    where: { profileId: profile.id },
+    orderBy: [{ day: "asc" }, { startTime: "asc" }],
+  });
+  const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"] as const;
+  return DAYS.map((day) => ({
+    day,
+    slots: slots
+      .filter((s) => s.day === day)
+      .map((s) => ({ startTime: s.startTime, endTime: s.endTime })),
+  }));
+};
+
+export const addSpecialisationService = async (
+  data: AddSpecialisationInput,
+  userId: string,
+) => {
+  const profile = await prisma.profile.findUnique({ where: { userId } });
+  if (!profile) {
+    throw new ApiError(404, "Tradie profile not found");
+  }
+
+  const existing = await prisma.tradieSpecialisation.findUnique({
+    where: { profileId_trade: { profileId: profile.id, trade: data.trade } },
+  });
+  if (existing) {
+    throw new ApiError(409, "This specialisation already exists");
+  }
+
+  const specialisation = await prisma.tradieSpecialisation.create({
+    data: {
+      profileId: profile.id,
+      trade: data.trade,
+      yearsExperience: data.yearsExperience ?? null,
+      certification: data.certification ?? null,
+    },
+  });
+
+  return specialisation;
+};
+
+export const removeSpecialisationService = async (
+  specialisationId: string,
+  userId: string,
+) => {
+  const profile = await prisma.profile.findUnique({ where: { userId } });
+  if (!profile) {
+    throw new ApiError(404, "Tradie profile not found");
+  }
+
+  const specialisation = await prisma.tradieSpecialisation.findUnique({
+    where: { id: specialisationId },
+  });
+
+  if (!specialisation) {
+    throw new ApiError(404, "Specialisation not found");
+  }
+
+  // ownership check — critical, prevents tradie A deleting tradie B's specialisation
+  if (specialisation.profileId !== profile.id) {
+    throw new ApiError(
+      403,
+      "You do not have permission to delete this specialisation",
+    );
+  }
+
+  await prisma.tradieSpecialisation.delete({ where: { id: specialisationId } });
+
+  return { id: specialisationId, trade: specialisation.trade };
 };

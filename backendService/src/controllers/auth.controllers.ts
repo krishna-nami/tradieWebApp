@@ -4,6 +4,7 @@ import {
   changePasswordSchema,
   ForgetPasswordInput,
   forgetPasswordSchema,
+  LoginInput,
   loginSchema,
   RegisterInput,
   registerSchema,
@@ -13,6 +14,7 @@ import {
 import { ApiError } from "../utils/ApiError.js";
 import * as authService from "../services/auth.service.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { validateRequest } from "../utils/validateRequest.js";
 
 export const register = async (req: Request, res: Response) => {
   const result = registerSchema.safeParse({ body: req.body });
@@ -112,12 +114,10 @@ export const resendVerification = async (req: Request, res: Response) => {
 
 // Login User
 export const login = async (req: Request, res: Response) => {
-  const result = loginSchema.safeParse({ body: req.body });
-  if (!result.success) {
-    throw new ApiError(400, "Please fill email or password corectly");
-  }
-
-  const { email, password } = result.data.body;
+  const { email, password }: LoginInput = validateRequest(
+    loginSchema,
+    req.body,
+  );
 
   const { user, accessToken, refreshToken } = await authService.userLogin(
     email,
