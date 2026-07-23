@@ -1,13 +1,12 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.middleware.js";
 import { requireRole } from "../middleware/role.middleware.js";
-import { createBookingController } from "../controllers/booking.controller.js";
+import { createJobController } from "../controllers/job.controller.js";
+const jobRouter = Router();
 
-const bookingRouter = Router();
-
-bookingRouter.post(
-  "/bookings",
+jobRouter.post(
+  "/jobs",
   requireAuth,
   requireRole("CUSTOMER"),
-  createBookingController,
+  createJobController,
 );

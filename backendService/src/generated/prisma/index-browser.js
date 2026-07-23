@@ -141,6 +141,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   lastName: 'lastName',
   phone: 'phone',
   avatarUrl: 'avatarUrl',
+  businessName: 'businessName',
   bio: 'bio',
   abn: 'abn',
   addressLine1: 'addressLine1',
@@ -148,6 +149,8 @@ exports.Prisma.ProfileScalarFieldEnum = {
   suburb: 'suburb',
   state: 'state',
   postcode: 'postcode',
+  latitude: 'latitude',
+  longitude: 'longitude',
   licenceNo: 'licenceNo',
   isAvailable: 'isAvailable',
   createdAt: 'createdAt',
@@ -207,8 +210,41 @@ exports.Prisma.BookingScalarFieldEnum = {
   scheduledAt: 'scheduledAt',
   totalAmount: 'totalAmount',
   notes: 'notes',
+  declineReason: 'declineReason',
+  cancelReason: 'cancelReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookingStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  changedBy: 'changedBy',
+  reason: 'reason',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.QuoteScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  status: 'status',
+  subtotal: 'subtotal',
+  gst: 'gst',
+  total: 'total',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QuoteLineItemScalarFieldEnum = {
+  id: 'id',
+  quoteId: 'quoteId',
+  description: 'description',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  amount: 'amount'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -287,17 +323,29 @@ exports.DayOfWeek = exports.$Enums.DayOfWeek = {
 exports.JobStatus = exports.$Enums.JobStatus = {
   DRAFT: 'DRAFT',
   OPEN: 'OPEN',
+  ASSIGNED: 'ASSIGNED',
+  BOOKED: 'BOOKED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED',
-  DISPUTED: 'DISPUTED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.BookingStatus = exports.$Enums.BookingStatus = {
   PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
   CONFIRMED: 'CONFIRMED',
+  IN_PROGRESS: 'IN_PROGRESS',
   CANCELLED: 'CANCELLED',
+  DECLINED: 'DECLINED',
   COMPLETED: 'COMPLETED'
+};
+
+exports.QuoteStatus = exports.$Enums.QuoteStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
 };
 
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
@@ -322,6 +370,9 @@ exports.Prisma.ModelName = {
   Job: 'Job',
   JobImage: 'JobImage',
   Booking: 'Booking',
+  BookingStatusHistory: 'BookingStatusHistory',
+  Quote: 'Quote',
+  QuoteLineItem: 'QuoteLineItem',
   Payment: 'Payment',
   Review: 'Review',
   Notification: 'Notification',

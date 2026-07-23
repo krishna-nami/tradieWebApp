@@ -14,14 +14,22 @@ enum Role {
     ADMIN
 }
 
-enum JobStatus { 
+enum QuoteStatus { 
 DRAFT
-OPEN
-IN_PROGRESS
-COMPLETED
-CANCELLED
-DISPUTED
+SENT
+ACCEPTED
+DECLINED
+EXPIRED
 
+}
+enum JobStatus {
+  DRAFT
+  OPEN
+  ASSIGNED
+  BOOKED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 enum DayOfWeek {
   MON
@@ -35,8 +43,11 @@ enum DayOfWeek {
 
 enum BookingStatus {
     PENDING
+    ACCEPTED
     CONFIRMED
+    IN_PROGRESS
     CANCELLED
+    DECLINED
     COMPLETED
 }
 enum PaymentStatus {
@@ -83,13 +94,16 @@ model Profile {
     lastName String
     phone String?
     avatarUrl String?
+    businessName String?
     bio String?
     abn String?
     addressLine1  String?   
     addressLine2  String?  
     suburb String?
     state String ?
-    postcode String?
+    postcode String? 
+    latitude Float?
+    longitude Float?
    specialisations   TradieSpecialisation[] 
     licenceNo String?  //tradie License Number
     isAvailable Boolean @default(true) 
@@ -168,16 +182,55 @@ model Booking {
   scheduledAt   DateTime
   totalAmount   Decimal       @db.Decimal(10, 2)
   notes         String?
+  declineReason String?
+  cancelReason  String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
-  job           Job           @relation(fields: [jobId], references: [id])
-  customer      User          @relation("CustomerBookings", fields: [customerId], references: [id])
-  tradie        User          @relation("TradieBookings", fields: [tradieId], references: [id])
+  job           Job                    @relation(fields: [jobId], references: [id])
+  customer      User                   @relation("CustomerBookings", fields: [customerId], references: [id])
+  tradie        User                   @relation("TradieBookings", fields: [tradieId], references: [id])
   payment       Payment?
   review        Review?
+  quote         Quote?
+  statusHistory BookingStatusHistory[]
 
   @@map("bookings")
+}
+model BookingStatusHistory {
+  id        String        @id @default(uuid())
+  bookingId String
+  booking   Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  fromStatus BookingStatus?
+  toStatus  BookingStatus
+  changedBy String        // userId who triggered the change
+  reason    String?
+  createdAt DateTime      @default(now())
+
+  @@index([bookingId])
+}
+model Quote {
+  id         String      @id @default(uuid())
+  bookingId  String      @unique
+  booking    Booking     @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status     QuoteStatus @default(DRAFT)
+  subtotal   Decimal     @db.Decimal(10, 2)
+  gst        Decimal     @db.Decimal(10, 2)
+  total      Decimal     @db.Decimal(10, 2)
+  expiresAt  DateTime?
+  lineItems  QuoteLineItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model QuoteLineItem {
+  id          String   @id @default(uuid())
+  quoteId     String
+  quote       Quote    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Int      @default(1)
+  unitPrice   Decimal  @db.Decimal(10, 2)
+  amount      Decimal  @db.Decimal(10, 2) // quantity × unitPrice
 }
 
 model Payment {

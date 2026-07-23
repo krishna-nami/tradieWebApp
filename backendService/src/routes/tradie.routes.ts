@@ -6,6 +6,7 @@ import {
   getAvailabilityController,
   getTradieByIdController,
   removeSpecialisationController,
+  searchTradiesController,
   setAvailabilityController,
   traideProfileConroller,
   updateProfileController,
@@ -52,6 +53,7 @@ tradieRoutes.post(
   requireRole("TRADIE"),
   addSpecilisationController,
 );
+tradieRoutes.get("/search", searchTradiesController);
 
 //. Dynamics Routes
 tradieRoutes.delete(

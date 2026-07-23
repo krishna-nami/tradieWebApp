@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import {
   AddSpecialisationInput,
   addSpecialisationSchema,
+  SearchTradiesInput,
+  searchTradiesSchema,
   specialisationParamsSchema,
   TradieProfileInput,
   tradieProfileSchema,
@@ -133,4 +135,12 @@ export const removeSpecialisationController = async (
     .json(
       new ApiResponse(200, `${result.trade} Specialisation removed`, result),
     );
+};
+export const searchTradiesController = async (req: Request, res: Response) => {
+  const filters: SearchTradiesInput = validateRequest(
+    searchTradiesSchema,
+    req.query,
+  );
+  const data = await tradieService.searchTradiesService(filters);
+  return res.status(200).json(new ApiResponse(200, "Tradies Fetched", data));
 };

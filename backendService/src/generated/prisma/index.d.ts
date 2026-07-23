@@ -49,6 +49,21 @@ export type JobImage = $Result.DefaultSelection<Prisma.$JobImagePayload>
  */
 export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
 /**
+ * Model BookingStatusHistory
+ * 
+ */
+export type BookingStatusHistory = $Result.DefaultSelection<Prisma.$BookingStatusHistoryPayload>
+/**
+ * Model Quote
+ * 
+ */
+export type Quote = $Result.DefaultSelection<Prisma.$QuotePayload>
+/**
+ * Model QuoteLineItem
+ * 
+ */
+export type QuoteLineItem = $Result.DefaultSelection<Prisma.$QuoteLineItemPayload>
+/**
  * Model Payment
  * 
  */
@@ -82,13 +97,25 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const QuoteStatus: {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+};
+
+export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
+
+
 export const JobStatus: {
   DRAFT: 'DRAFT',
   OPEN: 'OPEN',
+  ASSIGNED: 'ASSIGNED',
+  BOOKED: 'BOOKED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED',
-  DISPUTED: 'DISPUTED'
+  CANCELLED: 'CANCELLED'
 };
 
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
@@ -109,8 +136,11 @@ export type DayOfWeek = (typeof DayOfWeek)[keyof typeof DayOfWeek]
 
 export const BookingStatus: {
   PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
   CONFIRMED: 'CONFIRMED',
+  IN_PROGRESS: 'IN_PROGRESS',
   CANCELLED: 'CANCELLED',
+  DECLINED: 'DECLINED',
   COMPLETED: 'COMPLETED'
 };
 
@@ -141,6 +171,10 @@ export type NotificationType = (typeof NotificationType)[keyof typeof Notificati
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type QuoteStatus = $Enums.QuoteStatus
+
+export const QuoteStatus: typeof $Enums.QuoteStatus
 
 export type JobStatus = $Enums.JobStatus
 
@@ -352,6 +386,36 @@ export class PrismaClient<
     * ```
     */
   get booking(): Prisma.BookingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bookingStatusHistory`: Exposes CRUD operations for the **BookingStatusHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BookingStatusHistories
+    * const bookingStatusHistories = await prisma.bookingStatusHistory.findMany()
+    * ```
+    */
+  get bookingStatusHistory(): Prisma.BookingStatusHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quote`: Exposes CRUD operations for the **Quote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Quotes
+    * const quotes = await prisma.quote.findMany()
+    * ```
+    */
+  get quote(): Prisma.QuoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quoteLineItem`: Exposes CRUD operations for the **QuoteLineItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QuoteLineItems
+    * const quoteLineItems = await prisma.quoteLineItem.findMany()
+    * ```
+    */
+  get quoteLineItem(): Prisma.QuoteLineItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
@@ -833,6 +897,9 @@ export namespace Prisma {
     Job: 'Job',
     JobImage: 'JobImage',
     Booking: 'Booking',
+    BookingStatusHistory: 'BookingStatusHistory',
+    Quote: 'Quote',
+    QuoteLineItem: 'QuoteLineItem',
     Payment: 'Payment',
     Review: 'Review',
     Notification: 'Notification',
@@ -852,7 +919,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "tradieAvailabilitySlot" | "tradieSpecialisation" | "job" | "jobImage" | "booking" | "payment" | "review" | "notification" | "stripeAccount"
+      modelProps: "user" | "profile" | "tradieAvailabilitySlot" | "tradieSpecialisation" | "job" | "jobImage" | "booking" | "bookingStatusHistory" | "quote" | "quoteLineItem" | "payment" | "review" | "notification" | "stripeAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1374,6 +1441,228 @@ export namespace Prisma {
           }
         }
       }
+      BookingStatusHistory: {
+        payload: Prisma.$BookingStatusHistoryPayload<ExtArgs>
+        fields: Prisma.BookingStatusHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookingStatusHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookingStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.BookingStatusHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookingStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.BookingStatusHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.BookingStatusHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.BookingStatusHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookingStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.BookingStatusHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          update: {
+            args: Prisma.BookingStatusHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookingStatusHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookingStatusHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BookingStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.BookingStatusHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingStatusHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.BookingStatusHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBookingStatusHistory>
+          }
+          groupBy: {
+            args: Prisma.BookingStatusHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookingStatusHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BookingStatusHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<BookingStatusHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Quote: {
+        payload: Prisma.$QuotePayload<ExtArgs>
+        fields: Prisma.QuoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findFirst: {
+            args: Prisma.QuoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          findMany: {
+            args: Prisma.QuoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          create: {
+            args: Prisma.QuoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          createMany: {
+            args: Prisma.QuoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          delete: {
+            args: Prisma.QuoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          update: {
+            args: Prisma.QuoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          deleteMany: {
+            args: Prisma.QuoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuoteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>[]
+          }
+          upsert: {
+            args: Prisma.QuoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuotePayload>
+          }
+          aggregate: {
+            args: Prisma.QuoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuote>
+          }
+          groupBy: {
+            args: Prisma.QuoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuoteCountArgs<ExtArgs>
+            result: $Utils.Optional<QuoteCountAggregateOutputType> | number
+          }
+        }
+      }
+      QuoteLineItem: {
+        payload: Prisma.$QuoteLineItemPayload<ExtArgs>
+        fields: Prisma.QuoteLineItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuoteLineItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuoteLineItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          findFirst: {
+            args: Prisma.QuoteLineItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuoteLineItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          findMany: {
+            args: Prisma.QuoteLineItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>[]
+          }
+          create: {
+            args: Prisma.QuoteLineItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          createMany: {
+            args: Prisma.QuoteLineItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuoteLineItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>[]
+          }
+          delete: {
+            args: Prisma.QuoteLineItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          update: {
+            args: Prisma.QuoteLineItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.QuoteLineItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuoteLineItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuoteLineItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.QuoteLineItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuoteLineItemPayload>
+          }
+          aggregate: {
+            args: Prisma.QuoteLineItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuoteLineItem>
+          }
+          groupBy: {
+            args: Prisma.QuoteLineItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuoteLineItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuoteLineItemCountArgs<ExtArgs>
+            result: $Utils.Optional<QuoteLineItemCountAggregateOutputType> | number
+          }
+        }
+      }
       Payment: {
         payload: Prisma.$PaymentPayload<ExtArgs>
         fields: Prisma.PaymentFieldRefs
@@ -1785,6 +2074,9 @@ export namespace Prisma {
     job?: JobOmit
     jobImage?: JobImageOmit
     booking?: BookingOmit
+    bookingStatusHistory?: BookingStatusHistoryOmit
+    quote?: QuoteOmit
+    quoteLineItem?: QuoteLineItemOmit
     payment?: PaymentOmit
     review?: ReviewOmit
     notification?: NotificationOmit
@@ -2017,6 +2309,68 @@ export namespace Prisma {
    */
   export type JobCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobImageWhereInput
+  }
+
+
+  /**
+   * Count Type BookingCountOutputType
+   */
+
+  export type BookingCountOutputType = {
+    statusHistory: number
+  }
+
+  export type BookingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    statusHistory?: boolean | BookingCountOutputTypeCountStatusHistoryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingCountOutputType
+     */
+    select?: BookingCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeCountStatusHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingStatusHistoryWhereInput
+  }
+
+
+  /**
+   * Count Type QuoteCountOutputType
+   */
+
+  export type QuoteCountOutputType = {
+    lineItems: number
+  }
+
+  export type QuoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lineItems?: boolean | QuoteCountOutputTypeCountLineItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QuoteCountOutputType without action
+   */
+  export type QuoteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteCountOutputType
+     */
+    select?: QuoteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QuoteCountOutputType without action
+   */
+  export type QuoteCountOutputTypeCountLineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteLineItemWhereInput
   }
 
 
@@ -3397,8 +3751,20 @@ export namespace Prisma {
 
   export type AggregateProfile = {
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
+  }
+
+  export type ProfileAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type ProfileSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
   }
 
   export type ProfileMinAggregateOutputType = {
@@ -3408,6 +3774,7 @@ export namespace Prisma {
     lastName: string | null
     phone: string | null
     avatarUrl: string | null
+    businessName: string | null
     bio: string | null
     abn: string | null
     addressLine1: string | null
@@ -3415,6 +3782,8 @@ export namespace Prisma {
     suburb: string | null
     state: string | null
     postcode: string | null
+    latitude: number | null
+    longitude: number | null
     licenceNo: string | null
     isAvailable: boolean | null
     createdAt: Date | null
@@ -3428,6 +3797,7 @@ export namespace Prisma {
     lastName: string | null
     phone: string | null
     avatarUrl: string | null
+    businessName: string | null
     bio: string | null
     abn: string | null
     addressLine1: string | null
@@ -3435,6 +3805,8 @@ export namespace Prisma {
     suburb: string | null
     state: string | null
     postcode: string | null
+    latitude: number | null
+    longitude: number | null
     licenceNo: string | null
     isAvailable: boolean | null
     createdAt: Date | null
@@ -3448,6 +3820,7 @@ export namespace Prisma {
     lastName: number
     phone: number
     avatarUrl: number
+    businessName: number
     bio: number
     abn: number
     addressLine1: number
@@ -3455,6 +3828,8 @@ export namespace Prisma {
     suburb: number
     state: number
     postcode: number
+    latitude: number
+    longitude: number
     licenceNo: number
     isAvailable: number
     createdAt: number
@@ -3463,6 +3838,16 @@ export namespace Prisma {
   }
 
 
+  export type ProfileAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type ProfileSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
   export type ProfileMinAggregateInputType = {
     id?: true
     userId?: true
@@ -3470,6 +3855,7 @@ export namespace Prisma {
     lastName?: true
     phone?: true
     avatarUrl?: true
+    businessName?: true
     bio?: true
     abn?: true
     addressLine1?: true
@@ -3477,6 +3863,8 @@ export namespace Prisma {
     suburb?: true
     state?: true
     postcode?: true
+    latitude?: true
+    longitude?: true
     licenceNo?: true
     isAvailable?: true
     createdAt?: true
@@ -3490,6 +3878,7 @@ export namespace Prisma {
     lastName?: true
     phone?: true
     avatarUrl?: true
+    businessName?: true
     bio?: true
     abn?: true
     addressLine1?: true
@@ -3497,6 +3886,8 @@ export namespace Prisma {
     suburb?: true
     state?: true
     postcode?: true
+    latitude?: true
+    longitude?: true
     licenceNo?: true
     isAvailable?: true
     createdAt?: true
@@ -3510,6 +3901,7 @@ export namespace Prisma {
     lastName?: true
     phone?: true
     avatarUrl?: true
+    businessName?: true
     bio?: true
     abn?: true
     addressLine1?: true
@@ -3517,6 +3909,8 @@ export namespace Prisma {
     suburb?: true
     state?: true
     postcode?: true
+    latitude?: true
+    longitude?: true
     licenceNo?: true
     isAvailable?: true
     createdAt?: true
@@ -3562,6 +3956,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProfileMinAggregateInputType
@@ -3592,6 +3998,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProfileCountAggregateInputType | true
+    _avg?: ProfileAvgAggregateInputType
+    _sum?: ProfileSumAggregateInputType
     _min?: ProfileMinAggregateInputType
     _max?: ProfileMaxAggregateInputType
   }
@@ -3603,6 +4011,7 @@ export namespace Prisma {
     lastName: string
     phone: string | null
     avatarUrl: string | null
+    businessName: string | null
     bio: string | null
     abn: string | null
     addressLine1: string | null
@@ -3610,11 +4019,15 @@ export namespace Prisma {
     suburb: string | null
     state: string | null
     postcode: string | null
+    latitude: number | null
+    longitude: number | null
     licenceNo: string | null
     isAvailable: boolean
     createdAt: Date
     updatedAt: Date
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
@@ -3640,6 +4053,7 @@ export namespace Prisma {
     lastName?: boolean
     phone?: boolean
     avatarUrl?: boolean
+    businessName?: boolean
     bio?: boolean
     abn?: boolean
     addressLine1?: boolean
@@ -3647,6 +4061,8 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
+    latitude?: boolean
+    longitude?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
@@ -3664,6 +4080,7 @@ export namespace Prisma {
     lastName?: boolean
     phone?: boolean
     avatarUrl?: boolean
+    businessName?: boolean
     bio?: boolean
     abn?: boolean
     addressLine1?: boolean
@@ -3671,6 +4088,8 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
+    latitude?: boolean
+    longitude?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
@@ -3685,6 +4104,7 @@ export namespace Prisma {
     lastName?: boolean
     phone?: boolean
     avatarUrl?: boolean
+    businessName?: boolean
     bio?: boolean
     abn?: boolean
     addressLine1?: boolean
@@ -3692,6 +4112,8 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
+    latitude?: boolean
+    longitude?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
@@ -3706,6 +4128,7 @@ export namespace Prisma {
     lastName?: boolean
     phone?: boolean
     avatarUrl?: boolean
+    businessName?: boolean
     bio?: boolean
     abn?: boolean
     addressLine1?: boolean
@@ -3713,13 +4136,15 @@ export namespace Prisma {
     suburb?: boolean
     state?: boolean
     postcode?: boolean
+    latitude?: boolean
+    longitude?: boolean
     licenceNo?: boolean
     isAvailable?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "licenceNo" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "avatarUrl" | "businessName" | "bio" | "abn" | "addressLine1" | "addressLine2" | "suburb" | "state" | "postcode" | "latitude" | "longitude" | "licenceNo" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     specialisations?: boolean | Profile$specialisationsArgs<ExtArgs>
     availabilitySlots?: boolean | Profile$availabilitySlotsArgs<ExtArgs>
@@ -3747,6 +4172,7 @@ export namespace Prisma {
       lastName: string
       phone: string | null
       avatarUrl: string | null
+      businessName: string | null
       bio: string | null
       abn: string | null
       addressLine1: string | null
@@ -3754,6 +4180,8 @@ export namespace Prisma {
       suburb: string | null
       state: string | null
       postcode: string | null
+      latitude: number | null
+      longitude: number | null
       licenceNo: string | null
       isAvailable: boolean
       createdAt: Date
@@ -4190,6 +4618,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"Profile", 'String'>
     readonly phone: FieldRef<"Profile", 'String'>
     readonly avatarUrl: FieldRef<"Profile", 'String'>
+    readonly businessName: FieldRef<"Profile", 'String'>
     readonly bio: FieldRef<"Profile", 'String'>
     readonly abn: FieldRef<"Profile", 'String'>
     readonly addressLine1: FieldRef<"Profile", 'String'>
@@ -4197,6 +4626,8 @@ export namespace Prisma {
     readonly suburb: FieldRef<"Profile", 'String'>
     readonly state: FieldRef<"Profile", 'String'>
     readonly postcode: FieldRef<"Profile", 'String'>
+    readonly latitude: FieldRef<"Profile", 'Float'>
+    readonly longitude: FieldRef<"Profile", 'Float'>
     readonly licenceNo: FieldRef<"Profile", 'String'>
     readonly isAvailable: FieldRef<"Profile", 'Boolean'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
@@ -9257,6 +9688,8 @@ export namespace Prisma {
     scheduledAt: Date | null
     totalAmount: Decimal | null
     notes: string | null
+    declineReason: string | null
+    cancelReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9270,6 +9703,8 @@ export namespace Prisma {
     scheduledAt: Date | null
     totalAmount: Decimal | null
     notes: string | null
+    declineReason: string | null
+    cancelReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9283,6 +9718,8 @@ export namespace Prisma {
     scheduledAt: number
     totalAmount: number
     notes: number
+    declineReason: number
+    cancelReason: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9306,6 +9743,8 @@ export namespace Prisma {
     scheduledAt?: true
     totalAmount?: true
     notes?: true
+    declineReason?: true
+    cancelReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9319,6 +9758,8 @@ export namespace Prisma {
     scheduledAt?: true
     totalAmount?: true
     notes?: true
+    declineReason?: true
+    cancelReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9332,6 +9773,8 @@ export namespace Prisma {
     scheduledAt?: true
     totalAmount?: true
     notes?: true
+    declineReason?: true
+    cancelReason?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9432,6 +9875,8 @@ export namespace Prisma {
     scheduledAt: Date
     totalAmount: Decimal
     notes: string | null
+    declineReason: string | null
+    cancelReason: string | null
     createdAt: Date
     updatedAt: Date
     _count: BookingCountAggregateOutputType | null
@@ -9464,6 +9909,8 @@ export namespace Prisma {
     scheduledAt?: boolean
     totalAmount?: boolean
     notes?: boolean
+    declineReason?: boolean
+    cancelReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
@@ -9471,6 +9918,9 @@ export namespace Prisma {
     tradie?: boolean | UserDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
     review?: boolean | Booking$reviewArgs<ExtArgs>
+    quote?: boolean | Booking$quoteArgs<ExtArgs>
+    statusHistory?: boolean | Booking$statusHistoryArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
   export type BookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9482,6 +9932,8 @@ export namespace Prisma {
     scheduledAt?: boolean
     totalAmount?: boolean
     notes?: boolean
+    declineReason?: boolean
+    cancelReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
@@ -9498,6 +9950,8 @@ export namespace Prisma {
     scheduledAt?: boolean
     totalAmount?: boolean
     notes?: boolean
+    declineReason?: boolean
+    cancelReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
@@ -9514,17 +9968,22 @@ export namespace Prisma {
     scheduledAt?: boolean
     totalAmount?: boolean
     notes?: boolean
+    declineReason?: boolean
+    cancelReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "customerId" | "tradieId" | "status" | "scheduledAt" | "totalAmount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "customerId" | "tradieId" | "status" | "scheduledAt" | "totalAmount" | "notes" | "declineReason" | "cancelReason" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     job?: boolean | JobDefaultArgs<ExtArgs>
     customer?: boolean | UserDefaultArgs<ExtArgs>
     tradie?: boolean | UserDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
     review?: boolean | Booking$reviewArgs<ExtArgs>
+    quote?: boolean | Booking$quoteArgs<ExtArgs>
+    statusHistory?: boolean | Booking$statusHistoryArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     job?: boolean | JobDefaultArgs<ExtArgs>
@@ -9545,6 +10004,8 @@ export namespace Prisma {
       tradie: Prisma.$UserPayload<ExtArgs>
       payment: Prisma.$PaymentPayload<ExtArgs> | null
       review: Prisma.$ReviewPayload<ExtArgs> | null
+      quote: Prisma.$QuotePayload<ExtArgs> | null
+      statusHistory: Prisma.$BookingStatusHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9555,6 +10016,8 @@ export namespace Prisma {
       scheduledAt: Date
       totalAmount: Prisma.Decimal
       notes: string | null
+      declineReason: string | null
+      cancelReason: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["booking"]>
@@ -9956,6 +10419,8 @@ export namespace Prisma {
     tradie<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payment<T extends Booking$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Booking$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     review<T extends Booking$reviewArgs<ExtArgs> = {}>(args?: Subset<T, Booking$reviewArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    quote<T extends Booking$quoteArgs<ExtArgs> = {}>(args?: Subset<T, Booking$quoteArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    statusHistory<T extends Booking$statusHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Booking$statusHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9993,6 +10458,8 @@ export namespace Prisma {
     readonly scheduledAt: FieldRef<"Booking", 'DateTime'>
     readonly totalAmount: FieldRef<"Booking", 'Decimal'>
     readonly notes: FieldRef<"Booking", 'String'>
+    readonly declineReason: FieldRef<"Booking", 'String'>
+    readonly cancelReason: FieldRef<"Booking", 'String'>
     readonly createdAt: FieldRef<"Booking", 'DateTime'>
     readonly updatedAt: FieldRef<"Booking", 'DateTime'>
   }
@@ -10434,6 +10901,49 @@ export namespace Prisma {
   }
 
   /**
+   * Booking.quote
+   */
+  export type Booking$quoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    where?: QuoteWhereInput
+  }
+
+  /**
+   * Booking.statusHistory
+   */
+  export type Booking$statusHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    where?: BookingStatusHistoryWhereInput
+    orderBy?: BookingStatusHistoryOrderByWithRelationInput | BookingStatusHistoryOrderByWithRelationInput[]
+    cursor?: BookingStatusHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingStatusHistoryScalarFieldEnum | BookingStatusHistoryScalarFieldEnum[]
+  }
+
+  /**
    * Booking without action
    */
   export type BookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10449,6 +10959,3400 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BookingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BookingStatusHistory
+   */
+
+  export type AggregateBookingStatusHistory = {
+    _count: BookingStatusHistoryCountAggregateOutputType | null
+    _min: BookingStatusHistoryMinAggregateOutputType | null
+    _max: BookingStatusHistoryMaxAggregateOutputType | null
+  }
+
+  export type BookingStatusHistoryMinAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    fromStatus: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus | null
+    changedBy: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type BookingStatusHistoryMaxAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    fromStatus: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus | null
+    changedBy: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type BookingStatusHistoryCountAggregateOutputType = {
+    id: number
+    bookingId: number
+    fromStatus: number
+    toStatus: number
+    changedBy: number
+    reason: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BookingStatusHistoryMinAggregateInputType = {
+    id?: true
+    bookingId?: true
+    fromStatus?: true
+    toStatus?: true
+    changedBy?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type BookingStatusHistoryMaxAggregateInputType = {
+    id?: true
+    bookingId?: true
+    fromStatus?: true
+    toStatus?: true
+    changedBy?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type BookingStatusHistoryCountAggregateInputType = {
+    id?: true
+    bookingId?: true
+    fromStatus?: true
+    toStatus?: true
+    changedBy?: true
+    reason?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BookingStatusHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BookingStatusHistory to aggregate.
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingStatusHistories to fetch.
+     */
+    orderBy?: BookingStatusHistoryOrderByWithRelationInput | BookingStatusHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookingStatusHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingStatusHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingStatusHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BookingStatusHistories
+    **/
+    _count?: true | BookingStatusHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookingStatusHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookingStatusHistoryMaxAggregateInputType
+  }
+
+  export type GetBookingStatusHistoryAggregateType<T extends BookingStatusHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateBookingStatusHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBookingStatusHistory[P]>
+      : GetScalarType<T[P], AggregateBookingStatusHistory[P]>
+  }
+
+
+
+
+  export type BookingStatusHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingStatusHistoryWhereInput
+    orderBy?: BookingStatusHistoryOrderByWithAggregationInput | BookingStatusHistoryOrderByWithAggregationInput[]
+    by: BookingStatusHistoryScalarFieldEnum[] | BookingStatusHistoryScalarFieldEnum
+    having?: BookingStatusHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookingStatusHistoryCountAggregateInputType | true
+    _min?: BookingStatusHistoryMinAggregateInputType
+    _max?: BookingStatusHistoryMaxAggregateInputType
+  }
+
+  export type BookingStatusHistoryGroupByOutputType = {
+    id: string
+    bookingId: string
+    fromStatus: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason: string | null
+    createdAt: Date
+    _count: BookingStatusHistoryCountAggregateOutputType | null
+    _min: BookingStatusHistoryMinAggregateOutputType | null
+    _max: BookingStatusHistoryMaxAggregateOutputType | null
+  }
+
+  type GetBookingStatusHistoryGroupByPayload<T extends BookingStatusHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingStatusHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingStatusHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingStatusHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingStatusHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookingStatusHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    fromStatus?: boolean
+    toStatus?: boolean
+    changedBy?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookingStatusHistory"]>
+
+  export type BookingStatusHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    fromStatus?: boolean
+    toStatus?: boolean
+    changedBy?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookingStatusHistory"]>
+
+  export type BookingStatusHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    fromStatus?: boolean
+    toStatus?: boolean
+    changedBy?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookingStatusHistory"]>
+
+  export type BookingStatusHistorySelectScalar = {
+    id?: boolean
+    bookingId?: boolean
+    fromStatus?: boolean
+    toStatus?: boolean
+    changedBy?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }
+
+  export type BookingStatusHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "fromStatus" | "toStatus" | "changedBy" | "reason" | "createdAt", ExtArgs["result"]["bookingStatusHistory"]>
+  export type BookingStatusHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }
+  export type BookingStatusHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }
+  export type BookingStatusHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }
+
+  export type $BookingStatusHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BookingStatusHistory"
+    objects: {
+      booking: Prisma.$BookingPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bookingId: string
+      fromStatus: $Enums.BookingStatus | null
+      toStatus: $Enums.BookingStatus
+      changedBy: string
+      reason: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["bookingStatusHistory"]>
+    composites: {}
+  }
+
+  type BookingStatusHistoryGetPayload<S extends boolean | null | undefined | BookingStatusHistoryDefaultArgs> = $Result.GetResult<Prisma.$BookingStatusHistoryPayload, S>
+
+  type BookingStatusHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BookingStatusHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookingStatusHistoryCountAggregateInputType | true
+    }
+
+  export interface BookingStatusHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BookingStatusHistory'], meta: { name: 'BookingStatusHistory' } }
+    /**
+     * Find zero or one BookingStatusHistory that matches the filter.
+     * @param {BookingStatusHistoryFindUniqueArgs} args - Arguments to find a BookingStatusHistory
+     * @example
+     * // Get one BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookingStatusHistoryFindUniqueArgs>(args: SelectSubset<T, BookingStatusHistoryFindUniqueArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BookingStatusHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BookingStatusHistoryFindUniqueOrThrowArgs} args - Arguments to find a BookingStatusHistory
+     * @example
+     * // Get one BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookingStatusHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, BookingStatusHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BookingStatusHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryFindFirstArgs} args - Arguments to find a BookingStatusHistory
+     * @example
+     * // Get one BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookingStatusHistoryFindFirstArgs>(args?: SelectSubset<T, BookingStatusHistoryFindFirstArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BookingStatusHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryFindFirstOrThrowArgs} args - Arguments to find a BookingStatusHistory
+     * @example
+     * // Get one BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookingStatusHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, BookingStatusHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BookingStatusHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BookingStatusHistories
+     * const bookingStatusHistories = await prisma.bookingStatusHistory.findMany()
+     * 
+     * // Get first 10 BookingStatusHistories
+     * const bookingStatusHistories = await prisma.bookingStatusHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingStatusHistoryWithIdOnly = await prisma.bookingStatusHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookingStatusHistoryFindManyArgs>(args?: SelectSubset<T, BookingStatusHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BookingStatusHistory.
+     * @param {BookingStatusHistoryCreateArgs} args - Arguments to create a BookingStatusHistory.
+     * @example
+     * // Create one BookingStatusHistory
+     * const BookingStatusHistory = await prisma.bookingStatusHistory.create({
+     *   data: {
+     *     // ... data to create a BookingStatusHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookingStatusHistoryCreateArgs>(args: SelectSubset<T, BookingStatusHistoryCreateArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BookingStatusHistories.
+     * @param {BookingStatusHistoryCreateManyArgs} args - Arguments to create many BookingStatusHistories.
+     * @example
+     * // Create many BookingStatusHistories
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookingStatusHistoryCreateManyArgs>(args?: SelectSubset<T, BookingStatusHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BookingStatusHistories and returns the data saved in the database.
+     * @param {BookingStatusHistoryCreateManyAndReturnArgs} args - Arguments to create many BookingStatusHistories.
+     * @example
+     * // Create many BookingStatusHistories
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BookingStatusHistories and only return the `id`
+     * const bookingStatusHistoryWithIdOnly = await prisma.bookingStatusHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookingStatusHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, BookingStatusHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BookingStatusHistory.
+     * @param {BookingStatusHistoryDeleteArgs} args - Arguments to delete one BookingStatusHistory.
+     * @example
+     * // Delete one BookingStatusHistory
+     * const BookingStatusHistory = await prisma.bookingStatusHistory.delete({
+     *   where: {
+     *     // ... filter to delete one BookingStatusHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookingStatusHistoryDeleteArgs>(args: SelectSubset<T, BookingStatusHistoryDeleteArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BookingStatusHistory.
+     * @param {BookingStatusHistoryUpdateArgs} args - Arguments to update one BookingStatusHistory.
+     * @example
+     * // Update one BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookingStatusHistoryUpdateArgs>(args: SelectSubset<T, BookingStatusHistoryUpdateArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BookingStatusHistories.
+     * @param {BookingStatusHistoryDeleteManyArgs} args - Arguments to filter BookingStatusHistories to delete.
+     * @example
+     * // Delete a few BookingStatusHistories
+     * const { count } = await prisma.bookingStatusHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookingStatusHistoryDeleteManyArgs>(args?: SelectSubset<T, BookingStatusHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BookingStatusHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BookingStatusHistories
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookingStatusHistoryUpdateManyArgs>(args: SelectSubset<T, BookingStatusHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BookingStatusHistories and returns the data updated in the database.
+     * @param {BookingStatusHistoryUpdateManyAndReturnArgs} args - Arguments to update many BookingStatusHistories.
+     * @example
+     * // Update many BookingStatusHistories
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BookingStatusHistories and only return the `id`
+     * const bookingStatusHistoryWithIdOnly = await prisma.bookingStatusHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BookingStatusHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, BookingStatusHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BookingStatusHistory.
+     * @param {BookingStatusHistoryUpsertArgs} args - Arguments to update or create a BookingStatusHistory.
+     * @example
+     * // Update or create a BookingStatusHistory
+     * const bookingStatusHistory = await prisma.bookingStatusHistory.upsert({
+     *   create: {
+     *     // ... data to create a BookingStatusHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BookingStatusHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookingStatusHistoryUpsertArgs>(args: SelectSubset<T, BookingStatusHistoryUpsertArgs<ExtArgs>>): Prisma__BookingStatusHistoryClient<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BookingStatusHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryCountArgs} args - Arguments to filter BookingStatusHistories to count.
+     * @example
+     * // Count the number of BookingStatusHistories
+     * const count = await prisma.bookingStatusHistory.count({
+     *   where: {
+     *     // ... the filter for the BookingStatusHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookingStatusHistoryCountArgs>(
+      args?: Subset<T, BookingStatusHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingStatusHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BookingStatusHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingStatusHistoryAggregateArgs>(args: Subset<T, BookingStatusHistoryAggregateArgs>): Prisma.PrismaPromise<GetBookingStatusHistoryAggregateType<T>>
+
+    /**
+     * Group by BookingStatusHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingStatusHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookingStatusHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookingStatusHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: BookingStatusHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookingStatusHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingStatusHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BookingStatusHistory model
+   */
+  readonly fields: BookingStatusHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BookingStatusHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookingStatusHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    booking<T extends BookingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookingDefaultArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BookingStatusHistory model
+   */
+  interface BookingStatusHistoryFieldRefs {
+    readonly id: FieldRef<"BookingStatusHistory", 'String'>
+    readonly bookingId: FieldRef<"BookingStatusHistory", 'String'>
+    readonly fromStatus: FieldRef<"BookingStatusHistory", 'BookingStatus'>
+    readonly toStatus: FieldRef<"BookingStatusHistory", 'BookingStatus'>
+    readonly changedBy: FieldRef<"BookingStatusHistory", 'String'>
+    readonly reason: FieldRef<"BookingStatusHistory", 'String'>
+    readonly createdAt: FieldRef<"BookingStatusHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BookingStatusHistory findUnique
+   */
+  export type BookingStatusHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingStatusHistory to fetch.
+     */
+    where: BookingStatusHistoryWhereUniqueInput
+  }
+
+  /**
+   * BookingStatusHistory findUniqueOrThrow
+   */
+  export type BookingStatusHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingStatusHistory to fetch.
+     */
+    where: BookingStatusHistoryWhereUniqueInput
+  }
+
+  /**
+   * BookingStatusHistory findFirst
+   */
+  export type BookingStatusHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingStatusHistory to fetch.
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingStatusHistories to fetch.
+     */
+    orderBy?: BookingStatusHistoryOrderByWithRelationInput | BookingStatusHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BookingStatusHistories.
+     */
+    cursor?: BookingStatusHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingStatusHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingStatusHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BookingStatusHistories.
+     */
+    distinct?: BookingStatusHistoryScalarFieldEnum | BookingStatusHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * BookingStatusHistory findFirstOrThrow
+   */
+  export type BookingStatusHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingStatusHistory to fetch.
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingStatusHistories to fetch.
+     */
+    orderBy?: BookingStatusHistoryOrderByWithRelationInput | BookingStatusHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BookingStatusHistories.
+     */
+    cursor?: BookingStatusHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingStatusHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingStatusHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BookingStatusHistories.
+     */
+    distinct?: BookingStatusHistoryScalarFieldEnum | BookingStatusHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * BookingStatusHistory findMany
+   */
+  export type BookingStatusHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingStatusHistories to fetch.
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingStatusHistories to fetch.
+     */
+    orderBy?: BookingStatusHistoryOrderByWithRelationInput | BookingStatusHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BookingStatusHistories.
+     */
+    cursor?: BookingStatusHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingStatusHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingStatusHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BookingStatusHistories.
+     */
+    distinct?: BookingStatusHistoryScalarFieldEnum | BookingStatusHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * BookingStatusHistory create
+   */
+  export type BookingStatusHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BookingStatusHistory.
+     */
+    data: XOR<BookingStatusHistoryCreateInput, BookingStatusHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * BookingStatusHistory createMany
+   */
+  export type BookingStatusHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BookingStatusHistories.
+     */
+    data: BookingStatusHistoryCreateManyInput | BookingStatusHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BookingStatusHistory createManyAndReturn
+   */
+  export type BookingStatusHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many BookingStatusHistories.
+     */
+    data: BookingStatusHistoryCreateManyInput | BookingStatusHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BookingStatusHistory update
+   */
+  export type BookingStatusHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BookingStatusHistory.
+     */
+    data: XOR<BookingStatusHistoryUpdateInput, BookingStatusHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which BookingStatusHistory to update.
+     */
+    where: BookingStatusHistoryWhereUniqueInput
+  }
+
+  /**
+   * BookingStatusHistory updateMany
+   */
+  export type BookingStatusHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BookingStatusHistories.
+     */
+    data: XOR<BookingStatusHistoryUpdateManyMutationInput, BookingStatusHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which BookingStatusHistories to update
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * Limit how many BookingStatusHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BookingStatusHistory updateManyAndReturn
+   */
+  export type BookingStatusHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update BookingStatusHistories.
+     */
+    data: XOR<BookingStatusHistoryUpdateManyMutationInput, BookingStatusHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which BookingStatusHistories to update
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * Limit how many BookingStatusHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BookingStatusHistory upsert
+   */
+  export type BookingStatusHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BookingStatusHistory to update in case it exists.
+     */
+    where: BookingStatusHistoryWhereUniqueInput
+    /**
+     * In case the BookingStatusHistory found by the `where` argument doesn't exist, create a new BookingStatusHistory with this data.
+     */
+    create: XOR<BookingStatusHistoryCreateInput, BookingStatusHistoryUncheckedCreateInput>
+    /**
+     * In case the BookingStatusHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookingStatusHistoryUpdateInput, BookingStatusHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * BookingStatusHistory delete
+   */
+  export type BookingStatusHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which BookingStatusHistory to delete.
+     */
+    where: BookingStatusHistoryWhereUniqueInput
+  }
+
+  /**
+   * BookingStatusHistory deleteMany
+   */
+  export type BookingStatusHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BookingStatusHistories to delete
+     */
+    where?: BookingStatusHistoryWhereInput
+    /**
+     * Limit how many BookingStatusHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BookingStatusHistory without action
+   */
+  export type BookingStatusHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingStatusHistory
+     */
+    select?: BookingStatusHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BookingStatusHistory
+     */
+    omit?: BookingStatusHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingStatusHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Quote
+   */
+
+  export type AggregateQuote = {
+    _count: QuoteCountAggregateOutputType | null
+    _avg: QuoteAvgAggregateOutputType | null
+    _sum: QuoteSumAggregateOutputType | null
+    _min: QuoteMinAggregateOutputType | null
+    _max: QuoteMaxAggregateOutputType | null
+  }
+
+  export type QuoteAvgAggregateOutputType = {
+    subtotal: Decimal | null
+    gst: Decimal | null
+    total: Decimal | null
+  }
+
+  export type QuoteSumAggregateOutputType = {
+    subtotal: Decimal | null
+    gst: Decimal | null
+    total: Decimal | null
+  }
+
+  export type QuoteMinAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    status: $Enums.QuoteStatus | null
+    subtotal: Decimal | null
+    gst: Decimal | null
+    total: Decimal | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QuoteMaxAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    status: $Enums.QuoteStatus | null
+    subtotal: Decimal | null
+    gst: Decimal | null
+    total: Decimal | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QuoteCountAggregateOutputType = {
+    id: number
+    bookingId: number
+    status: number
+    subtotal: number
+    gst: number
+    total: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QuoteAvgAggregateInputType = {
+    subtotal?: true
+    gst?: true
+    total?: true
+  }
+
+  export type QuoteSumAggregateInputType = {
+    subtotal?: true
+    gst?: true
+    total?: true
+  }
+
+  export type QuoteMinAggregateInputType = {
+    id?: true
+    bookingId?: true
+    status?: true
+    subtotal?: true
+    gst?: true
+    total?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QuoteMaxAggregateInputType = {
+    id?: true
+    bookingId?: true
+    status?: true
+    subtotal?: true
+    gst?: true
+    total?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QuoteCountAggregateInputType = {
+    id?: true
+    bookingId?: true
+    status?: true
+    subtotal?: true
+    gst?: true
+    total?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QuoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quote to aggregate.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Quotes
+    **/
+    _count?: true | QuoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuoteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuoteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuoteMaxAggregateInputType
+  }
+
+  export type GetQuoteAggregateType<T extends QuoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuote[P]>
+      : GetScalarType<T[P], AggregateQuote[P]>
+  }
+
+
+
+
+  export type QuoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteWhereInput
+    orderBy?: QuoteOrderByWithAggregationInput | QuoteOrderByWithAggregationInput[]
+    by: QuoteScalarFieldEnum[] | QuoteScalarFieldEnum
+    having?: QuoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuoteCountAggregateInputType | true
+    _avg?: QuoteAvgAggregateInputType
+    _sum?: QuoteSumAggregateInputType
+    _min?: QuoteMinAggregateInputType
+    _max?: QuoteMaxAggregateInputType
+  }
+
+  export type QuoteGroupByOutputType = {
+    id: string
+    bookingId: string
+    status: $Enums.QuoteStatus
+    subtotal: Decimal
+    gst: Decimal
+    total: Decimal
+    expiresAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QuoteCountAggregateOutputType | null
+    _avg: QuoteAvgAggregateOutputType | null
+    _sum: QuoteSumAggregateOutputType | null
+    _min: QuoteMinAggregateOutputType | null
+    _max: QuoteMaxAggregateOutputType | null
+  }
+
+  type GetQuoteGroupByPayload<T extends QuoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuoteGroupByOutputType[P]>
+            : GetScalarType<T[P], QuoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    status?: boolean
+    subtotal?: boolean
+    gst?: boolean
+    total?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    lineItems?: boolean | Quote$lineItemsArgs<ExtArgs>
+    _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    status?: boolean
+    subtotal?: boolean
+    gst?: boolean
+    total?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    status?: boolean
+    subtotal?: boolean
+    gst?: boolean
+    total?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quote"]>
+
+  export type QuoteSelectScalar = {
+    id?: boolean
+    bookingId?: boolean
+    status?: boolean
+    subtotal?: boolean
+    gst?: boolean
+    total?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "status" | "subtotal" | "gst" | "total" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
+  export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    lineItems?: boolean | Quote$lineItemsArgs<ExtArgs>
+    _count?: boolean | QuoteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QuoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }
+  export type QuoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+  }
+
+  export type $QuotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Quote"
+    objects: {
+      booking: Prisma.$BookingPayload<ExtArgs>
+      lineItems: Prisma.$QuoteLineItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bookingId: string
+      status: $Enums.QuoteStatus
+      subtotal: Prisma.Decimal
+      gst: Prisma.Decimal
+      total: Prisma.Decimal
+      expiresAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["quote"]>
+    composites: {}
+  }
+
+  type QuoteGetPayload<S extends boolean | null | undefined | QuoteDefaultArgs> = $Result.GetResult<Prisma.$QuotePayload, S>
+
+  type QuoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuoteCountAggregateInputType | true
+    }
+
+  export interface QuoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Quote'], meta: { name: 'Quote' } }
+    /**
+     * Find zero or one Quote that matches the filter.
+     * @param {QuoteFindUniqueArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuoteFindUniqueArgs>(args: SelectSubset<T, QuoteFindUniqueArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Quote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuoteFindUniqueOrThrowArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuoteFindUniqueOrThrowArgs>(args: SelectSubset<T, QuoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindFirstArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuoteFindFirstArgs>(args?: SelectSubset<T, QuoteFindFirstArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindFirstOrThrowArgs} args - Arguments to find a Quote
+     * @example
+     * // Get one Quote
+     * const quote = await prisma.quote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuoteFindFirstOrThrowArgs>(args?: SelectSubset<T, QuoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Quotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Quotes
+     * const quotes = await prisma.quote.findMany()
+     * 
+     * // Get first 10 Quotes
+     * const quotes = await prisma.quote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quoteWithIdOnly = await prisma.quote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuoteFindManyArgs>(args?: SelectSubset<T, QuoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Quote.
+     * @param {QuoteCreateArgs} args - Arguments to create a Quote.
+     * @example
+     * // Create one Quote
+     * const Quote = await prisma.quote.create({
+     *   data: {
+     *     // ... data to create a Quote
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuoteCreateArgs>(args: SelectSubset<T, QuoteCreateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Quotes.
+     * @param {QuoteCreateManyArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuoteCreateManyArgs>(args?: SelectSubset<T, QuoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Quotes and returns the data saved in the database.
+     * @param {QuoteCreateManyAndReturnArgs} args - Arguments to create many Quotes.
+     * @example
+     * // Create many Quotes
+     * const quote = await prisma.quote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Quotes and only return the `id`
+     * const quoteWithIdOnly = await prisma.quote.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuoteCreateManyAndReturnArgs>(args?: SelectSubset<T, QuoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Quote.
+     * @param {QuoteDeleteArgs} args - Arguments to delete one Quote.
+     * @example
+     * // Delete one Quote
+     * const Quote = await prisma.quote.delete({
+     *   where: {
+     *     // ... filter to delete one Quote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuoteDeleteArgs>(args: SelectSubset<T, QuoteDeleteArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Quote.
+     * @param {QuoteUpdateArgs} args - Arguments to update one Quote.
+     * @example
+     * // Update one Quote
+     * const quote = await prisma.quote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuoteUpdateArgs>(args: SelectSubset<T, QuoteUpdateArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Quotes.
+     * @param {QuoteDeleteManyArgs} args - Arguments to filter Quotes to delete.
+     * @example
+     * // Delete a few Quotes
+     * const { count } = await prisma.quote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuoteDeleteManyArgs>(args?: SelectSubset<T, QuoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Quotes
+     * const quote = await prisma.quote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuoteUpdateManyArgs>(args: SelectSubset<T, QuoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quotes and returns the data updated in the database.
+     * @param {QuoteUpdateManyAndReturnArgs} args - Arguments to update many Quotes.
+     * @example
+     * // Update many Quotes
+     * const quote = await prisma.quote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Quotes and only return the `id`
+     * const quoteWithIdOnly = await prisma.quote.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuoteUpdateManyAndReturnArgs>(args: SelectSubset<T, QuoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Quote.
+     * @param {QuoteUpsertArgs} args - Arguments to update or create a Quote.
+     * @example
+     * // Update or create a Quote
+     * const quote = await prisma.quote.upsert({
+     *   create: {
+     *     // ... data to create a Quote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Quote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuoteUpsertArgs>(args: SelectSubset<T, QuoteUpsertArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Quotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteCountArgs} args - Arguments to filter Quotes to count.
+     * @example
+     * // Count the number of Quotes
+     * const count = await prisma.quote.count({
+     *   where: {
+     *     // ... the filter for the Quotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuoteCountArgs>(
+      args?: Subset<T, QuoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Quote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuoteAggregateArgs>(args: Subset<T, QuoteAggregateArgs>): Prisma.PrismaPromise<GetQuoteAggregateType<T>>
+
+    /**
+     * Group by Quote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuoteGroupByArgs['orderBy'] }
+        : { orderBy?: QuoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Quote model
+   */
+  readonly fields: QuoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Quote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    booking<T extends BookingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookingDefaultArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lineItems<T extends Quote$lineItemsArgs<ExtArgs> = {}>(args?: Subset<T, Quote$lineItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Quote model
+   */
+  interface QuoteFieldRefs {
+    readonly id: FieldRef<"Quote", 'String'>
+    readonly bookingId: FieldRef<"Quote", 'String'>
+    readonly status: FieldRef<"Quote", 'QuoteStatus'>
+    readonly subtotal: FieldRef<"Quote", 'Decimal'>
+    readonly gst: FieldRef<"Quote", 'Decimal'>
+    readonly total: FieldRef<"Quote", 'Decimal'>
+    readonly expiresAt: FieldRef<"Quote", 'DateTime'>
+    readonly createdAt: FieldRef<"Quote", 'DateTime'>
+    readonly updatedAt: FieldRef<"Quote", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Quote findUnique
+   */
+  export type QuoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote findUniqueOrThrow
+   */
+  export type QuoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote findFirst
+   */
+  export type QuoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quotes.
+     */
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote findFirstOrThrow
+   */
+  export type QuoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quote to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quotes.
+     */
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote findMany
+   */
+  export type QuoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter, which Quotes to fetch.
+     */
+    where?: QuoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quotes to fetch.
+     */
+    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Quotes.
+     */
+    cursor?: QuoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quotes.
+     */
+    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
+  }
+
+  /**
+   * Quote create
+   */
+  export type QuoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Quote.
+     */
+    data: XOR<QuoteCreateInput, QuoteUncheckedCreateInput>
+  }
+
+  /**
+   * Quote createMany
+   */
+  export type QuoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Quotes.
+     */
+    data: QuoteCreateManyInput | QuoteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Quote createManyAndReturn
+   */
+  export type QuoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Quotes.
+     */
+    data: QuoteCreateManyInput | QuoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quote update
+   */
+  export type QuoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Quote.
+     */
+    data: XOR<QuoteUpdateInput, QuoteUncheckedUpdateInput>
+    /**
+     * Choose, which Quote to update.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote updateMany
+   */
+  export type QuoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Quotes.
+     */
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyInput>
+    /**
+     * Filter which Quotes to update
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quote updateManyAndReturn
+   */
+  export type QuoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * The data used to update Quotes.
+     */
+    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyInput>
+    /**
+     * Filter which Quotes to update
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quote upsert
+   */
+  export type QuoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Quote to update in case it exists.
+     */
+    where: QuoteWhereUniqueInput
+    /**
+     * In case the Quote found by the `where` argument doesn't exist, create a new Quote with this data.
+     */
+    create: XOR<QuoteCreateInput, QuoteUncheckedCreateInput>
+    /**
+     * In case the Quote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuoteUpdateInput, QuoteUncheckedUpdateInput>
+  }
+
+  /**
+   * Quote delete
+   */
+  export type QuoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+    /**
+     * Filter which Quote to delete.
+     */
+    where: QuoteWhereUniqueInput
+  }
+
+  /**
+   * Quote deleteMany
+   */
+  export type QuoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quotes to delete
+     */
+    where?: QuoteWhereInput
+    /**
+     * Limit how many Quotes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quote.lineItems
+   */
+  export type Quote$lineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    where?: QuoteLineItemWhereInput
+    orderBy?: QuoteLineItemOrderByWithRelationInput | QuoteLineItemOrderByWithRelationInput[]
+    cursor?: QuoteLineItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuoteLineItemScalarFieldEnum | QuoteLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * Quote without action
+   */
+  export type QuoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quote
+     */
+    select?: QuoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quote
+     */
+    omit?: QuoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QuoteLineItem
+   */
+
+  export type AggregateQuoteLineItem = {
+    _count: QuoteLineItemCountAggregateOutputType | null
+    _avg: QuoteLineItemAvgAggregateOutputType | null
+    _sum: QuoteLineItemSumAggregateOutputType | null
+    _min: QuoteLineItemMinAggregateOutputType | null
+    _max: QuoteLineItemMaxAggregateOutputType | null
+  }
+
+  export type QuoteLineItemAvgAggregateOutputType = {
+    quantity: number | null
+    unitPrice: Decimal | null
+    amount: Decimal | null
+  }
+
+  export type QuoteLineItemSumAggregateOutputType = {
+    quantity: number | null
+    unitPrice: Decimal | null
+    amount: Decimal | null
+  }
+
+  export type QuoteLineItemMinAggregateOutputType = {
+    id: string | null
+    quoteId: string | null
+    description: string | null
+    quantity: number | null
+    unitPrice: Decimal | null
+    amount: Decimal | null
+  }
+
+  export type QuoteLineItemMaxAggregateOutputType = {
+    id: string | null
+    quoteId: string | null
+    description: string | null
+    quantity: number | null
+    unitPrice: Decimal | null
+    amount: Decimal | null
+  }
+
+  export type QuoteLineItemCountAggregateOutputType = {
+    id: number
+    quoteId: number
+    description: number
+    quantity: number
+    unitPrice: number
+    amount: number
+    _all: number
+  }
+
+
+  export type QuoteLineItemAvgAggregateInputType = {
+    quantity?: true
+    unitPrice?: true
+    amount?: true
+  }
+
+  export type QuoteLineItemSumAggregateInputType = {
+    quantity?: true
+    unitPrice?: true
+    amount?: true
+  }
+
+  export type QuoteLineItemMinAggregateInputType = {
+    id?: true
+    quoteId?: true
+    description?: true
+    quantity?: true
+    unitPrice?: true
+    amount?: true
+  }
+
+  export type QuoteLineItemMaxAggregateInputType = {
+    id?: true
+    quoteId?: true
+    description?: true
+    quantity?: true
+    unitPrice?: true
+    amount?: true
+  }
+
+  export type QuoteLineItemCountAggregateInputType = {
+    id?: true
+    quoteId?: true
+    description?: true
+    quantity?: true
+    unitPrice?: true
+    amount?: true
+    _all?: true
+  }
+
+  export type QuoteLineItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuoteLineItem to aggregate.
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteLineItems to fetch.
+     */
+    orderBy?: QuoteLineItemOrderByWithRelationInput | QuoteLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuoteLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QuoteLineItems
+    **/
+    _count?: true | QuoteLineItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuoteLineItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuoteLineItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuoteLineItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuoteLineItemMaxAggregateInputType
+  }
+
+  export type GetQuoteLineItemAggregateType<T extends QuoteLineItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuoteLineItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuoteLineItem[P]>
+      : GetScalarType<T[P], AggregateQuoteLineItem[P]>
+  }
+
+
+
+
+  export type QuoteLineItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuoteLineItemWhereInput
+    orderBy?: QuoteLineItemOrderByWithAggregationInput | QuoteLineItemOrderByWithAggregationInput[]
+    by: QuoteLineItemScalarFieldEnum[] | QuoteLineItemScalarFieldEnum
+    having?: QuoteLineItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuoteLineItemCountAggregateInputType | true
+    _avg?: QuoteLineItemAvgAggregateInputType
+    _sum?: QuoteLineItemSumAggregateInputType
+    _min?: QuoteLineItemMinAggregateInputType
+    _max?: QuoteLineItemMaxAggregateInputType
+  }
+
+  export type QuoteLineItemGroupByOutputType = {
+    id: string
+    quoteId: string
+    description: string
+    quantity: number
+    unitPrice: Decimal
+    amount: Decimal
+    _count: QuoteLineItemCountAggregateOutputType | null
+    _avg: QuoteLineItemAvgAggregateOutputType | null
+    _sum: QuoteLineItemSumAggregateOutputType | null
+    _min: QuoteLineItemMinAggregateOutputType | null
+    _max: QuoteLineItemMaxAggregateOutputType | null
+  }
+
+  type GetQuoteLineItemGroupByPayload<T extends QuoteLineItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuoteLineItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuoteLineItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuoteLineItemGroupByOutputType[P]>
+            : GetScalarType<T[P], QuoteLineItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuoteLineItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quoteId?: boolean
+    description?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    amount?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteLineItem"]>
+
+  export type QuoteLineItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quoteId?: boolean
+    description?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    amount?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteLineItem"]>
+
+  export type QuoteLineItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quoteId?: boolean
+    description?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    amount?: boolean
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quoteLineItem"]>
+
+  export type QuoteLineItemSelectScalar = {
+    id?: boolean
+    quoteId?: boolean
+    description?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    amount?: boolean
+  }
+
+  export type QuoteLineItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quoteId" | "description" | "quantity" | "unitPrice" | "amount", ExtArgs["result"]["quoteLineItem"]>
+  export type QuoteLineItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+  export type QuoteLineItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+  export type QuoteLineItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    quote?: boolean | QuoteDefaultArgs<ExtArgs>
+  }
+
+  export type $QuoteLineItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QuoteLineItem"
+    objects: {
+      quote: Prisma.$QuotePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      quoteId: string
+      description: string
+      quantity: number
+      unitPrice: Prisma.Decimal
+      amount: Prisma.Decimal
+    }, ExtArgs["result"]["quoteLineItem"]>
+    composites: {}
+  }
+
+  type QuoteLineItemGetPayload<S extends boolean | null | undefined | QuoteLineItemDefaultArgs> = $Result.GetResult<Prisma.$QuoteLineItemPayload, S>
+
+  type QuoteLineItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuoteLineItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuoteLineItemCountAggregateInputType | true
+    }
+
+  export interface QuoteLineItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QuoteLineItem'], meta: { name: 'QuoteLineItem' } }
+    /**
+     * Find zero or one QuoteLineItem that matches the filter.
+     * @param {QuoteLineItemFindUniqueArgs} args - Arguments to find a QuoteLineItem
+     * @example
+     * // Get one QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuoteLineItemFindUniqueArgs>(args: SelectSubset<T, QuoteLineItemFindUniqueArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QuoteLineItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuoteLineItemFindUniqueOrThrowArgs} args - Arguments to find a QuoteLineItem
+     * @example
+     * // Get one QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuoteLineItemFindUniqueOrThrowArgs>(args: SelectSubset<T, QuoteLineItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuoteLineItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemFindFirstArgs} args - Arguments to find a QuoteLineItem
+     * @example
+     * // Get one QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuoteLineItemFindFirstArgs>(args?: SelectSubset<T, QuoteLineItemFindFirstArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuoteLineItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemFindFirstOrThrowArgs} args - Arguments to find a QuoteLineItem
+     * @example
+     * // Get one QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuoteLineItemFindFirstOrThrowArgs>(args?: SelectSubset<T, QuoteLineItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QuoteLineItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QuoteLineItems
+     * const quoteLineItems = await prisma.quoteLineItem.findMany()
+     * 
+     * // Get first 10 QuoteLineItems
+     * const quoteLineItems = await prisma.quoteLineItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quoteLineItemWithIdOnly = await prisma.quoteLineItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuoteLineItemFindManyArgs>(args?: SelectSubset<T, QuoteLineItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QuoteLineItem.
+     * @param {QuoteLineItemCreateArgs} args - Arguments to create a QuoteLineItem.
+     * @example
+     * // Create one QuoteLineItem
+     * const QuoteLineItem = await prisma.quoteLineItem.create({
+     *   data: {
+     *     // ... data to create a QuoteLineItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuoteLineItemCreateArgs>(args: SelectSubset<T, QuoteLineItemCreateArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QuoteLineItems.
+     * @param {QuoteLineItemCreateManyArgs} args - Arguments to create many QuoteLineItems.
+     * @example
+     * // Create many QuoteLineItems
+     * const quoteLineItem = await prisma.quoteLineItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuoteLineItemCreateManyArgs>(args?: SelectSubset<T, QuoteLineItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QuoteLineItems and returns the data saved in the database.
+     * @param {QuoteLineItemCreateManyAndReturnArgs} args - Arguments to create many QuoteLineItems.
+     * @example
+     * // Create many QuoteLineItems
+     * const quoteLineItem = await prisma.quoteLineItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QuoteLineItems and only return the `id`
+     * const quoteLineItemWithIdOnly = await prisma.quoteLineItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuoteLineItemCreateManyAndReturnArgs>(args?: SelectSubset<T, QuoteLineItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QuoteLineItem.
+     * @param {QuoteLineItemDeleteArgs} args - Arguments to delete one QuoteLineItem.
+     * @example
+     * // Delete one QuoteLineItem
+     * const QuoteLineItem = await prisma.quoteLineItem.delete({
+     *   where: {
+     *     // ... filter to delete one QuoteLineItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuoteLineItemDeleteArgs>(args: SelectSubset<T, QuoteLineItemDeleteArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QuoteLineItem.
+     * @param {QuoteLineItemUpdateArgs} args - Arguments to update one QuoteLineItem.
+     * @example
+     * // Update one QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuoteLineItemUpdateArgs>(args: SelectSubset<T, QuoteLineItemUpdateArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QuoteLineItems.
+     * @param {QuoteLineItemDeleteManyArgs} args - Arguments to filter QuoteLineItems to delete.
+     * @example
+     * // Delete a few QuoteLineItems
+     * const { count } = await prisma.quoteLineItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuoteLineItemDeleteManyArgs>(args?: SelectSubset<T, QuoteLineItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuoteLineItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QuoteLineItems
+     * const quoteLineItem = await prisma.quoteLineItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuoteLineItemUpdateManyArgs>(args: SelectSubset<T, QuoteLineItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuoteLineItems and returns the data updated in the database.
+     * @param {QuoteLineItemUpdateManyAndReturnArgs} args - Arguments to update many QuoteLineItems.
+     * @example
+     * // Update many QuoteLineItems
+     * const quoteLineItem = await prisma.quoteLineItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QuoteLineItems and only return the `id`
+     * const quoteLineItemWithIdOnly = await prisma.quoteLineItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuoteLineItemUpdateManyAndReturnArgs>(args: SelectSubset<T, QuoteLineItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QuoteLineItem.
+     * @param {QuoteLineItemUpsertArgs} args - Arguments to update or create a QuoteLineItem.
+     * @example
+     * // Update or create a QuoteLineItem
+     * const quoteLineItem = await prisma.quoteLineItem.upsert({
+     *   create: {
+     *     // ... data to create a QuoteLineItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QuoteLineItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuoteLineItemUpsertArgs>(args: SelectSubset<T, QuoteLineItemUpsertArgs<ExtArgs>>): Prisma__QuoteLineItemClient<$Result.GetResult<Prisma.$QuoteLineItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QuoteLineItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemCountArgs} args - Arguments to filter QuoteLineItems to count.
+     * @example
+     * // Count the number of QuoteLineItems
+     * const count = await prisma.quoteLineItem.count({
+     *   where: {
+     *     // ... the filter for the QuoteLineItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuoteLineItemCountArgs>(
+      args?: Subset<T, QuoteLineItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuoteLineItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QuoteLineItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuoteLineItemAggregateArgs>(args: Subset<T, QuoteLineItemAggregateArgs>): Prisma.PrismaPromise<GetQuoteLineItemAggregateType<T>>
+
+    /**
+     * Group by QuoteLineItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuoteLineItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuoteLineItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuoteLineItemGroupByArgs['orderBy'] }
+        : { orderBy?: QuoteLineItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuoteLineItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuoteLineItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QuoteLineItem model
+   */
+  readonly fields: QuoteLineItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QuoteLineItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuoteLineItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    quote<T extends QuoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuoteDefaultArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QuoteLineItem model
+   */
+  interface QuoteLineItemFieldRefs {
+    readonly id: FieldRef<"QuoteLineItem", 'String'>
+    readonly quoteId: FieldRef<"QuoteLineItem", 'String'>
+    readonly description: FieldRef<"QuoteLineItem", 'String'>
+    readonly quantity: FieldRef<"QuoteLineItem", 'Int'>
+    readonly unitPrice: FieldRef<"QuoteLineItem", 'Decimal'>
+    readonly amount: FieldRef<"QuoteLineItem", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QuoteLineItem findUnique
+   */
+  export type QuoteLineItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteLineItem to fetch.
+     */
+    where: QuoteLineItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteLineItem findUniqueOrThrow
+   */
+  export type QuoteLineItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteLineItem to fetch.
+     */
+    where: QuoteLineItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteLineItem findFirst
+   */
+  export type QuoteLineItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteLineItem to fetch.
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteLineItems to fetch.
+     */
+    orderBy?: QuoteLineItemOrderByWithRelationInput | QuoteLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuoteLineItems.
+     */
+    cursor?: QuoteLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuoteLineItems.
+     */
+    distinct?: QuoteLineItemScalarFieldEnum | QuoteLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteLineItem findFirstOrThrow
+   */
+  export type QuoteLineItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteLineItem to fetch.
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteLineItems to fetch.
+     */
+    orderBy?: QuoteLineItemOrderByWithRelationInput | QuoteLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuoteLineItems.
+     */
+    cursor?: QuoteLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuoteLineItems.
+     */
+    distinct?: QuoteLineItemScalarFieldEnum | QuoteLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteLineItem findMany
+   */
+  export type QuoteLineItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which QuoteLineItems to fetch.
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuoteLineItems to fetch.
+     */
+    orderBy?: QuoteLineItemOrderByWithRelationInput | QuoteLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QuoteLineItems.
+     */
+    cursor?: QuoteLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuoteLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuoteLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuoteLineItems.
+     */
+    distinct?: QuoteLineItemScalarFieldEnum | QuoteLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * QuoteLineItem create
+   */
+  export type QuoteLineItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QuoteLineItem.
+     */
+    data: XOR<QuoteLineItemCreateInput, QuoteLineItemUncheckedCreateInput>
+  }
+
+  /**
+   * QuoteLineItem createMany
+   */
+  export type QuoteLineItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QuoteLineItems.
+     */
+    data: QuoteLineItemCreateManyInput | QuoteLineItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QuoteLineItem createManyAndReturn
+   */
+  export type QuoteLineItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many QuoteLineItems.
+     */
+    data: QuoteLineItemCreateManyInput | QuoteLineItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuoteLineItem update
+   */
+  export type QuoteLineItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QuoteLineItem.
+     */
+    data: XOR<QuoteLineItemUpdateInput, QuoteLineItemUncheckedUpdateInput>
+    /**
+     * Choose, which QuoteLineItem to update.
+     */
+    where: QuoteLineItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteLineItem updateMany
+   */
+  export type QuoteLineItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QuoteLineItems.
+     */
+    data: XOR<QuoteLineItemUpdateManyMutationInput, QuoteLineItemUncheckedUpdateManyInput>
+    /**
+     * Filter which QuoteLineItems to update
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * Limit how many QuoteLineItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuoteLineItem updateManyAndReturn
+   */
+  export type QuoteLineItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * The data used to update QuoteLineItems.
+     */
+    data: XOR<QuoteLineItemUpdateManyMutationInput, QuoteLineItemUncheckedUpdateManyInput>
+    /**
+     * Filter which QuoteLineItems to update
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * Limit how many QuoteLineItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuoteLineItem upsert
+   */
+  export type QuoteLineItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QuoteLineItem to update in case it exists.
+     */
+    where: QuoteLineItemWhereUniqueInput
+    /**
+     * In case the QuoteLineItem found by the `where` argument doesn't exist, create a new QuoteLineItem with this data.
+     */
+    create: XOR<QuoteLineItemCreateInput, QuoteLineItemUncheckedCreateInput>
+    /**
+     * In case the QuoteLineItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuoteLineItemUpdateInput, QuoteLineItemUncheckedUpdateInput>
+  }
+
+  /**
+   * QuoteLineItem delete
+   */
+  export type QuoteLineItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
+    /**
+     * Filter which QuoteLineItem to delete.
+     */
+    where: QuoteLineItemWhereUniqueInput
+  }
+
+  /**
+   * QuoteLineItem deleteMany
+   */
+  export type QuoteLineItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuoteLineItems to delete
+     */
+    where?: QuoteLineItemWhereInput
+    /**
+     * Limit how many QuoteLineItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuoteLineItem without action
+   */
+  export type QuoteLineItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuoteLineItem
+     */
+    select?: QuoteLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuoteLineItem
+     */
+    omit?: QuoteLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuoteLineItemInclude<ExtArgs> | null
   }
 
 
@@ -14973,6 +18877,7 @@ export namespace Prisma {
     lastName: 'lastName',
     phone: 'phone',
     avatarUrl: 'avatarUrl',
+    businessName: 'businessName',
     bio: 'bio',
     abn: 'abn',
     addressLine1: 'addressLine1',
@@ -14980,6 +18885,8 @@ export namespace Prisma {
     suburb: 'suburb',
     state: 'state',
     postcode: 'postcode',
+    latitude: 'latitude',
+    longitude: 'longitude',
     licenceNo: 'licenceNo',
     isAvailable: 'isAvailable',
     createdAt: 'createdAt',
@@ -15054,11 +18961,53 @@ export namespace Prisma {
     scheduledAt: 'scheduledAt',
     totalAmount: 'totalAmount',
     notes: 'notes',
+    declineReason: 'declineReason',
+    cancelReason: 'cancelReason',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+  export const BookingStatusHistoryScalarFieldEnum: {
+    id: 'id',
+    bookingId: 'bookingId',
+    fromStatus: 'fromStatus',
+    toStatus: 'toStatus',
+    changedBy: 'changedBy',
+    reason: 'reason',
+    createdAt: 'createdAt'
+  };
+
+  export type BookingStatusHistoryScalarFieldEnum = (typeof BookingStatusHistoryScalarFieldEnum)[keyof typeof BookingStatusHistoryScalarFieldEnum]
+
+
+  export const QuoteScalarFieldEnum: {
+    id: 'id',
+    bookingId: 'bookingId',
+    status: 'status',
+    subtotal: 'subtotal',
+    gst: 'gst',
+    total: 'total',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
+
+
+  export const QuoteLineItemScalarFieldEnum: {
+    id: 'id',
+    quoteId: 'quoteId',
+    description: 'description',
+    quantity: 'quantity',
+    unitPrice: 'unitPrice',
+    amount: 'amount'
+  };
+
+  export type QuoteLineItemScalarFieldEnum = (typeof QuoteLineItemScalarFieldEnum)[keyof typeof QuoteLineItemScalarFieldEnum]
 
 
   export const PaymentScalarFieldEnum: {
@@ -15195,6 +19144,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DayOfWeek'
    */
   export type EnumDayOfWeekFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DayOfWeek'>
@@ -15265,6 +19228,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'QuoteStatus'
+   */
+  export type EnumQuoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QuoteStatus[]'
+   */
+  export type ListEnumQuoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'PaymentStatus'
    */
   export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
@@ -15289,20 +19266,6 @@ export namespace Prisma {
    * Reference to a field of type 'NotificationType[]'
    */
   export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -15428,6 +19391,7 @@ export namespace Prisma {
     lastName?: StringFilter<"Profile"> | string
     phone?: StringNullableFilter<"Profile"> | string | null
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
+    businessName?: StringNullableFilter<"Profile"> | string | null
     bio?: StringNullableFilter<"Profile"> | string | null
     abn?: StringNullableFilter<"Profile"> | string | null
     addressLine1?: StringNullableFilter<"Profile"> | string | null
@@ -15435,6 +19399,8 @@ export namespace Prisma {
     suburb?: StringNullableFilter<"Profile"> | string | null
     state?: StringNullableFilter<"Profile"> | string | null
     postcode?: StringNullableFilter<"Profile"> | string | null
+    latitude?: FloatNullableFilter<"Profile"> | number | null
+    longitude?: FloatNullableFilter<"Profile"> | number | null
     licenceNo?: StringNullableFilter<"Profile"> | string | null
     isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
@@ -15451,6 +19417,7 @@ export namespace Prisma {
     lastName?: SortOrder
     phone?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    businessName?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     abn?: SortOrderInput | SortOrder
     addressLine1?: SortOrderInput | SortOrder
@@ -15458,6 +19425,8 @@ export namespace Prisma {
     suburb?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     postcode?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     licenceNo?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
@@ -15477,6 +19446,7 @@ export namespace Prisma {
     lastName?: StringFilter<"Profile"> | string
     phone?: StringNullableFilter<"Profile"> | string | null
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
+    businessName?: StringNullableFilter<"Profile"> | string | null
     bio?: StringNullableFilter<"Profile"> | string | null
     abn?: StringNullableFilter<"Profile"> | string | null
     addressLine1?: StringNullableFilter<"Profile"> | string | null
@@ -15484,6 +19454,8 @@ export namespace Prisma {
     suburb?: StringNullableFilter<"Profile"> | string | null
     state?: StringNullableFilter<"Profile"> | string | null
     postcode?: StringNullableFilter<"Profile"> | string | null
+    latitude?: FloatNullableFilter<"Profile"> | number | null
+    longitude?: FloatNullableFilter<"Profile"> | number | null
     licenceNo?: StringNullableFilter<"Profile"> | string | null
     isAvailable?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
@@ -15500,6 +19472,7 @@ export namespace Prisma {
     lastName?: SortOrder
     phone?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    businessName?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     abn?: SortOrderInput | SortOrder
     addressLine1?: SortOrderInput | SortOrder
@@ -15507,13 +19480,17 @@ export namespace Prisma {
     suburb?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     postcode?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     licenceNo?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
+    _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
     _min?: ProfileMinOrderByAggregateInput
+    _sum?: ProfileSumOrderByAggregateInput
   }
 
   export type ProfileScalarWhereWithAggregatesInput = {
@@ -15526,6 +19503,7 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter<"Profile"> | string
     phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     avatarUrl?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    businessName?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     bio?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     abn?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     addressLine1?: StringNullableWithAggregatesFilter<"Profile"> | string | null
@@ -15533,6 +19511,8 @@ export namespace Prisma {
     suburb?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     state?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     postcode?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    latitude?: FloatNullableWithAggregatesFilter<"Profile"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Profile"> | number | null
     licenceNo?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     isAvailable?: BoolWithAggregatesFilter<"Profile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -15845,6 +19825,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFilter<"Booking"> | Date | string
     totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Booking"> | string | null
+    declineReason?: StringNullableFilter<"Booking"> | string | null
+    cancelReason?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
@@ -15852,6 +19834,8 @@ export namespace Prisma {
     tradie?: XOR<UserScalarRelationFilter, UserWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
+    quote?: XOR<QuoteNullableScalarRelationFilter, QuoteWhereInput> | null
+    statusHistory?: BookingStatusHistoryListRelationFilter
   }
 
   export type BookingOrderByWithRelationInput = {
@@ -15863,6 +19847,8 @@ export namespace Prisma {
     scheduledAt?: SortOrder
     totalAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
+    declineReason?: SortOrderInput | SortOrder
+    cancelReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     job?: JobOrderByWithRelationInput
@@ -15870,6 +19856,8 @@ export namespace Prisma {
     tradie?: UserOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
     review?: ReviewOrderByWithRelationInput
+    quote?: QuoteOrderByWithRelationInput
+    statusHistory?: BookingStatusHistoryOrderByRelationAggregateInput
   }
 
   export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -15884,6 +19872,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFilter<"Booking"> | Date | string
     totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Booking"> | string | null
+    declineReason?: StringNullableFilter<"Booking"> | string | null
+    cancelReason?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
@@ -15891,6 +19881,8 @@ export namespace Prisma {
     tradie?: XOR<UserScalarRelationFilter, UserWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
+    quote?: XOR<QuoteNullableScalarRelationFilter, QuoteWhereInput> | null
+    statusHistory?: BookingStatusHistoryListRelationFilter
   }, "id" | "jobId">
 
   export type BookingOrderByWithAggregationInput = {
@@ -15902,6 +19894,8 @@ export namespace Prisma {
     scheduledAt?: SortOrder
     totalAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
+    declineReason?: SortOrderInput | SortOrder
+    cancelReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BookingCountOrderByAggregateInput
@@ -15923,8 +19917,217 @@ export namespace Prisma {
     scheduledAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     totalAmount?: DecimalWithAggregatesFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    declineReason?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    cancelReason?: StringNullableWithAggregatesFilter<"Booking"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  }
+
+  export type BookingStatusHistoryWhereInput = {
+    AND?: BookingStatusHistoryWhereInput | BookingStatusHistoryWhereInput[]
+    OR?: BookingStatusHistoryWhereInput[]
+    NOT?: BookingStatusHistoryWhereInput | BookingStatusHistoryWhereInput[]
+    id?: StringFilter<"BookingStatusHistory"> | string
+    bookingId?: StringFilter<"BookingStatusHistory"> | string
+    fromStatus?: EnumBookingStatusNullableFilter<"BookingStatusHistory"> | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFilter<"BookingStatusHistory"> | $Enums.BookingStatus
+    changedBy?: StringFilter<"BookingStatusHistory"> | string
+    reason?: StringNullableFilter<"BookingStatusHistory"> | string | null
+    createdAt?: DateTimeFilter<"BookingStatusHistory"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+  }
+
+  export type BookingStatusHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    fromStatus?: SortOrderInput | SortOrder
+    toStatus?: SortOrder
+    changedBy?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    booking?: BookingOrderByWithRelationInput
+  }
+
+  export type BookingStatusHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BookingStatusHistoryWhereInput | BookingStatusHistoryWhereInput[]
+    OR?: BookingStatusHistoryWhereInput[]
+    NOT?: BookingStatusHistoryWhereInput | BookingStatusHistoryWhereInput[]
+    bookingId?: StringFilter<"BookingStatusHistory"> | string
+    fromStatus?: EnumBookingStatusNullableFilter<"BookingStatusHistory"> | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFilter<"BookingStatusHistory"> | $Enums.BookingStatus
+    changedBy?: StringFilter<"BookingStatusHistory"> | string
+    reason?: StringNullableFilter<"BookingStatusHistory"> | string | null
+    createdAt?: DateTimeFilter<"BookingStatusHistory"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+  }, "id">
+
+  export type BookingStatusHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    fromStatus?: SortOrderInput | SortOrder
+    toStatus?: SortOrder
+    changedBy?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: BookingStatusHistoryCountOrderByAggregateInput
+    _max?: BookingStatusHistoryMaxOrderByAggregateInput
+    _min?: BookingStatusHistoryMinOrderByAggregateInput
+  }
+
+  export type BookingStatusHistoryScalarWhereWithAggregatesInput = {
+    AND?: BookingStatusHistoryScalarWhereWithAggregatesInput | BookingStatusHistoryScalarWhereWithAggregatesInput[]
+    OR?: BookingStatusHistoryScalarWhereWithAggregatesInput[]
+    NOT?: BookingStatusHistoryScalarWhereWithAggregatesInput | BookingStatusHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BookingStatusHistory"> | string
+    bookingId?: StringWithAggregatesFilter<"BookingStatusHistory"> | string
+    fromStatus?: EnumBookingStatusNullableWithAggregatesFilter<"BookingStatusHistory"> | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusWithAggregatesFilter<"BookingStatusHistory"> | $Enums.BookingStatus
+    changedBy?: StringWithAggregatesFilter<"BookingStatusHistory"> | string
+    reason?: StringNullableWithAggregatesFilter<"BookingStatusHistory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BookingStatusHistory"> | Date | string
+  }
+
+  export type QuoteWhereInput = {
+    AND?: QuoteWhereInput | QuoteWhereInput[]
+    OR?: QuoteWhereInput[]
+    NOT?: QuoteWhereInput | QuoteWhereInput[]
+    id?: StringFilter<"Quote"> | string
+    bookingId?: StringFilter<"Quote"> | string
+    status?: EnumQuoteStatusFilter<"Quote"> | $Enums.QuoteStatus
+    subtotal?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    expiresAt?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    updatedAt?: DateTimeFilter<"Quote"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+    lineItems?: QuoteLineItemListRelationFilter
+  }
+
+  export type QuoteOrderByWithRelationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    status?: SortOrder
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    booking?: BookingOrderByWithRelationInput
+    lineItems?: QuoteLineItemOrderByRelationAggregateInput
+  }
+
+  export type QuoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    bookingId?: string
+    AND?: QuoteWhereInput | QuoteWhereInput[]
+    OR?: QuoteWhereInput[]
+    NOT?: QuoteWhereInput | QuoteWhereInput[]
+    status?: EnumQuoteStatusFilter<"Quote"> | $Enums.QuoteStatus
+    subtotal?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    expiresAt?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    updatedAt?: DateTimeFilter<"Quote"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+    lineItems?: QuoteLineItemListRelationFilter
+  }, "id" | "bookingId">
+
+  export type QuoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    status?: SortOrder
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QuoteCountOrderByAggregateInput
+    _avg?: QuoteAvgOrderByAggregateInput
+    _max?: QuoteMaxOrderByAggregateInput
+    _min?: QuoteMinOrderByAggregateInput
+    _sum?: QuoteSumOrderByAggregateInput
+  }
+
+  export type QuoteScalarWhereWithAggregatesInput = {
+    AND?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
+    OR?: QuoteScalarWhereWithAggregatesInput[]
+    NOT?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Quote"> | string
+    bookingId?: StringWithAggregatesFilter<"Quote"> | string
+    status?: EnumQuoteStatusWithAggregatesFilter<"Quote"> | $Enums.QuoteStatus
+    subtotal?: DecimalWithAggregatesFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    gst?: DecimalWithAggregatesFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalWithAggregatesFilter<"Quote"> | Decimal | DecimalJsLike | number | string
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
+  }
+
+  export type QuoteLineItemWhereInput = {
+    AND?: QuoteLineItemWhereInput | QuoteLineItemWhereInput[]
+    OR?: QuoteLineItemWhereInput[]
+    NOT?: QuoteLineItemWhereInput | QuoteLineItemWhereInput[]
+    id?: StringFilter<"QuoteLineItem"> | string
+    quoteId?: StringFilter<"QuoteLineItem"> | string
+    description?: StringFilter<"QuoteLineItem"> | string
+    quantity?: IntFilter<"QuoteLineItem"> | number
+    unitPrice?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    quote?: XOR<QuoteScalarRelationFilter, QuoteWhereInput>
+  }
+
+  export type QuoteLineItemOrderByWithRelationInput = {
+    id?: SortOrder
+    quoteId?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+    quote?: QuoteOrderByWithRelationInput
+  }
+
+  export type QuoteLineItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QuoteLineItemWhereInput | QuoteLineItemWhereInput[]
+    OR?: QuoteLineItemWhereInput[]
+    NOT?: QuoteLineItemWhereInput | QuoteLineItemWhereInput[]
+    quoteId?: StringFilter<"QuoteLineItem"> | string
+    description?: StringFilter<"QuoteLineItem"> | string
+    quantity?: IntFilter<"QuoteLineItem"> | number
+    unitPrice?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    quote?: XOR<QuoteScalarRelationFilter, QuoteWhereInput>
+  }, "id">
+
+  export type QuoteLineItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    quoteId?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+    _count?: QuoteLineItemCountOrderByAggregateInput
+    _avg?: QuoteLineItemAvgOrderByAggregateInput
+    _max?: QuoteLineItemMaxOrderByAggregateInput
+    _min?: QuoteLineItemMinOrderByAggregateInput
+    _sum?: QuoteLineItemSumOrderByAggregateInput
+  }
+
+  export type QuoteLineItemScalarWhereWithAggregatesInput = {
+    AND?: QuoteLineItemScalarWhereWithAggregatesInput | QuoteLineItemScalarWhereWithAggregatesInput[]
+    OR?: QuoteLineItemScalarWhereWithAggregatesInput[]
+    NOT?: QuoteLineItemScalarWhereWithAggregatesInput | QuoteLineItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"QuoteLineItem"> | string
+    quoteId?: StringWithAggregatesFilter<"QuoteLineItem"> | string
+    description?: StringWithAggregatesFilter<"QuoteLineItem"> | string
+    quantity?: IntWithAggregatesFilter<"QuoteLineItem"> | number
+    unitPrice?: DecimalWithAggregatesFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    amount?: DecimalWithAggregatesFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
   }
 
   export type PaymentWhereInput = {
@@ -16352,6 +20555,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -16359,6 +20563,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -16375,6 +20581,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -16382,6 +20589,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -16396,6 +20605,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16403,6 +20613,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16419,6 +20631,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16426,6 +20639,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16441,6 +20656,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -16448,6 +20664,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -16460,6 +20678,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16467,6 +20686,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16480,6 +20701,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16487,6 +20709,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16810,6 +21034,8 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutBookingInput
@@ -16817,6 +21043,8 @@ export namespace Prisma {
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateInput = {
@@ -16828,10 +21056,14 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUpdateInput = {
@@ -16840,6 +21072,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutBookingNestedInput
@@ -16847,6 +21081,8 @@ export namespace Prisma {
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateInput = {
@@ -16858,10 +21094,14 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingCreateManyInput = {
@@ -16873,6 +21113,8 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16883,6 +21125,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16896,8 +21140,228 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryCreateInput = {
+    id?: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+    booking: BookingCreateNestedOneWithoutStatusHistoryInput
+  }
+
+  export type BookingStatusHistoryUncheckedCreateInput = {
+    id?: string
+    bookingId: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BookingStatusHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutStatusHistoryNestedInput
+  }
+
+  export type BookingStatusHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryCreateManyInput = {
+    id?: string
+    bookingId: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BookingStatusHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QuoteCreateInput = {
+    id?: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking: BookingCreateNestedOneWithoutQuoteInput
+    lineItems?: QuoteLineItemCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateInput = {
+    id?: string
+    bookingId: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lineItems?: QuoteLineItemUncheckedCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutQuoteNestedInput
+    lineItems?: QuoteLineItemUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lineItems?: QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteCreateManyInput = {
+    id?: string
+    bookingId: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QuoteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QuoteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QuoteLineItemCreateInput = {
+    id?: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+    quote: QuoteCreateNestedOneWithoutLineItemsInput
+  }
+
+  export type QuoteLineItemUncheckedCreateInput = {
+    id?: string
+    quoteId: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quote?: QuoteUpdateOneRequiredWithoutLineItemsNestedInput
+  }
+
+  export type QuoteLineItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quoteId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemCreateManyInput = {
+    id?: string
+    quoteId: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quoteId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type PaymentCreateInput = {
@@ -17438,6 +21902,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type TradieSpecialisationListRelationFilter = {
     every?: TradieSpecialisationWhereInput
     some?: TradieSpecialisationWhereInput
@@ -17470,6 +21945,7 @@ export namespace Prisma {
     lastName?: SortOrder
     phone?: SortOrder
     avatarUrl?: SortOrder
+    businessName?: SortOrder
     bio?: SortOrder
     abn?: SortOrder
     addressLine1?: SortOrder
@@ -17477,10 +21953,17 @@ export namespace Prisma {
     suburb?: SortOrder
     state?: SortOrder
     postcode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     licenceNo?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ProfileAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -17490,6 +21973,7 @@ export namespace Prisma {
     lastName?: SortOrder
     phone?: SortOrder
     avatarUrl?: SortOrder
+    businessName?: SortOrder
     bio?: SortOrder
     abn?: SortOrder
     addressLine1?: SortOrder
@@ -17497,6 +21981,8 @@ export namespace Prisma {
     suburb?: SortOrder
     state?: SortOrder
     postcode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     licenceNo?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
@@ -17510,6 +21996,7 @@ export namespace Prisma {
     lastName?: SortOrder
     phone?: SortOrder
     avatarUrl?: SortOrder
+    businessName?: SortOrder
     bio?: SortOrder
     abn?: SortOrder
     addressLine1?: SortOrder
@@ -17517,10 +22004,33 @@ export namespace Prisma {
     suburb?: SortOrder
     state?: SortOrder
     postcode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     licenceNo?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ProfileSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type EnumDayOfWeekFilter<$PrismaModel = never> = {
@@ -17824,6 +22334,21 @@ export namespace Prisma {
     isNot?: ReviewWhereInput | null
   }
 
+  export type QuoteNullableScalarRelationFilter = {
+    is?: QuoteWhereInput | null
+    isNot?: QuoteWhereInput | null
+  }
+
+  export type BookingStatusHistoryListRelationFilter = {
+    every?: BookingStatusHistoryWhereInput
+    some?: BookingStatusHistoryWhereInput
+    none?: BookingStatusHistoryWhereInput
+  }
+
+  export type BookingStatusHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BookingCountOrderByAggregateInput = {
     id?: SortOrder
     jobId?: SortOrder
@@ -17833,6 +22358,8 @@ export namespace Prisma {
     scheduledAt?: SortOrder
     totalAmount?: SortOrder
     notes?: SortOrder
+    declineReason?: SortOrder
+    cancelReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17850,6 +22377,8 @@ export namespace Prisma {
     scheduledAt?: SortOrder
     totalAmount?: SortOrder
     notes?: SortOrder
+    declineReason?: SortOrder
+    cancelReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17863,6 +22392,8 @@ export namespace Prisma {
     scheduledAt?: SortOrder
     totalAmount?: SortOrder
     notes?: SortOrder
+    declineReason?: SortOrder
+    cancelReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17897,16 +22428,209 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type EnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type EnumBookingStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBookingStatusNullableFilter<$PrismaModel> | $Enums.BookingStatus | null
   }
 
   export type BookingScalarRelationFilter = {
     is?: BookingWhereInput
     isNot?: BookingWhereInput
+  }
+
+  export type BookingStatusHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    fromStatus?: SortOrder
+    toStatus?: SortOrder
+    changedBy?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BookingStatusHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    fromStatus?: SortOrder
+    toStatus?: SortOrder
+    changedBy?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BookingStatusHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    fromStatus?: SortOrder
+    toStatus?: SortOrder
+    changedBy?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBookingStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  }
+
+  export type EnumQuoteStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteStatus | EnumQuoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteStatusFilter<$PrismaModel> | $Enums.QuoteStatus
+  }
+
+  export type QuoteLineItemListRelationFilter = {
+    every?: QuoteLineItemWhereInput
+    some?: QuoteLineItemWhereInput
+    none?: QuoteLineItemWhereInput
+  }
+
+  export type QuoteLineItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QuoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    status?: SortOrder
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QuoteAvgOrderByAggregateInput = {
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+  }
+
+  export type QuoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    status?: SortOrder
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QuoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    status?: SortOrder
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QuoteSumOrderByAggregateInput = {
+    subtotal?: SortOrder
+    gst?: SortOrder
+    total?: SortOrder
+  }
+
+  export type EnumQuoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteStatus | EnumQuoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.QuoteStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQuoteStatusFilter<$PrismaModel>
+    _max?: NestedEnumQuoteStatusFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type QuoteScalarRelationFilter = {
+    is?: QuoteWhereInput
+    isNot?: QuoteWhereInput
+  }
+
+  export type QuoteLineItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    quoteId?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type QuoteLineItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type QuoteLineItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    quoteId?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type QuoteLineItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    quoteId?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type QuoteLineItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
   }
 
   export type PaymentCountOrderByAggregateInput = {
@@ -17965,17 +22689,6 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type ReviewCountOrderByAggregateInput = {
     id?: SortOrder
     bookingId?: SortOrder
@@ -18012,22 +22725,6 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
@@ -18526,6 +23223,14 @@ export namespace Prisma {
     connect?: TradieAvailabilitySlotWhereUniqueInput | TradieAvailabilitySlotWhereUniqueInput[]
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type TradieSpecialisationUpdateManyWithoutProfileNestedInput = {
     create?: XOR<TradieSpecialisationCreateWithoutProfileInput, TradieSpecialisationUncheckedCreateWithoutProfileInput> | TradieSpecialisationCreateWithoutProfileInput[] | TradieSpecialisationUncheckedCreateWithoutProfileInput[]
     connectOrCreate?: TradieSpecialisationCreateOrConnectWithoutProfileInput | TradieSpecialisationCreateOrConnectWithoutProfileInput[]
@@ -18790,6 +23495,19 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput
   }
 
+  export type QuoteCreateNestedOneWithoutBookingInput = {
+    create?: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutBookingInput
+    connect?: QuoteWhereUniqueInput
+  }
+
+  export type BookingStatusHistoryCreateNestedManyWithoutBookingInput = {
+    create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
+    createMany?: BookingStatusHistoryCreateManyBookingInputEnvelope
+    connect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+  }
+
   export type PaymentUncheckedCreateNestedOneWithoutBookingInput = {
     create?: XOR<PaymentCreateWithoutBookingInput, PaymentUncheckedCreateWithoutBookingInput>
     connectOrCreate?: PaymentCreateOrConnectWithoutBookingInput
@@ -18800,6 +23518,19 @@ export namespace Prisma {
     create?: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
     connectOrCreate?: ReviewCreateOrConnectWithoutBookingInput
     connect?: ReviewWhereUniqueInput
+  }
+
+  export type QuoteUncheckedCreateNestedOneWithoutBookingInput = {
+    create?: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutBookingInput
+    connect?: QuoteWhereUniqueInput
+  }
+
+  export type BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput = {
+    create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
+    createMany?: BookingStatusHistoryCreateManyBookingInputEnvelope
+    connect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
   }
 
   export type EnumBookingStatusFieldUpdateOperationsInput = {
@@ -18858,6 +23589,30 @@ export namespace Prisma {
     update?: XOR<XOR<ReviewUpdateToOneWithWhereWithoutBookingInput, ReviewUpdateWithoutBookingInput>, ReviewUncheckedUpdateWithoutBookingInput>
   }
 
+  export type QuoteUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutBookingInput
+    upsert?: QuoteUpsertWithoutBookingInput
+    disconnect?: QuoteWhereInput | boolean
+    delete?: QuoteWhereInput | boolean
+    connect?: QuoteWhereUniqueInput
+    update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutBookingInput, QuoteUpdateWithoutBookingInput>, QuoteUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
+    upsert?: BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput | BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: BookingStatusHistoryCreateManyBookingInputEnvelope
+    set?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    disconnect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    delete?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    connect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    update?: BookingStatusHistoryUpdateWithWhereUniqueWithoutBookingInput | BookingStatusHistoryUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: BookingStatusHistoryUpdateManyWithWhereWithoutBookingInput | BookingStatusHistoryUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: BookingStatusHistoryScalarWhereInput | BookingStatusHistoryScalarWhereInput[]
+  }
+
   export type PaymentUncheckedUpdateOneWithoutBookingNestedInput = {
     create?: XOR<PaymentCreateWithoutBookingInput, PaymentUncheckedCreateWithoutBookingInput>
     connectOrCreate?: PaymentCreateOrConnectWithoutBookingInput
@@ -18876,6 +23631,130 @@ export namespace Prisma {
     delete?: ReviewWhereInput | boolean
     connect?: ReviewWhereUniqueInput
     update?: XOR<XOR<ReviewUpdateToOneWithWhereWithoutBookingInput, ReviewUpdateWithoutBookingInput>, ReviewUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type QuoteUncheckedUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutBookingInput
+    upsert?: QuoteUpsertWithoutBookingInput
+    disconnect?: QuoteWhereInput | boolean
+    delete?: QuoteWhereInput | boolean
+    connect?: QuoteWhereUniqueInput
+    update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutBookingInput, QuoteUpdateWithoutBookingInput>, QuoteUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
+    upsert?: BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput | BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: BookingStatusHistoryCreateManyBookingInputEnvelope
+    set?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    disconnect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    delete?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    connect?: BookingStatusHistoryWhereUniqueInput | BookingStatusHistoryWhereUniqueInput[]
+    update?: BookingStatusHistoryUpdateWithWhereUniqueWithoutBookingInput | BookingStatusHistoryUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: BookingStatusHistoryUpdateManyWithWhereWithoutBookingInput | BookingStatusHistoryUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: BookingStatusHistoryScalarWhereInput | BookingStatusHistoryScalarWhereInput[]
+  }
+
+  export type BookingCreateNestedOneWithoutStatusHistoryInput = {
+    create?: XOR<BookingCreateWithoutStatusHistoryInput, BookingUncheckedCreateWithoutStatusHistoryInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutStatusHistoryInput
+    connect?: BookingWhereUniqueInput
+  }
+
+  export type NullableEnumBookingStatusFieldUpdateOperationsInput = {
+    set?: $Enums.BookingStatus | null
+  }
+
+  export type BookingUpdateOneRequiredWithoutStatusHistoryNestedInput = {
+    create?: XOR<BookingCreateWithoutStatusHistoryInput, BookingUncheckedCreateWithoutStatusHistoryInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutStatusHistoryInput
+    upsert?: BookingUpsertWithoutStatusHistoryInput
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutStatusHistoryInput, BookingUpdateWithoutStatusHistoryInput>, BookingUncheckedUpdateWithoutStatusHistoryInput>
+  }
+
+  export type BookingCreateNestedOneWithoutQuoteInput = {
+    create?: XOR<BookingCreateWithoutQuoteInput, BookingUncheckedCreateWithoutQuoteInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutQuoteInput
+    connect?: BookingWhereUniqueInput
+  }
+
+  export type QuoteLineItemCreateNestedManyWithoutQuoteInput = {
+    create?: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput> | QuoteLineItemCreateWithoutQuoteInput[] | QuoteLineItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteLineItemCreateOrConnectWithoutQuoteInput | QuoteLineItemCreateOrConnectWithoutQuoteInput[]
+    createMany?: QuoteLineItemCreateManyQuoteInputEnvelope
+    connect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+  }
+
+  export type QuoteLineItemUncheckedCreateNestedManyWithoutQuoteInput = {
+    create?: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput> | QuoteLineItemCreateWithoutQuoteInput[] | QuoteLineItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteLineItemCreateOrConnectWithoutQuoteInput | QuoteLineItemCreateOrConnectWithoutQuoteInput[]
+    createMany?: QuoteLineItemCreateManyQuoteInputEnvelope
+    connect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+  }
+
+  export type EnumQuoteStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QuoteStatus
+  }
+
+  export type BookingUpdateOneRequiredWithoutQuoteNestedInput = {
+    create?: XOR<BookingCreateWithoutQuoteInput, BookingUncheckedCreateWithoutQuoteInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutQuoteInput
+    upsert?: BookingUpsertWithoutQuoteInput
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutQuoteInput, BookingUpdateWithoutQuoteInput>, BookingUncheckedUpdateWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemUpdateManyWithoutQuoteNestedInput = {
+    create?: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput> | QuoteLineItemCreateWithoutQuoteInput[] | QuoteLineItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteLineItemCreateOrConnectWithoutQuoteInput | QuoteLineItemCreateOrConnectWithoutQuoteInput[]
+    upsert?: QuoteLineItemUpsertWithWhereUniqueWithoutQuoteInput | QuoteLineItemUpsertWithWhereUniqueWithoutQuoteInput[]
+    createMany?: QuoteLineItemCreateManyQuoteInputEnvelope
+    set?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    disconnect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    delete?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    connect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    update?: QuoteLineItemUpdateWithWhereUniqueWithoutQuoteInput | QuoteLineItemUpdateWithWhereUniqueWithoutQuoteInput[]
+    updateMany?: QuoteLineItemUpdateManyWithWhereWithoutQuoteInput | QuoteLineItemUpdateManyWithWhereWithoutQuoteInput[]
+    deleteMany?: QuoteLineItemScalarWhereInput | QuoteLineItemScalarWhereInput[]
+  }
+
+  export type QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput = {
+    create?: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput> | QuoteLineItemCreateWithoutQuoteInput[] | QuoteLineItemUncheckedCreateWithoutQuoteInput[]
+    connectOrCreate?: QuoteLineItemCreateOrConnectWithoutQuoteInput | QuoteLineItemCreateOrConnectWithoutQuoteInput[]
+    upsert?: QuoteLineItemUpsertWithWhereUniqueWithoutQuoteInput | QuoteLineItemUpsertWithWhereUniqueWithoutQuoteInput[]
+    createMany?: QuoteLineItemCreateManyQuoteInputEnvelope
+    set?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    disconnect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    delete?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    connect?: QuoteLineItemWhereUniqueInput | QuoteLineItemWhereUniqueInput[]
+    update?: QuoteLineItemUpdateWithWhereUniqueWithoutQuoteInput | QuoteLineItemUpdateWithWhereUniqueWithoutQuoteInput[]
+    updateMany?: QuoteLineItemUpdateManyWithWhereWithoutQuoteInput | QuoteLineItemUpdateManyWithWhereWithoutQuoteInput[]
+    deleteMany?: QuoteLineItemScalarWhereInput | QuoteLineItemScalarWhereInput[]
+  }
+
+  export type QuoteCreateNestedOneWithoutLineItemsInput = {
+    create?: XOR<QuoteCreateWithoutLineItemsInput, QuoteUncheckedCreateWithoutLineItemsInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutLineItemsInput
+    connect?: QuoteWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type QuoteUpdateOneRequiredWithoutLineItemsNestedInput = {
+    create?: XOR<QuoteCreateWithoutLineItemsInput, QuoteUncheckedCreateWithoutLineItemsInput>
+    connectOrCreate?: QuoteCreateOrConnectWithoutLineItemsInput
+    upsert?: QuoteUpsertWithoutLineItemsInput
+    connect?: QuoteWhereUniqueInput
+    update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutLineItemsInput, QuoteUpdateWithoutLineItemsInput>, QuoteUncheckedUpdateWithoutLineItemsInput>
   }
 
   export type BookingCreateNestedOneWithoutPaymentInput = {
@@ -18912,14 +23791,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutReviewsRecievedInput, UserUncheckedCreateWithoutReviewsRecievedInput>
     connectOrCreate?: UserCreateOrConnectWithoutReviewsRecievedInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type BookingUpdateOneRequiredWithoutReviewNestedInput = {
@@ -19142,6 +24013,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumDayOfWeekFilter<$PrismaModel = never> = {
     equals?: $Enums.DayOfWeek | EnumDayOfWeekFieldRefInput<$PrismaModel>
     in?: $Enums.DayOfWeek[] | ListEnumDayOfWeekFieldRefInput<$PrismaModel>
@@ -19173,17 +24071,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
@@ -19274,21 +24161,38 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type NestedEnumBookingStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBookingStatusNullableFilter<$PrismaModel> | $Enums.BookingStatus | null
   }
 
-  export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBookingStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQuoteStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteStatus | EnumQuoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteStatusFilter<$PrismaModel> | $Enums.QuoteStatus
+  }
+
+  export type NestedEnumQuoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuoteStatus | EnumQuoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuoteStatus[] | ListEnumQuoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.QuoteStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
-    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+    _min?: NestedEnumQuoteStatusFilter<$PrismaModel>
+    _max?: NestedEnumQuoteStatusFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19318,6 +24222,23 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  }
+
+  export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
+    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -19341,6 +24262,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -19348,6 +24270,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -19362,6 +24286,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -19369,6 +24294,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -19488,12 +24415,16 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutBookingInput
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutCustomerInput = {
@@ -19504,10 +24435,14 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutCustomerInput = {
@@ -19526,12 +24461,16 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutBookingInput
     customer: UserCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutTradieInput = {
@@ -19542,10 +24481,14 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutTradieInput = {
@@ -19684,6 +24627,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19691,6 +24635,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19705,6 +24651,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19712,6 +24659,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19802,6 +24751,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFilter<"Booking"> | Date | string
     totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Booking"> | string | null
+    declineReason?: StringNullableFilter<"Booking"> | string | null
+    cancelReason?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
   }
@@ -20144,6 +25095,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -20151,6 +25103,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -20166,6 +25120,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -20173,6 +25128,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -20202,6 +25159,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20209,6 +25167,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20224,6 +25184,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20231,6 +25192,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20244,6 +25207,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -20251,6 +25215,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -20266,6 +25232,7 @@ export namespace Prisma {
     lastName: string
     phone?: string | null
     avatarUrl?: string | null
+    businessName?: string | null
     bio?: string | null
     abn?: string | null
     addressLine1?: string | null
@@ -20273,6 +25240,8 @@ export namespace Prisma {
     suburb?: string | null
     state?: string | null
     postcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
     licenceNo?: string | null
     isAvailable?: boolean
     createdAt?: Date | string
@@ -20302,6 +25271,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20309,6 +25279,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20324,6 +25296,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     abn?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20331,6 +25304,8 @@ export namespace Prisma {
     suburb?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     postcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     licenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20442,12 +25417,16 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: UserCreateNestedOneWithoutBookingsInput
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutJobInput = {
@@ -20458,10 +25437,14 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutJobInput = {
@@ -20618,12 +25601,16 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutJobInput = {
@@ -20634,10 +25621,14 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type JobImageUpsertWithWhereUniqueWithoutJobInput = {
@@ -20955,6 +25946,63 @@ export namespace Prisma {
     create: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
   }
 
+  export type QuoteCreateWithoutBookingInput = {
+    id?: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lineItems?: QuoteLineItemCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateWithoutBookingInput = {
+    id?: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lineItems?: QuoteLineItemUncheckedCreateNestedManyWithoutQuoteInput
+  }
+
+  export type QuoteCreateOrConnectWithoutBookingInput = {
+    where: QuoteWhereUniqueInput
+    create: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryCreateWithoutBookingInput = {
+    id?: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BookingStatusHistoryUncheckedCreateWithoutBookingInput = {
+    id?: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BookingStatusHistoryCreateOrConnectWithoutBookingInput = {
+    where: BookingStatusHistoryWhereUniqueInput
+    create: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryCreateManyBookingInputEnvelope = {
+    data: BookingStatusHistoryCreateManyBookingInput | BookingStatusHistoryCreateManyBookingInput[]
+    skipDuplicates?: boolean
+  }
+
   export type JobUpsertWithoutBookingInput = {
     update: XOR<JobUpdateWithoutBookingInput, JobUncheckedUpdateWithoutBookingInput>
     create: XOR<JobCreateWithoutBookingInput, JobUncheckedCreateWithoutBookingInput>
@@ -21178,18 +26226,380 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type QuoteUpsertWithoutBookingInput = {
+    update: XOR<QuoteUpdateWithoutBookingInput, QuoteUncheckedUpdateWithoutBookingInput>
+    create: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+    where?: QuoteWhereInput
+  }
+
+  export type QuoteUpdateToOneWithWhereWithoutBookingInput = {
+    where?: QuoteWhereInput
+    data: XOR<QuoteUpdateWithoutBookingInput, QuoteUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type QuoteUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lineItems?: QuoteLineItemUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lineItems?: QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput
+  }
+
+  export type BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput = {
+    where: BookingStatusHistoryWhereUniqueInput
+    update: XOR<BookingStatusHistoryUpdateWithoutBookingInput, BookingStatusHistoryUncheckedUpdateWithoutBookingInput>
+    create: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryUpdateWithWhereUniqueWithoutBookingInput = {
+    where: BookingStatusHistoryWhereUniqueInput
+    data: XOR<BookingStatusHistoryUpdateWithoutBookingInput, BookingStatusHistoryUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryUpdateManyWithWhereWithoutBookingInput = {
+    where: BookingStatusHistoryScalarWhereInput
+    data: XOR<BookingStatusHistoryUpdateManyMutationInput, BookingStatusHistoryUncheckedUpdateManyWithoutBookingInput>
+  }
+
+  export type BookingStatusHistoryScalarWhereInput = {
+    AND?: BookingStatusHistoryScalarWhereInput | BookingStatusHistoryScalarWhereInput[]
+    OR?: BookingStatusHistoryScalarWhereInput[]
+    NOT?: BookingStatusHistoryScalarWhereInput | BookingStatusHistoryScalarWhereInput[]
+    id?: StringFilter<"BookingStatusHistory"> | string
+    bookingId?: StringFilter<"BookingStatusHistory"> | string
+    fromStatus?: EnumBookingStatusNullableFilter<"BookingStatusHistory"> | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFilter<"BookingStatusHistory"> | $Enums.BookingStatus
+    changedBy?: StringFilter<"BookingStatusHistory"> | string
+    reason?: StringNullableFilter<"BookingStatusHistory"> | string | null
+    createdAt?: DateTimeFilter<"BookingStatusHistory"> | Date | string
+  }
+
+  export type BookingCreateWithoutStatusHistoryInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    job: JobCreateNestedOneWithoutBookingInput
+    customer: UserCreateNestedOneWithoutBookingsInput
+    tradie: UserCreateNestedOneWithoutAssignJobsInput
+    payment?: PaymentCreateNestedOneWithoutBookingInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutStatusHistoryInput = {
+    id?: string
+    jobId: string
+    customerId: string
+    tradieId: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutStatusHistoryInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutStatusHistoryInput, BookingUncheckedCreateWithoutStatusHistoryInput>
+  }
+
+  export type BookingUpsertWithoutStatusHistoryInput = {
+    update: XOR<BookingUpdateWithoutStatusHistoryInput, BookingUncheckedUpdateWithoutStatusHistoryInput>
+    create: XOR<BookingCreateWithoutStatusHistoryInput, BookingUncheckedCreateWithoutStatusHistoryInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutStatusHistoryInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutStatusHistoryInput, BookingUncheckedUpdateWithoutStatusHistoryInput>
+  }
+
+  export type BookingUpdateWithoutStatusHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    job?: JobUpdateOneRequiredWithoutBookingNestedInput
+    customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
+    payment?: PaymentUpdateOneWithoutBookingNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutStatusHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+  }
+
+  export type BookingCreateWithoutQuoteInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    job: JobCreateNestedOneWithoutBookingInput
+    customer: UserCreateNestedOneWithoutBookingsInput
+    tradie: UserCreateNestedOneWithoutAssignJobsInput
+    payment?: PaymentCreateNestedOneWithoutBookingInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutQuoteInput = {
+    id?: string
+    jobId: string
+    customerId: string
+    tradieId: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutQuoteInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutQuoteInput, BookingUncheckedCreateWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemCreateWithoutQuoteInput = {
+    id?: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUncheckedCreateWithoutQuoteInput = {
+    id?: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemCreateOrConnectWithoutQuoteInput = {
+    where: QuoteLineItemWhereUniqueInput
+    create: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemCreateManyQuoteInputEnvelope = {
+    data: QuoteLineItemCreateManyQuoteInput | QuoteLineItemCreateManyQuoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BookingUpsertWithoutQuoteInput = {
+    update: XOR<BookingUpdateWithoutQuoteInput, BookingUncheckedUpdateWithoutQuoteInput>
+    create: XOR<BookingCreateWithoutQuoteInput, BookingUncheckedCreateWithoutQuoteInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutQuoteInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutQuoteInput, BookingUncheckedUpdateWithoutQuoteInput>
+  }
+
+  export type BookingUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    job?: JobUpdateOneRequiredWithoutBookingNestedInput
+    customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
+    payment?: PaymentUpdateOneWithoutBookingNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type QuoteLineItemUpsertWithWhereUniqueWithoutQuoteInput = {
+    where: QuoteLineItemWhereUniqueInput
+    update: XOR<QuoteLineItemUpdateWithoutQuoteInput, QuoteLineItemUncheckedUpdateWithoutQuoteInput>
+    create: XOR<QuoteLineItemCreateWithoutQuoteInput, QuoteLineItemUncheckedCreateWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemUpdateWithWhereUniqueWithoutQuoteInput = {
+    where: QuoteLineItemWhereUniqueInput
+    data: XOR<QuoteLineItemUpdateWithoutQuoteInput, QuoteLineItemUncheckedUpdateWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemUpdateManyWithWhereWithoutQuoteInput = {
+    where: QuoteLineItemScalarWhereInput
+    data: XOR<QuoteLineItemUpdateManyMutationInput, QuoteLineItemUncheckedUpdateManyWithoutQuoteInput>
+  }
+
+  export type QuoteLineItemScalarWhereInput = {
+    AND?: QuoteLineItemScalarWhereInput | QuoteLineItemScalarWhereInput[]
+    OR?: QuoteLineItemScalarWhereInput[]
+    NOT?: QuoteLineItemScalarWhereInput | QuoteLineItemScalarWhereInput[]
+    id?: StringFilter<"QuoteLineItem"> | string
+    quoteId?: StringFilter<"QuoteLineItem"> | string
+    description?: StringFilter<"QuoteLineItem"> | string
+    quantity?: IntFilter<"QuoteLineItem"> | number
+    unitPrice?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFilter<"QuoteLineItem"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteCreateWithoutLineItemsInput = {
+    id?: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking: BookingCreateNestedOneWithoutQuoteInput
+  }
+
+  export type QuoteUncheckedCreateWithoutLineItemsInput = {
+    id?: string
+    bookingId: string
+    status?: $Enums.QuoteStatus
+    subtotal: Decimal | DecimalJsLike | number | string
+    gst: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QuoteCreateOrConnectWithoutLineItemsInput = {
+    where: QuoteWhereUniqueInput
+    create: XOR<QuoteCreateWithoutLineItemsInput, QuoteUncheckedCreateWithoutLineItemsInput>
+  }
+
+  export type QuoteUpsertWithoutLineItemsInput = {
+    update: XOR<QuoteUpdateWithoutLineItemsInput, QuoteUncheckedUpdateWithoutLineItemsInput>
+    create: XOR<QuoteCreateWithoutLineItemsInput, QuoteUncheckedCreateWithoutLineItemsInput>
+    where?: QuoteWhereInput
+  }
+
+  export type QuoteUpdateToOneWithWhereWithoutLineItemsInput = {
+    where?: QuoteWhereInput
+    data: XOR<QuoteUpdateWithoutLineItemsInput, QuoteUncheckedUpdateWithoutLineItemsInput>
+  }
+
+  export type QuoteUpdateWithoutLineItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutQuoteNestedInput
+  }
+
+  export type QuoteUncheckedUpdateWithoutLineItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    status?: EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BookingCreateWithoutPaymentInput = {
     id?: string
     status?: $Enums.BookingStatus
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutBookingInput
     customer: UserCreateNestedOneWithoutBookingsInput
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutPaymentInput = {
@@ -21201,9 +26611,13 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutPaymentInput = {
@@ -21228,12 +26642,16 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutBookingNestedInput
     customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutPaymentInput = {
@@ -21245,9 +26663,13 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingCreateWithoutReviewInput = {
@@ -21256,12 +26678,16 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutBookingInput
     customer: UserCreateNestedOneWithoutBookingsInput
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutReviewInput = {
@@ -21273,9 +26699,13 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutReviewInput = {
@@ -21398,12 +26828,16 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutBookingNestedInput
     customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutReviewInput = {
@@ -21415,9 +26849,13 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type UserUpsertWithoutReviewsGivenInput = {
@@ -21782,6 +27220,8 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21794,6 +27234,8 @@ export namespace Prisma {
     scheduledAt: Date | string
     totalAmount: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21948,12 +27390,16 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutBookingNestedInput
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutCustomerInput = {
@@ -21964,10 +27410,14 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutCustomerInput = {
@@ -21978,6 +27428,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21988,12 +27440,16 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutBookingNestedInput
     customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutTradieInput = {
@@ -22004,10 +27460,14 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutTradieInput = {
@@ -22018,6 +27478,8 @@ export namespace Prisma {
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22192,6 +27654,74 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryCreateManyBookingInput = {
+    id?: string
+    fromStatus?: $Enums.BookingStatus | null
+    toStatus: $Enums.BookingStatus
+    changedBy: string
+    reason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BookingStatusHistoryUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingStatusHistoryUncheckedUpdateManyWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+    toStatus?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    changedBy?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QuoteLineItemCreateManyQuoteInput = {
+    id?: string
+    description: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUncheckedUpdateWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type QuoteLineItemUncheckedUpdateManyWithoutQuoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
 

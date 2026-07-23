@@ -58,6 +58,23 @@ export const specialisationParamsSchema = z.object({
   id: z.uuid({ error: "Invalid specialisation ID" }),
 });
 
+export const searchTradiesSchema = z
+  .object({
+    q: z.string().min(1).max(100).optional(),
+    tradieType: z.string().min(1).optional(),
+    suburb: z.string().min(1).optional(),
+    lat: z.coerce.number().min(-90).max(90).optional(),
+    lng: z.coerce.number().min(-180).max(180).optional(),
+    radiusKm: z.coerce.number().positive().max(200).optional(),
+    minRating: z.coerce.number().min(0).max(5).optional(),
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(50).default(20),
+  })
+  .refine((d) => !d.radiusKm || (d.lat !== undefined && d.lng !== undefined), {
+    message: "lat and lng are required when radiusKm is provided",
+    path: ["radiusKm"],
+  });
+
 export type TradieProfileInput = z.infer<typeof tradieProfileSchema>;
 export type UpdateTraideProfileInput = z.infer<
   typeof updateTradieProfileSchema
@@ -66,3 +83,4 @@ export type AddSpecialisationInput = z.infer<typeof addSpecialisationSchema>;
 export type SpecialisationParamsInput = z.infer<
   typeof specialisationParamsSchema
 >;
+export type SearchTradiesInput = z.infer<typeof searchTradiesSchema>;

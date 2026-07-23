@@ -1,5 +1,6 @@
 import {
   AddSpecialisationInput,
+  SearchTradiesInput,
   TradieProfileInput,
   UpdateTraideProfileInput,
 } from "../validators/tradie.validator.js";
@@ -8,6 +9,7 @@ import { prisma } from "../config/db.js";
 import { Prisma } from "../generated/prisma/index.js";
 import { ApiError } from "../utils/ApiError.js";
 import { AvailabilityInput } from "../validators/availability.validators.js";
+import { haversineKm } from "../utils/geo.js";
 
 export const traideProfileService = async (
   data: TradieProfileInput,
@@ -224,4 +226,64 @@ export const removeSpecialisationService = async (
   await prisma.tradieSpecialisation.delete({ where: { id: specialisationId } });
 
   return { id: specialisationId, trade: specialisation.trade };
+};
+
+export const searchTradiesService = async (filters: SearchTradiesInput) => {
+  const where: Prisma.ProfileWhereInput = {
+    user: { role: "TRADIE" },
+  };
+  if (filters.q) {
+    where.OR = [
+      { bio: { contains: filters.q, mode: "insensitive" } },
+      { businessName: { contains: filters.q, mode: "insensitive" } },
+    ];
+  }
+  if (filters.suburb) {
+    where.suburb = { equals: filters.suburb, mode: "insensitive" };
+  }
+  if (filters.tradieType) {
+    where.specialisations = {
+      some: { trade: { equals: filters.tradieType, mode: "insensitive" } },
+    };
+  }
+  const profiles = await prisma.profile.findMany({
+    where,
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      avatarUrl: true,
+      bio: true,
+      suburb: true,
+      state: true,
+      businessName: true,
+      latitude: true,
+      longitude: true,
+      specialisations: { select: { trade: true, yearsExperience: true } },
+    },
+  });
+  let results = profiles;
+  if (
+    filters.radiusKm !== undefined &&
+    filters.lat !== undefined &&
+    filters.lng !== undefined
+  ) {
+    results = profiles.filter((p) => {
+      if (p.latitude === null || p.longitude === null) return false;
+      const distance = haversineKm(
+        filters.lat!,
+        filters.lng!,
+        p.latitude,
+        p.longitude,
+      );
+      return distance <= filters.radiusKm!;
+    });
+  }
+  const total = results.length;
+  const start = (filters.page - 1) * filters.limit;
+  const paginated = results.slice(start, start + filters.limit);
+  return {
+    results: paginated,
+    pagination: { page: filters.page, limit: filters.limit, total },
+  };
 };
