@@ -1,6 +1,10 @@
-import { CreateBookingInput } from "../validators/booking.validator.js";
+import {
+  CreateBookingInput,
+  ListbookingInput,
+} from "../validators/booking.validator.js";
 import { prisma } from "../config/db.js";
 import { ApiError } from "../utils/ApiError.js";
+import { Prisma } from "../generated/prisma/index.js";
 
 export const createbookingService = async (
   data: CreateBookingInput,
@@ -11,7 +15,7 @@ export const createbookingService = async (
     throw new ApiError(404, "Job not Found");
   }
 
-  if (job.customerId == customerId) {
+  if (job.customerId !== customerId) {
     throw new ApiError(403, "You do not have permission to book this job");
   }
   if (!job.tradieId) {
@@ -59,4 +63,47 @@ export const createbookingService = async (
     return created;
   });
   return booking;
+};
+
+export const listbookingService = async (
+  filters: ListbookingInput,
+  userId: string,
+  role: "CUSTOMER" | "TRADIE",
+) => {
+  const where: Prisma.BookingWhereInput =
+    role === "CUSTOMER" ? { customerId: userId } : { tradieId: userId };
+  if (filters.status) {
+    where.status = filters.status;
+  }
+
+  const [bookings, total] = await Promise.all([
+    prisma.booking.findMany({
+      where,
+      skip: (filters.page - 1) * filters.limit,
+      take: filters.limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        job: { select: { title: true, category: true, suburb: true } },
+        customer: {
+          select: {
+            id: true,
+            email: true,
+            profile: { select: { firstName: true, lastName: true } },
+          },
+        },
+        tradie: {
+          select: {
+            id: true,
+            email: true,
+            profile: { select: { firstName: true, lastName: true } },
+          },
+        },
+      },
+    }),
+    prisma.booking.count({ where }),
+  ]);
+  return {
+    bookings,
+    pagination: { page: filters.page, limit: filters.limit, total },
+  };
 };

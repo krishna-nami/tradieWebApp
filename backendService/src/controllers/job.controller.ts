@@ -6,6 +6,7 @@ import {
   createJobSchema,
 } from "../validators/job.validator.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import * as jobService from "../services/job.service.js";
 
 export const createJobController = async (req: Request, res: Response) => {
   const customerId = req.user.id;
