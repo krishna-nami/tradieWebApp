@@ -15,5 +15,15 @@ export const listBookingSchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().min(1).max(50).default(20),
 });
+
+export const getBookingSchema = z.object({
+  id: z.uuid({ error: "Invalid Booking Id" }),
+});
+export const acceptBookingSchema = z.object({
+  reason: z.string().max(300).optional(),
+});
+
 export type CreateBookingInput = z.infer<typeof createBookingSchema>;
 export type ListbookingInput = z.infer<typeof listBookingSchema>;
+export type GetBookingInput = z.infer<typeof getBookingSchema>;
+export type AcceptBookingInput = z.infer<typeof acceptBookingSchema>;

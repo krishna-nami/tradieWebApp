@@ -5,6 +5,8 @@ import {
 import { prisma } from "../config/db.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Prisma } from "../generated/prisma/index.js";
+import { userSummarySelect } from "../utils/prismaSelects.js";
+import { validateTransition } from "../utils/validateTransition.js";
 
 export const createbookingService = async (
   data: CreateBookingInput,
@@ -85,18 +87,10 @@ export const listbookingService = async (
       include: {
         job: { select: { title: true, category: true, suburb: true } },
         customer: {
-          select: {
-            id: true,
-            email: true,
-            profile: { select: { firstName: true, lastName: true } },
-          },
+          select: userSummarySelect,
         },
         tradie: {
-          select: {
-            id: true,
-            email: true,
-            profile: { select: { firstName: true, lastName: true } },
-          },
+          select: userSummarySelect,
         },
       },
     }),
@@ -106,4 +100,80 @@ export const listbookingService = async (
     bookings,
     pagination: { page: filters.page, limit: filters.limit, total },
   };
+};
+export const getBookingByIdService = async (
+  bookingId: string,
+  userId: string,
+  role: "TRADIE" | "CUSTOMER",
+) => {
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      job: {
+        select: {
+          title: true,
+          description: true,
+          category: true,
+          suburb: true,
+          state: true,
+          postcode: true,
+          budgetMin: true,
+          budgetMax: true,
+        },
+      },
+      customer: { select: userSummarySelect },
+      tradie: { select: userSummarySelect },
+      quote: {
+        include: { lineItems: true },
+      },
+      statusHistory: { orderBy: { createdAt: "asc" } },
+    },
+  });
+
+  if (!booking) {
+    throw new ApiError(404, "Booking not found");
+  }
+
+  const isOwner =
+    (role === "CUSTOMER" && booking.customerId === userId) ||
+    (role === "TRADIE" && booking.tradieId === userId);
+  if (!isOwner) {
+    throw new ApiError(403, "You do not have permission to view this booking");
+  }
+
+  return booking;
+};
+export const acceptBookingService = async (
+  id: string,
+  tradieId: string,
+  reason?: string,
+) => {
+  const booking = await prisma.booking.findUnique({ where: { id } });
+  if (!booking) {
+    throw new ApiError(404, "Booking Not Found");
+  }
+  if (booking.tradieId !== tradieId) {
+    throw new ApiError(
+      403,
+      "You do not have permission to accept this booking",
+    );
+  }
+  validateTransition(booking.status, "ACCEPTED");
+  const updated = await prisma.$transaction(async (tx) => {
+    const result = await tx.booking.update({
+      where: { id },
+      data: { status: "ACCEPTED" },
+    });
+    await tx.bookingStatusHistory.create({
+      data: {
+        bookingId: id,
+        fromStatus: booking.status,
+        toStatus: "ACCEPTED",
+        changedBy: tradieId,
+        reason: reason ?? "Tradie accepted the booking",
+      },
+    });
+    return result;
+  });
+  return updated;
 };
