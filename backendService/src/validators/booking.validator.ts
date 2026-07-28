@@ -22,8 +22,26 @@ export const getBookingSchema = z.object({
 export const acceptBookingSchema = z.object({
   reason: z.string().max(300).optional(),
 });
+export const declineBookingSchema = z.object({
+  declineReason: z
+    .string()
+    .min(1, "A reason is required to decline this booking")
+    .max(300),
+});
+export const idCheckSchema = z.object({
+  id: z.uuid({ error: "Invalid ID" }),
+});
+export const cancelBookingSchema = z.object({
+  cancelReason: z
+    .string()
+    .min(1, "A reason is required to cancel this booking")
+    .max(300),
+});
 
 export type CreateBookingInput = z.infer<typeof createBookingSchema>;
 export type ListbookingInput = z.infer<typeof listBookingSchema>;
 export type GetBookingInput = z.infer<typeof getBookingSchema>;
 export type AcceptBookingInput = z.infer<typeof acceptBookingSchema>;
+export type DeclineBookingInput = z.infer<typeof declineBookingSchema>;
+export type IdCheckInput = z.infer<typeof idCheckSchema>;
+export type CancelBookingInput = z.infer<typeof cancelBookingSchema>;

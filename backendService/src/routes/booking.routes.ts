@@ -3,7 +3,9 @@ import { requireAuth } from "../middleware/auth.middleware.js";
 import { requireRole } from "../middleware/role.middleware.js";
 import {
   acceptBookingController,
+  cancelBookingController,
   createBookingController,
+  declineBookingController,
   getBookingByIdController,
   listbookingsController,
 } from "../controllers/booking.controller.js";
@@ -37,4 +39,17 @@ bookingRoutes.put(
   requireRole("TRADIE"),
   acceptBookingController,
 );
+bookingRoutes.put(
+  "/bookings/:id/decline",
+  requireAuth,
+  requireRole("TRADIE"),
+  declineBookingController,
+);
+bookingRoutes.put(
+  "/bookings/:id/cancel",
+  requireAuth,
+  requireRole("TRADIE", "CUSTOMER"),
+  cancelBookingController,
+);
+
 export default bookingRoutes;

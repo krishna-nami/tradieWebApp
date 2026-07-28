@@ -7,7 +7,9 @@ import { ApiError } from "../utils/ApiError.js";
 import { Prisma } from "../generated/prisma/index.js";
 import { userSummarySelect } from "../utils/prismaSelects.js";
 import { validateTransition } from "../utils/validateTransition.js";
+import { AuthUser } from "../types/auth.js";
 
+//Creating a booking
 export const createbookingService = async (
   data: CreateBookingInput,
   customerId: string,
@@ -67,6 +69,7 @@ export const createbookingService = async (
   return booking;
 };
 
+//Listing Booking with paginations
 export const listbookingService = async (
   filters: ListbookingInput,
   userId: string,
@@ -101,6 +104,8 @@ export const listbookingService = async (
     pagination: { page: filters.page, limit: filters.limit, total },
   };
 };
+
+//Getting Booking by User or Tradie
 export const getBookingByIdService = async (
   bookingId: string,
   userId: string,
@@ -143,6 +148,8 @@ export const getBookingByIdService = async (
 
   return booking;
 };
+
+//Acceping a Booking Service
 export const acceptBookingService = async (
   id: string,
   tradieId: string,
@@ -159,7 +166,7 @@ export const acceptBookingService = async (
     );
   }
   validateTransition(booking.status, "ACCEPTED");
-  const updated = await prisma.$transaction(async (tx) => {
+  const updatedBooking = await prisma.$transaction(async (tx) => {
     const result = await tx.booking.update({
       where: { id },
       data: { status: "ACCEPTED" },
@@ -175,5 +182,114 @@ export const acceptBookingService = async (
     });
     return result;
   });
-  return updated;
+  return updatedBooking;
+};
+export const declineBookingService = async (
+  id: string,
+  tradieId: string,
+  reason: string,
+) => {
+  const booking = await prisma.booking.findUnique({ where: { id } });
+
+  if (!booking) {
+    throw new ApiError(404, "Booking Not found");
+  }
+
+  if (booking.tradieId !== tradieId) {
+    throw new ApiError(
+      403,
+      " You do not have permession to delcine this booking",
+    );
+  }
+  validateTransition(booking.status, "DECLINED");
+  const updatedBooking = await prisma.$transaction(async (tx) => {
+    const result = await tx.booking.update({
+      where: { id },
+      data: { status: "DECLINED", declineReason: reason },
+    });
+    await tx.bookingStatusHistory.create({
+      data: {
+        bookingId: id,
+        fromStatus: booking.status,
+        toStatus: "DECLINED",
+        changedBy: tradieId,
+        reason,
+      },
+    });
+    return result;
+  });
+  return updatedBooking;
+};
+//Cancel Booking Service
+export const cancelBookingService = async (
+  id: string,
+  user: AuthUser,
+  reason: string,
+) => {
+  const booking = await prisma.booking.findUnique({ where: { id } });
+  if (!booking) {
+    throw new ApiError(404, "Booking Not Found");
+  }
+  if (booking.tradieId !== user.id && booking.customerId !== user.id) {
+    throw new ApiError(
+      403,
+      " You do not have permession to cancel this booking",
+    );
+  }
+  validateTransition(booking.status, "CANCELLED");
+  const updatedBooking = await prisma.$transaction(async (tx) => {
+    const result = await tx.booking.update({
+      where: { id },
+      data: { status: "CANCELLED", cancelReason: reason },
+    });
+
+    await tx.bookingStatusHistory.create({
+      data: {
+        bookingId: id,
+        fromStatus: booking.status,
+        toStatus: "CANCELLED",
+        changedBy: user.id,
+        reason,
+      },
+    });
+
+    return result;
+  });
+
+  return updatedBooking;
+};
+
+//Starting Booking Servie
+export const startbookingService = async (id: string, tradieId: string) => {
+  const booking = await prisma.booking.findUnique({ where: { id } });
+  if (!booking) {
+    throw new ApiError(404, "Booking Not Found");
+  }
+  if (booking.tradieId !== tradieId) {
+    throw new ApiError(
+      403,
+      " You do not have permession to start this booking",
+    );
+  }
+  validateTransition(booking.status, "IN_PROGRESS");
+  const updatedBooking = await prisma.$transaction(async (tx) => {
+    const result = await tx.booking.update({
+      where: { id },
+      data: { status: "IN_PROGRESS" },
+    });
+
+    await tx.bookingStatusHistory.create({
+      data: {
+        bookingId: id,
+        fromStatus: booking.status,
+        toStatus: "IN_PROGRESS",
+        changedBy: tradieId,
+        reason: "Tradie started the Job",
+      },
+    });
+
+    return result;
+  });
+
+  return updatedBooking;
 };
