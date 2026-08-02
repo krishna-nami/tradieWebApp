@@ -12083,6 +12083,7 @@ export namespace Prisma {
     gst: Decimal | null
     total: Decimal | null
     expiresAt: Date | null
+    declinedReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12095,6 +12096,7 @@ export namespace Prisma {
     gst: Decimal | null
     total: Decimal | null
     expiresAt: Date | null
+    declinedReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12107,6 +12109,7 @@ export namespace Prisma {
     gst: number
     total: number
     expiresAt: number
+    declinedReason: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12133,6 +12136,7 @@ export namespace Prisma {
     gst?: true
     total?: true
     expiresAt?: true
+    declinedReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12145,6 +12149,7 @@ export namespace Prisma {
     gst?: true
     total?: true
     expiresAt?: true
+    declinedReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12157,6 +12162,7 @@ export namespace Prisma {
     gst?: true
     total?: true
     expiresAt?: true
+    declinedReason?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12256,6 +12262,7 @@ export namespace Prisma {
     gst: Decimal
     total: Decimal
     expiresAt: Date | null
+    declinedReason: string | null
     createdAt: Date
     updatedAt: Date
     _count: QuoteCountAggregateOutputType | null
@@ -12287,6 +12294,7 @@ export namespace Prisma {
     gst?: boolean
     total?: boolean
     expiresAt?: boolean
+    declinedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -12302,6 +12310,7 @@ export namespace Prisma {
     gst?: boolean
     total?: boolean
     expiresAt?: boolean
+    declinedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -12315,6 +12324,7 @@ export namespace Prisma {
     gst?: boolean
     total?: boolean
     expiresAt?: boolean
+    declinedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -12328,11 +12338,12 @@ export namespace Prisma {
     gst?: boolean
     total?: boolean
     expiresAt?: boolean
+    declinedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "status" | "subtotal" | "gst" | "total" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "status" | "subtotal" | "gst" | "total" | "expiresAt" | "declinedReason" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
   export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | BookingDefaultArgs<ExtArgs>
     lineItems?: boolean | Quote$lineItemsArgs<ExtArgs>
@@ -12359,6 +12370,7 @@ export namespace Prisma {
       gst: Prisma.Decimal
       total: Prisma.Decimal
       expiresAt: Date | null
+      declinedReason: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["quote"]>
@@ -12793,6 +12805,7 @@ export namespace Prisma {
     readonly gst: FieldRef<"Quote", 'Decimal'>
     readonly total: FieldRef<"Quote", 'Decimal'>
     readonly expiresAt: FieldRef<"Quote", 'DateTime'>
+    readonly declinedReason: FieldRef<"Quote", 'String'>
     readonly createdAt: FieldRef<"Quote", 'DateTime'>
     readonly updatedAt: FieldRef<"Quote", 'DateTime'>
   }
@@ -18991,6 +19004,7 @@ export namespace Prisma {
     gst: 'gst',
     total: 'total',
     expiresAt: 'expiresAt',
+    declinedReason: 'declinedReason',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -19999,6 +20013,7 @@ export namespace Prisma {
     gst?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     expiresAt?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    declinedReason?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
     updatedAt?: DateTimeFilter<"Quote"> | Date | string
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -20013,6 +20028,7 @@ export namespace Prisma {
     gst?: SortOrder
     total?: SortOrder
     expiresAt?: SortOrderInput | SortOrder
+    declinedReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     booking?: BookingOrderByWithRelationInput
@@ -20030,6 +20046,7 @@ export namespace Prisma {
     gst?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     expiresAt?: DateTimeNullableFilter<"Quote"> | Date | string | null
+    declinedReason?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
     updatedAt?: DateTimeFilter<"Quote"> | Date | string
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -20044,6 +20061,7 @@ export namespace Prisma {
     gst?: SortOrder
     total?: SortOrder
     expiresAt?: SortOrderInput | SortOrder
+    declinedReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: QuoteCountOrderByAggregateInput
@@ -20064,6 +20082,7 @@ export namespace Prisma {
     gst?: DecimalWithAggregatesFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     total?: DecimalWithAggregatesFilter<"Quote"> | Decimal | DecimalJsLike | number | string
     expiresAt?: DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+    declinedReason?: StringNullableWithAggregatesFilter<"Quote"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
   }
@@ -21222,6 +21241,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     booking: BookingCreateNestedOneWithoutQuoteInput
@@ -21236,6 +21256,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lineItems?: QuoteLineItemUncheckedCreateNestedManyWithoutQuoteInput
@@ -21248,6 +21269,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     booking?: BookingUpdateOneRequiredWithoutQuoteNestedInput
@@ -21262,6 +21284,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lineItems?: QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput
@@ -21275,6 +21298,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21286,6 +21310,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21298,6 +21323,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22505,6 +22531,7 @@ export namespace Prisma {
     gst?: SortOrder
     total?: SortOrder
     expiresAt?: SortOrder
+    declinedReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22523,6 +22550,7 @@ export namespace Prisma {
     gst?: SortOrder
     total?: SortOrder
     expiresAt?: SortOrder
+    declinedReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22535,6 +22563,7 @@ export namespace Prisma {
     gst?: SortOrder
     total?: SortOrder
     expiresAt?: SortOrder
+    declinedReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25953,6 +25982,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lineItems?: QuoteLineItemCreateNestedManyWithoutQuoteInput
@@ -25965,6 +25995,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lineItems?: QuoteLineItemUncheckedCreateNestedManyWithoutQuoteInput
@@ -26244,6 +26275,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lineItems?: QuoteLineItemUpdateManyWithoutQuoteNestedInput
@@ -26256,6 +26288,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lineItems?: QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput
@@ -26527,6 +26560,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     booking: BookingCreateNestedOneWithoutQuoteInput
@@ -26540,6 +26574,7 @@ export namespace Prisma {
     gst: Decimal | DecimalJsLike | number | string
     total: Decimal | DecimalJsLike | number | string
     expiresAt?: Date | string | null
+    declinedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26567,6 +26602,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     booking?: BookingUpdateOneRequiredWithoutQuoteNestedInput
@@ -26580,6 +26616,7 @@ export namespace Prisma {
     gst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    declinedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

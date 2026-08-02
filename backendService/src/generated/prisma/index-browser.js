@@ -234,6 +234,7 @@ exports.Prisma.QuoteScalarFieldEnum = {
   gst: 'gst',
   total: 'total',
   expiresAt: 'expiresAt',
+  declinedReason: 'declinedReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

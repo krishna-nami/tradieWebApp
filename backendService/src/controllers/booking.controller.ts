@@ -128,3 +128,20 @@ export const startBookingController = async (req: Request, res: Response) => {
     .status(200)
     .json(new ApiResponse(200, "Booking Started Successfully", booking));
 };
+
+export const completeBookingController = async (
+  req: Request,
+  res: Response,
+) => {
+  const tradieId = req.user.id;
+  const data: GetBookingInput = validateRequest(getBookingSchema, req.params);
+
+  const booking = await bookingService.completeBookingService(
+    data.id,
+    tradieId,
+  );
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Booking Completed Successfully", booking));
+};

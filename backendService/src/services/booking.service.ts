@@ -293,3 +293,34 @@ export const startbookingService = async (id: string, tradieId: string) => {
 
   return updatedBooking;
 };
+//complete Bookings
+export const completeBookingService = async (id: string, traideId: string) => {
+  const booking = await prisma.booking.findUnique({ where: { id } });
+  if (!booking) {
+    throw new ApiError(404, "Booking Not Found");
+  }
+  if (booking.tradieId !== traideId) {
+    throw new ApiError(
+      403,
+      "You do not have permession to access this booking",
+    );
+  }
+  validateTransition(booking.status, "COMPLETED");
+  const updatedBooking = await prisma.$transaction(async (tx) => {
+    const result = await tx.booking.update({
+      where: { id },
+      data: { status: "COMPLETED" },
+    });
+    await tx.bookingStatusHistory.create({
+      data: {
+        bookingId: id,
+        fromStatus: booking.status,
+        toStatus: "COMPLETED",
+        changedBy: traideId,
+        reason: "Tradie Successfully completed this job",
+      },
+    });
+    return result;
+  });
+  return updatedBooking;
+};

@@ -4,6 +4,7 @@ import { requireRole } from "../middleware/role.middleware.js";
 import {
   acceptBookingController,
   cancelBookingController,
+  completeBookingController,
   createBookingController,
   declineBookingController,
   getBookingByIdController,
@@ -50,6 +51,12 @@ bookingRoutes.put(
   requireAuth,
   requireRole("TRADIE", "CUSTOMER"),
   cancelBookingController,
+);
+bookingRoutes.put(
+  "/bookings/:id/complete",
+  requireAuth,
+  requireRole("TRADIE"),
+  completeBookingController,
 );
 
 export default bookingRoutes;

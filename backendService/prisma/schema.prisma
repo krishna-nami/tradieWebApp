@@ -219,6 +219,7 @@ model Quote {
   total      Decimal     @db.Decimal(10, 2)
   expiresAt  DateTime?
   lineItems  QuoteLineItem[]
+  declinedReason String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

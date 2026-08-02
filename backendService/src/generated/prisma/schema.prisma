@@ -218,15 +218,16 @@ model BookingStatusHistory {
 }
 
 model Quote {
-  id        String          @id @default(uuid())
-  bookingId String          @unique
-  booking   Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  status    QuoteStatus     @default(DRAFT)
-  subtotal  Decimal         @db.Decimal(10, 2)
-  gst       Decimal         @db.Decimal(10, 2)
-  total     Decimal         @db.Decimal(10, 2)
-  expiresAt DateTime?
-  lineItems QuoteLineItem[]
+  id             String          @id @default(uuid())
+  bookingId      String          @unique
+  booking        Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status         QuoteStatus     @default(DRAFT)
+  subtotal       Decimal         @db.Decimal(10, 2)
+  gst            Decimal         @db.Decimal(10, 2)
+  total          Decimal         @db.Decimal(10, 2)
+  expiresAt      DateTime?
+  lineItems      QuoteLineItem[]
+  declinedReason String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
