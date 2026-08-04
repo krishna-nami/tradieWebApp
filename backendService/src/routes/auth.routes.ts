@@ -4,6 +4,7 @@ import {
   forgetPassword,
   login,
   logout,
+  refreshAccesstokenController,
   register,
   resendVerification,
   resetPassword,
@@ -19,6 +20,7 @@ authRoutes.post("/login", authLimiter, login);
 authRoutes.get("/verify-email/:token", verifyEmail);
 authRoutes.post("/resent-verification", authLimiter, resendVerification);
 authRoutes.post("/logout", logout);
+authRoutes.post("/refresh", refreshAccesstokenController);
 
 //this is. for forget-password no auth
 authRoutes.post("/forget-password", authLimiter, forgetPassword);

@@ -3,6 +3,7 @@ import crypto from "crypto";
 import {
   generateAccessToken,
   generateRefreshToken,
+  verifyRefreshToken,
 } from "../utils/generateToken.js";
 import {
   ChangePasswordInput,
@@ -229,4 +230,27 @@ export const changePasswordService = async (
     where: { id: userId },
     data: { password: hashPassword },
   });
+};
+export const refreshAccessTokenService = async (refreshToken: string) => {
+  if (!refreshToken) {
+    throw new ApiError(401, "Refresh Token is Missing");
+  }
+  let decoded: { userId: string };
+  try {
+    decoded = verifyRefreshToken(refreshToken);
+  } catch {
+    throw new ApiError(401, "Invalied or expired refresh token");
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+  if (!user) {
+    throw new ApiError(401, "User do not exist");
+  }
+  const newAccessToken = generateAccessToken({
+    userId: user.id,
+    role: user.role,
+  });
+  const newRefreshToken = generateRefreshToken({ userId: user.id });
+
+  return { newAccessToken, newRefreshToken };
 };

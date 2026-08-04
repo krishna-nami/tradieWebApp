@@ -317,7 +317,7 @@ export const completeBookingService = async (id: string, traideId: string) => {
         fromStatus: booking.status,
         toStatus: "COMPLETED",
         changedBy: traideId,
-        reason: "Tradie Successfully completed this job",
+        reason: "Tradie successfully completed this job",
       },
     });
     return result;

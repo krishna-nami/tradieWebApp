@@ -41,7 +41,7 @@ export const verifyAccessToken = (token: string): AccessTokenPayload => {
 
 export const verifyRefreshToken = (token: string): RefreshTokenPayload => {
   if (!REFRESH_TOKEN_SECRET) {
-    throw new ApiError(400, "Token is empty");
+    throw new ApiError(500, "Refresh token is not set");
   }
   return jwt.verify(token, REFRESH_TOKEN_SECRET) as RefreshTokenPayload;
 };

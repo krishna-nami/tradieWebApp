@@ -15,6 +15,10 @@ import { ApiError } from "../utils/ApiError.js";
 import * as authService from "../services/auth.service.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { validateRequest } from "../utils/validateRequest.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../utils/generateToken.js";
 
 export const register = async (req: Request, res: Response) => {
   const result = registerSchema.safeParse({ body: req.body });
@@ -220,4 +224,26 @@ export const changePassword = async (req: Request, res: Response) => {
   res
     .status(200)
     .json(new ApiResponse(200, "Password changed Successfully", null));
+};
+
+export const refreshAccesstokenController = async (
+  req: Request,
+  res: Response,
+) => {
+  const refreshToken = req.cookies.refreshToken;
+  const { newAccessToken, newRefreshToken } =
+    await authService.refreshAccessTokenService(refreshToken);
+
+  res.cookie("refreshToken", newRefreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+  return res.status(200).json(
+    new ApiResponse(200, "Access token Refreshed", {
+      accessToken: newAccessToken,
+    }),
+  );
 };
