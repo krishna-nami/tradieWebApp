@@ -56,10 +56,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
         {hasHydrated && isAuthenticated && (
           <div className="flex items-center gap-3 border-b border-slate-100 p-4">
-            <Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />
+            <Avatar
+              name={`${user?.profile.firstName} ${user?.profile.lastName}`}
+              size="sm"
+            />
             <div>
               <p className="text-sm font-medium text-slate-900">
-                {user?.firstName} {user?.lastName}
+                {user?.profile.firstName} {user?.profile.lastName}
               </p>
               <p className="text-xs text-slate-500">
                 {user?.role === "TRADIE" ? "Tradie" : "Customer"}

@@ -35,11 +35,11 @@ export function Navbar() {
                 <Link href="/dashboard" className="flex items-center gap-2">
                   {" "}
                   <Avatar
-                    name={`${user?.firstName} ${user?.lastName}`}
+                    name={`${user?.profile.firstName} ${user?.profile.lastName}`}
                     size="sm"
                   />
                   <span className="text-sm font-medium text-slate-700">
-                    {user?.firstName}
+                    {user?.profile.firstName}
                   </span>{" "}
                 </Link>
 
