@@ -1,8 +1,11 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import {
+  Button as ButtonPrimitive,
+  type ButtonProps as ButtonPrimitiveProps,
+} from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva(
@@ -11,6 +14,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        accent: "bg-amber-500 text-slate-950 hover:bg-amber-400",
         outline:
           "border-border bg-background shadow-xs hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
@@ -41,10 +45,9 @@ const buttonVariants = cva(
     },
   },
 );
+
 export interface ButtonProps
-  extends
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends ButtonPrimitiveProps, VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
 }
 
@@ -53,7 +56,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     { className, variant, size, isLoading, children, disabled, ...props },
     ref,
   ) => (
-    <button
+    <ButtonPrimitive
       ref={ref}
       className={cn(buttonVariants({ variant, size }), className)}
       disabled={disabled || isLoading}
@@ -61,8 +64,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     >
       {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
       {children}
-    </button>
+    </ButtonPrimitive>
   ),
 );
+
+Button.displayName = "Button";
 
 export { Button, buttonVariants };
