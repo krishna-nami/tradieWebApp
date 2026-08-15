@@ -33,3 +33,6 @@ export const resetPassword = (values: { token: string; password: string }) =>
   api
     .post<ApiResponse<null>>("/auth/reset-password", values)
     .then((res) => res.data);
+
+export const getCurrentUser = () =>
+  api.get<ApiResponse<AuthUser>>("/user/me").then((res) => res.data);

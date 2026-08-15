@@ -9,7 +9,7 @@ import quoteRoutes from "./quote.routes.js";
 const router = Router();
 
 router.use("/auth", authRoutes);
-router.use("/users", userRoutes);
+router.use("/user", userRoutes);
 router.use("/tradies", tradieRoutes);
 router.use("/booking", bookingRoutes);
 router.use("/job", jobRoutes);

@@ -15,10 +15,6 @@ import { ApiError } from "../utils/ApiError.js";
 import * as authService from "../services/auth.service.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { validateRequest } from "../utils/validateRequest.js";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-} from "../utils/generateToken.js";
 
 export const register = async (req: Request, res: Response) => {
   const result = registerSchema.safeParse({ body: req.body });
@@ -41,7 +37,7 @@ export const register = async (req: Request, res: Response) => {
     throw new ApiError(409, "This account is Already Exist");
   }
   //create a user
-  const { user, accesstoken, refreshtoken, emailVerifyToken } =
+  const { user, accessToken, refreshToken, emailVerifyToken } =
     await authService.userRegister(data);
 
   //In this section, we will use bullMQ to queue to send send email.
@@ -56,7 +52,7 @@ export const register = async (req: Request, res: Response) => {
 
   //set refresh token in httpOnly cookie
 
-  res.cookie("refreshToken", refreshtoken, {
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
@@ -73,13 +69,13 @@ export const register = async (req: Request, res: Response) => {
           email: user.email,
           role: user.role,
           isVerified: user.isVerified,
-          proflie: {
+          profile: {
             firstName: user.profile?.firstName,
             lastName: user.profile?.lastName,
             phone: user.profile?.phone ?? null,
           },
         },
-        accesstoken,
+        accessToken,
       },
     ),
   );

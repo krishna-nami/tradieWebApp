@@ -12,6 +12,7 @@ export interface AuthUser {
     firstName: string;
     lastName: string;
     phone: string | null;
+    avatarUrl: string;
   };
 }
 interface AuthState {

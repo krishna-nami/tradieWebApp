@@ -9,7 +9,7 @@ import {
 import { validateRequest } from "../utils/validateRequest.js";
 
 export const getMeController = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
+  const userId = req.user.id;
 
   if (!userId) {
     throw new ApiError(401, "You are unauthorized");
@@ -22,7 +22,7 @@ export const getMeController = async (req: Request, res: Response) => {
     .json(new ApiResponse(200, "Users fetched Successfully", user));
 };
 export const updateUserController = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
+  const userId = req.user.id;
 
   if (!userId) {
     throw new ApiError(401, "You are unauthorized");

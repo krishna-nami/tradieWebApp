@@ -35,6 +35,7 @@ export function Navbar() {
                 <Link href="/dashboard" className="flex items-center gap-2">
                   {" "}
                   <Avatar
+                    src={user?.profile.avatarUrl}
                     name={`${user?.profile.firstName} ${user?.profile.lastName}`}
                     size="sm"
                   />

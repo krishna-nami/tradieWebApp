@@ -10,11 +10,13 @@ export const getMeService = async (userId: string) => {
       id: true,
       email: true,
       role: true,
+      isVerified: true,
       profile: {
         select: {
           firstName: true,
           lastName: true,
           avatarUrl: true,
+          phone: true,
         },
       },
     },
@@ -45,7 +47,7 @@ export const updateUserService = async (
     postcode,
     phone,
     suburb,
-  } = data;
+  } = data.body;
 
   if (!user) {
     throw new ApiError(404, "User not found");

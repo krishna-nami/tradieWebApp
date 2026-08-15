@@ -98,23 +98,24 @@ export const updateTradieProfileService = async (
 };
 
 export const getTradieByIdService = async (tradieId: string) => {
-  const tradie = await prisma.user.findUnique({
-    where: { id: tradieId, role: "TRADIE" },
+  const tradie = await prisma.profile.findUnique({
+    where: { id: tradieId },
+
     select: {
+      userId: true,
       id: true,
-      profile: {
-        select: {
-          firstName: true,
-          lastName: true,
-          avatarUrl: true,
-          bio: true,
-          trades: true,
-          licenceNo: true,
-          suburb: true,
-          state: true,
-          isAvailable: true, // ← new
-        },
-      },
+      firstName: true,
+      lastName: true,
+      avatarUrl: true,
+      bio: true,
+      licenceNo: true,
+      suburb: true,
+      state: true,
+      isAvailable: true,
+      businessName: true,
+      latitude: true,
+      longitude: true,
+      specialisations: { select: { trade: true, yearsExperience: true } },
     },
   });
 

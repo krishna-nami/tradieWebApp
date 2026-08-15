@@ -57,6 +57,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {hasHydrated && isAuthenticated && (
           <div className="flex items-center gap-3 border-b border-slate-100 p-4">
             <Avatar
+              src={user?.profile.avatarUrl}
               name={`${user?.profile.firstName} ${user?.profile.lastName}`}
               size="sm"
             />

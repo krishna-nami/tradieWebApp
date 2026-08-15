@@ -67,16 +67,16 @@ export const userRegister = async (data: RegisterInput) => {
       profile: true,
     },
   });
-  const accesstoken = generateAccessToken({
+  const accessToken = generateAccessToken({
     userId: user.id,
     role: user.role,
   });
 
-  const refreshtoken = generateRefreshToken({
+  const refreshToken = generateRefreshToken({
     userId: user.id,
   });
 
-  return { user, accesstoken, refreshtoken, emailVerifyToken };
+  return { user, accessToken, refreshToken, emailVerifyToken };
 };
 
 //verify Email
