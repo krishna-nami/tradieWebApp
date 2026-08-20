@@ -1,3 +1,5 @@
+import { BookingStatusValue } from "./booking-status";
+
 // lib/api-types.ts — shared wrapper type
 export interface ApiResponse<T> {
   statusCode: number;
@@ -57,4 +59,116 @@ export interface TradieDetail {
   latitude: number | null;
   longitude: number | null;
   specialisations: TradieSpecialisation[]; // already defined earlier, from search types
+}
+// lib/api-types.ts — add
+export interface Job {
+  id: string;
+  customerId: string;
+  tradieId: string | null;
+  title: string;
+  description: string;
+  category: string;
+  suburb: string;
+  state: string;
+  postcode: string;
+  budgetMin: number | null;
+  budgetMax: number | null;
+  scheduledAt: string | null;
+  status: string;
+}
+
+export interface Booking {
+  id: string;
+  jobId: string;
+  customerId: string;
+  tradieId: string;
+  scheduledAt: string;
+  totalAmount: number;
+  notes: string | null;
+  status: string;
+}
+export interface BookingUserSummary {
+  id: string;
+  email: string;
+  profile: { firstName: string; lastName: string };
+}
+
+export interface BookingListItem {
+  id: string;
+  jobId: string;
+  customerId: string;
+  tradieId: string;
+  status: BookingStatusValue;
+  scheduledAt: string;
+  totalAmount: string; // Prisma Decimal serializes as string over JSON
+  notes: string | null;
+  declineReason: string | null;
+  cancelReason: string | null;
+  createdAt: string;
+  updatedAt: string;
+  job: { title: string; category: string; suburb: string };
+  customer: BookingUserSummary;
+  tradie: BookingUserSummary;
+}
+export interface ListBookingsData {
+  bookings: BookingListItem[];
+  pagination: { page: number; limit: number; total: number };
+}
+
+export interface QuoteLineItem {
+  id: string;
+  description: string;
+  quantity: number;
+  unitPrice: string; // Decimal → string over JSON
+  amount: string;
+}
+
+export interface Quote {
+  id: string;
+  bookingId: string;
+  status: "DRAFT" | "SENT" | "ACCEPTED" | "DECLINED" | "EXPIRED";
+  subtotal: string;
+  gst: string;
+  total: string;
+  expiresAt: string | null;
+  declinedReason: string | null;
+  lineItems: QuoteLineItem[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BookingDetail {
+  id: string;
+  jobId: string;
+  customerId: string;
+  tradieId: string;
+  status: BookingStatusValue;
+  scheduledAt: string;
+  totalAmount: string;
+  notes: string | null;
+  declineReason: string | null;
+  cancelReason: string | null;
+  createdAt: string;
+  updatedAt: string;
+  job: {
+    title: string;
+    description: string;
+    category: string;
+    suburb: string;
+    state: string;
+    postcode: string;
+    budgetMin: string | null;
+    budgetMax: string | null;
+  };
+  customer: BookingUserSummary;
+  tradie: BookingUserSummary;
+  quote: Quote | null;
+  statusHistory: {
+    id: string;
+    fromStatus: BookingStatusValue | null;
+    toStatus: BookingStatusValue;
+    changedBy: string;
+    reason: string | null;
+    createdAt: string;
+  }[];
 }

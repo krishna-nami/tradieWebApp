@@ -11,6 +11,7 @@ export const createJobSchema = z
     budgetMin: z.coerce.number().positive().optional(),
     budgetMax: z.coerce.number().positive().optional(),
     scheduledAt: z.coerce.date().optional(),
+    tradieId: z.uuid().optional(),
   })
   .refine((d) => !d.budgetMin || !d.budgetMax || d.budgetMin <= d.budgetMax, {
     message: "budgetMin must be less than or equal to budgetMax",

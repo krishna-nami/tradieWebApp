@@ -2,7 +2,9 @@ import { Router } from "express";
 import { requireAuth } from "../middleware/auth.middleware.js";
 import { requireRole } from "../middleware/role.middleware.js";
 import {
+  acceptQuoteController,
   createQuoteController,
+  declineQuoteController,
   sendQuoteController,
   updateQuotecontroller,
 } from "../controllers/quote.controller.js";
@@ -29,6 +31,18 @@ quoteRoutes.put(
   requireAuth,
   requireRole("TRADIE"),
   sendQuoteController,
+);
+quoteRoutes.put(
+  "/quotes/:id/accept",
+  requireAuth,
+  requireRole("CUSTOMER"),
+  acceptQuoteController,
+);
+quoteRoutes.put(
+  "/quotes/:id/decline",
+  requireAuth,
+  requireRole("CUSTOMER"),
+  declineQuoteController,
 );
 
 export default quoteRoutes;

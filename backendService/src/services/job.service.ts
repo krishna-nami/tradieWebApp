@@ -17,7 +17,8 @@ export const createJobService = async (
       budgetMin: data.budgetMin ?? null,
       budgetMax: data.budgetMax ?? null,
       scheduledAt: data.scheduledAt ?? null,
-      status: "DRAFT",
+      tradieId: data.tradieId ?? null,
+      status: data.tradieId ? "ASSIGNED" : "DRAFT",
     },
   });
   return job;

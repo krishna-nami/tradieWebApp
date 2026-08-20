@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -70,6 +69,11 @@ export default function RegisterPage() {
       role: "CUSTOMER",
       password: "",
       confirmPassword: "",
+      addressLine1: "",
+      addressLine2: "",
+      suburb: "",
+      state: "",
+      postcode: "",
     },
   });
 

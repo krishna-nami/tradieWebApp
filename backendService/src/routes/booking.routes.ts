@@ -9,6 +9,7 @@ import {
   declineBookingController,
   getBookingByIdController,
   listbookingsController,
+  startBookingController,
 } from "../controllers/booking.controller.js";
 
 const bookingRoutes = Router();
@@ -57,6 +58,13 @@ bookingRoutes.put(
   requireAuth,
   requireRole("TRADIE"),
   completeBookingController,
+);
+
+bookingRoutes.put(
+  "/bookings/:id/start",
+  requireAuth,
+  requireRole("TRADIE"),
+  startBookingController,
 );
 
 export default bookingRoutes;

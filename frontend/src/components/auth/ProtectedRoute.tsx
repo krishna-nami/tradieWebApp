@@ -1,8 +1,7 @@
 "use client";
 
 import { useAuthStore, UserRole } from "@/store/authStore";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Spinner } from "../ui/Spinner";
 import { useAuthCheck } from "@/hooks/useAuthCheck";

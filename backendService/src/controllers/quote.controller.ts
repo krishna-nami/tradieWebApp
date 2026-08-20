@@ -73,7 +73,7 @@ export const acceptQuoteController = async (req: Request, res: Response) => {
     .status(200)
     .json(new ApiResponse(200, "Quote Accepted", updatedQuote));
 };
-export const declineQuoteControler = async (req: Request, res: Response) => {
+export const declineQuoteController = async (req: Request, res: Response) => {
   const customerId = req.user.id;
   const declineData: DeclineParamsInput = validateRequest(
     declineQuoteSchema,

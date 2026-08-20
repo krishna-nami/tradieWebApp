@@ -18,7 +18,9 @@ export const loginUser = (values: LoginFormValues) =>
     .then((res) => res.data);
 
 export const registerUser = (values: RegisterFormValues) => {
-  const { confirmPassword, ...payload } = values;
+  const payload = Object.fromEntries(
+    Object.entries(values).filter(([, v]) => v !== ""),
+  ) as RegisterFormValues;
   return api
     .post<ApiResponse<RegisterData>>("/auth/register", payload)
     .then((res) => res.data);
