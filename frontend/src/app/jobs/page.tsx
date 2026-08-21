@@ -1,7 +1,7 @@
 // app/jobs/page.tsx
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { MapPin, Calendar } from "lucide-react";
 import { useBookings } from "@/hooks/useBookings";
@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function formatTradeLabel(trade: string) {
   return trade
@@ -142,9 +142,12 @@ function JobActionButtons({
 }
 
 function JobsList() {
+  const searchParams = useSearchParams();
+  const initialStatus = searchParams.get("status") as BookingStatusValue | null;
+
   const [statusFilter, setStatusFilter] = useState<
     BookingStatusValue | undefined
-  >();
+  >(initialStatus ?? undefined);
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isError } = useBookings(
     statusFilter,
@@ -289,7 +292,15 @@ function JobsList() {
 export default function JobsPage() {
   return (
     <ProtectedRoute allowedRoles={["TRADIE"]}>
-      <JobsList />
+      <Suspense
+        fallback={
+          <div className="flex justify-center py-16">
+            <Spinner size={28} />
+          </div>
+        }
+      >
+        <JobsList />
+      </Suspense>
     </ProtectedRoute>
   );
 }
