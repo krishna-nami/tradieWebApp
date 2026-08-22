@@ -7,6 +7,7 @@ import {
   specialisationParamsSchema,
   TradieProfileInput,
   tradieProfileSchema,
+  updateTradieProfileSchema,
   UpdateTraideProfileInput,
 } from "../validators/tradie.validator.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -17,6 +18,7 @@ import {
   AvailabilityInput,
   availabilitySchema,
 } from "../validators/availability.validators.js";
+import { updateProfileSchema } from "../validators/auth.validator.js";
 export const traideProfileConroller = async (req: Request, res: Response) => {
   const userId = req.user.id;
   if (!userId) {
@@ -41,7 +43,7 @@ export const updateProfileController = async (req: Request, res: Response) => {
     throw new ApiError(403, "You are Unauthorized");
   }
   const data: UpdateTraideProfileInput = validateRequest(
-    tradieProfileSchema,
+    updateTradieProfileSchema,
     req.body,
   );
 
@@ -50,7 +52,7 @@ export const updateProfileController = async (req: Request, res: Response) => {
     userId,
   );
   return res
-    .status(201)
+    .status(200)
     .json(
       new ApiResponse(200, "Tradie profile successfully updated", updateTraide),
     );

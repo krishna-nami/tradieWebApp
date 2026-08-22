@@ -4,6 +4,15 @@ import { UpdateUserInput } from "../validators/auth.validator.js";
 import { Prisma } from "../generated/prisma/index.js";
 
 export const getMeService = async (userId: string) => {
+  const baseUser = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true },
+  });
+
+  if (!baseUser) {
+    throw new ApiError(404, "User not found");
+  }
+  const isTradie = baseUser.role === "TRADIE";
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
@@ -17,6 +26,25 @@ export const getMeService = async (userId: string) => {
           lastName: true,
           avatarUrl: true,
           phone: true,
+          addressLine1: true,
+          addressLine2: true,
+          suburb: true,
+          state: true,
+          postcode: true,
+          ...(isTradie && {
+            licenceNo: true,
+            bio: true,
+            abn: true,
+            isAvailable: true,
+            specialisations: {
+              select: {
+                id: true,
+                trade: true,
+                yearsExperience: true,
+                certification: true,
+              },
+            },
+          }),
         },
       },
     },
@@ -47,7 +75,7 @@ export const updateUserService = async (
     postcode,
     phone,
     suburb,
-  } = data.body;
+  } = data;
 
   if (!user) {
     throw new ApiError(404, "User not found");

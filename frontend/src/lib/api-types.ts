@@ -172,3 +172,39 @@ export interface BookingDetail {
     createdAt: string;
   }[];
 }
+// lib/api-types.ts — add
+export interface TradieFullProfile {
+  id: string;
+  email: string;
+  role: "CUSTOMER" | "TRADIE";
+  profile: {
+    firstName: string;
+    lastName: string;
+    addressLine1: string | null;
+    addressLine2: string | null;
+    state: string | null;
+    postcode: string | null;
+    phone: string | null;
+    suburb: string | null;
+    licenceNo: string | null;
+    bio: string | null;
+    abn: string | null;
+    isAvailable: boolean;
+    specialisations: {
+      id: string;
+      trade: string;
+      yearsExperience: number | null;
+      certification: string | null;
+    }[];
+  };
+}
+
+export interface AvailabilitySlot {
+  startTime: string;
+  endTime: string;
+}
+
+export interface DayAvailability {
+  day: "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
+  slots: AvailabilitySlot[];
+}

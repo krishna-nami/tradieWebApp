@@ -121,28 +121,26 @@ export const changePasswordSchema = z.object({
   }),
 });
 
-export const updateProfileSchema = z.object({
-  body: z
-    .object({
-      firstName: z.string().min(2).max(50).optional(),
-      lastName: z.string().min(2).max(50).optional(),
-      phone: z
-        .string()
-        .regex(/^(\+61|0)[23478]\d{8}$/)
-        .optional(),
-      addressLine1: z.string().max(100).optional(),
-      addressLine2: z.string().max(100).optional(),
-      suburb: z.string().max(50).optional(),
-      state: z
-        .enum(["ACT", "NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT"])
-        .optional(),
-      postcode: z
-        .string()
-        .regex(/^\d{4}$/)
-        .optional(),
-    })
-    .strict(),
-});
+export const updateProfileSchema = z
+  .object({
+    firstName: z.string().min(2).max(50).optional(),
+    lastName: z.string().min(2).max(50).optional(),
+    phone: z
+      .string()
+      .regex(/^(\+61|0)[23478]\d{8}$/)
+      .optional(),
+    addressLine1: z.string().max(100).optional(),
+    addressLine2: z.string().max(100).optional(),
+    suburb: z.string().max(50).optional(),
+    state: z
+      .enum(["ACT", "NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT"])
+      .optional(),
+    postcode: z
+      .string()
+      .regex(/^\d{4}$/)
+      .optional(),
+  })
+  .strict();
 
 export type RegisterInput = z.infer<typeof registerSchema>["body"];
 export type LoginInput = z.infer<typeof loginSchema>;

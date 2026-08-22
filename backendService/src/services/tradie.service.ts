@@ -11,6 +11,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { AvailabilityInput } from "../validators/availability.validators.js";
 import { haversineKm } from "../utils/geo.js";
 
+// tradie.service.ts — traideProfileService, corrected
 export const traideProfileService = async (
   data: TradieProfileInput,
   userId: string,
@@ -23,9 +24,11 @@ export const traideProfileService = async (
       profile: {
         update: {
           abn,
-          trades,
           licenceNo,
           bio,
+          specialisations: {
+            create: trades.map((trade) => ({ trade })),
+          },
         } as Prisma.ProfileUpdateWithoutUserInput,
       },
     },
@@ -45,8 +48,10 @@ export const traideProfileService = async (
           suburb: true,
           licenceNo: true,
           bio: true,
-          trades: true,
           abn: true,
+          specialisations: {
+            select: { trade: true, yearsExperience: true, certification: true },
+          },
         },
       },
     },
@@ -64,10 +69,15 @@ export const updateTradieProfileService = async (
     data: {
       profile: {
         update: {
-          trades,
           licenceNo,
           bio,
           isAvailable,
+          ...(trades && {
+            specialisations: {
+              deleteMany: {}, // replace whole list — see note below
+              create: trades.map((trade) => ({ trade })),
+            },
+          }),
         } as Prisma.ProfileUpdateWithoutUserInput,
       },
     },
@@ -87,9 +97,11 @@ export const updateTradieProfileService = async (
           suburb: true,
           licenceNo: true,
           bio: true,
-          trades: true,
           abn: true,
           isAvailable: true,
+          specialisations: {
+            select: { trade: true, yearsExperience: true, certification: true },
+          },
         },
       },
     },

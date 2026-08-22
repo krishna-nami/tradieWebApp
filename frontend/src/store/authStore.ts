@@ -11,8 +11,23 @@ export interface AuthUser {
   profile: {
     firstName: string;
     lastName: string;
+    avatarUrl: string | null;
     phone: string | null;
-    avatarUrl: string;
+    addressLine1: string | null;
+    addressLine2: string | null;
+    suburb: string | null;
+    state: string | null;
+    postcode: string | null;
+    licenceNo: string | null;
+    bio: string | null;
+    abn: string | null;
+    isAvailable: boolean;
+    specialisations: {
+      id: string;
+      trade: string;
+      yearsExperience: number | null;
+      certification: string | null;
+    }[];
   };
 }
 interface AuthState {
