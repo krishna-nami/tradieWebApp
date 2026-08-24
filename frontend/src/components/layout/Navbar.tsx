@@ -63,7 +63,7 @@ export function Navbar() {
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="primary" size="sm">
+                  <Button variant="default" size="sm">
                     Sign up
                   </Button>
                 </Link>

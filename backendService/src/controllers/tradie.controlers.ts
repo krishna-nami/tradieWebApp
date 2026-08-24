@@ -18,7 +18,7 @@ import {
   AvailabilityInput,
   availabilitySchema,
 } from "../validators/availability.validators.js";
-import { updateProfileSchema } from "../validators/auth.validator.js";
+
 export const traideProfileConroller = async (req: Request, res: Response) => {
   const userId = req.user.id;
   if (!userId) {

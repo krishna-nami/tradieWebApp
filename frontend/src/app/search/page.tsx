@@ -2,6 +2,7 @@
 "use client";
 
 import { LocateFixed } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useSearchFilters } from "@/store/searchFilters";
 import { useTradieSearch } from "@/hooks/useTradieSearch";
 import { TradieCard } from "@/components/tradie/TradieCard";
@@ -18,8 +19,17 @@ import {
 } from "@/components/ui/select";
 import { TRADE_CATEGORIES } from "@/lib/validation/tradieProfile";
 import { cn } from "@/lib/utils";
+import { Suspense, useEffect } from "react";
 
-export default function SearchPage() {
+function SearchPage() {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const urlTradeType = searchParams.get("tradeType") ?? "";
+    const urlSuburb = searchParams.get("suburb") ?? "";
+    setFilters({ tradieType: urlTradeType, suburb: urlSuburb });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.toString()]);
+
   const {
     tradieType,
     suburb,
@@ -144,5 +154,19 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchPageWrapper() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center py-16">
+          <Spinner size={28} />
+        </div>
+      }
+    >
+      <SearchPage />
+    </Suspense>
   );
 }

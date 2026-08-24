@@ -2,6 +2,8 @@
 "use client";
 
 import { useState } from "react";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -36,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/Spinner";
 
 const AU_STATES = [
   "ACT",
@@ -50,8 +53,11 @@ const AU_STATES = [
 
 type Step = "account" | "tradie-profile";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const roleFromUrl = searchParams.get("role");
+  const initilaRole = roleFromUrl === "tradie" ? "TRADIE" : "CUSTOMER";
   const [showAddress, setShowAddress] = useState(false);
   const [step, setStep] = useState<Step>("account");
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +72,7 @@ export default function RegisterPage() {
       lastName: "",
       email: "",
       phone: "",
-      role: "CUSTOMER",
+      role: initilaRole,
       password: "",
       confirmPassword: "",
       addressLine1: "",
@@ -603,5 +609,18 @@ export default function RegisterPage() {
         )}
       </Card>
     </div>
+  );
+}
+export default function RegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
+          <Spinner size={28} />
+        </div>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 }
