@@ -182,7 +182,7 @@ export default function HomePage() {
                     value={tradeType}
                     onValueChange={(v) => setTradeType(v ?? "")}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Tradie type">
                       <SelectValue placeholder="Any trade" />
                     </SelectTrigger>
                     <SelectContent>
@@ -197,13 +197,15 @@ export default function HomePage() {
                     value={suburb}
                     onChange={(e) => setSuburb(e.target.value)}
                     placeholder="Suburb, e.g. Canberra"
+                    aria-label="Suburb"
                   />
                   <Button
                     onClick={handleSearch}
                     isLoading={isPending}
                     className="mt-1"
                   >
-                    <Search size={16} className="mr-1.5" /> Search tradies
+                    {!isPending && <Search size={16} className="mr-1.5" />}
+                    Search tradies
                   </Button>
                 </div>
               </div>
@@ -236,20 +238,6 @@ export default function HomePage() {
       </section>
 
       <HazardDivider />
-      <section className="mx-auto max-w-5xl px-4 py-16">
-        <p className="text-center font-mono text-xs tracking-[0.2em] text-slate-400">
-          ON TRADIEHUB NOW
-        </p>
-        <h2
-          className="mt-2 text-center text-2xl text-slate-900 sm:text-3xl"
-          style={{ fontFamily: "var(--font-display), sans-serif" }}
-        >
-          MEET SOME OF OUR TRADIES
-        </h2>
-        <div className="mt-8">
-          <FeaturedTradies />
-        </div>
-      </section>
 
       {/* How it works */}
       <section className="mx-auto max-w-5xl px-4 py-16">
@@ -365,6 +353,21 @@ export default function HomePage() {
               Join as a tradie <ArrowRight size={16} className="ml-1.5" />
             </Button>
           </Link>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="mx-auto max-w-5xl px-4 py-16">
+        <p className="text-center font-mono text-xs tracking-[0.2em] text-slate-400">
+          ON TRADIEHUB NOW
+        </p>
+        <h2
+          className="mt-2 text-center text-2xl text-slate-900 sm:text-3xl"
+          style={{ fontFamily: "var(--font-display), sans-serif" }}
+        >
+          MEET SOME OF OUR TRADIES
+        </h2>
+        <div className="mt-8">
+          <FeaturedTradies />
         </div>
       </section>
     </div>

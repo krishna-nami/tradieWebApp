@@ -3,20 +3,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import {
-  ShieldCheck,
-  Star,
-  ArrowUp,
-  Mail,
-  Send,
-  CheckCircle2,
-  Briefcase, // Safe fallback
-  Users, // Safe fallback
-} from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+import { ShieldCheck, CreditCard, ArrowUp } from "lucide-react";
 
-// Custom SVG social icons (works with any version)
 const FacebookIcon = ({
   size = 18,
   className = "",
@@ -89,51 +77,40 @@ const LinkedinIcon = ({
   </svg>
 );
 
-// Social media links with custom icons
 const socialLinks = [
   {
     icon: FacebookIcon,
     label: "Facebook",
-    href: "#",
-    bgColor: "hover:bg-[#1877F2]",
-    borderColor: "hover:border-[#1877F2]",
-    textColor: "hover:text-[#1877F2]",
+    href: "/",
+    hoverColor: "hover:bg-[#1877F2] hover:border-[#1877F2]",
   },
   {
     icon: InstagramIcon,
     label: "Instagram",
-    href: "https://instagram.com/tradiehub",
-    bgColor: "hover:bg-[#E4405F]",
-    borderColor: "hover:border-[#E4405F]",
-    textColor: "hover:text-[#E4405F]",
+    href: "/",
+    hoverColor: "hover:bg-[#E4405F] hover:border-[#E4405F]",
   },
   {
     icon: TwitterIcon,
     label: "X (Twitter)",
-    href: "https://x.com/tradiehub",
-    bgColor: "hover:bg-[#000000]",
-    borderColor: "hover:border-[#000000]",
-    textColor: "hover:text-[#000000]",
+    href: "/",
+    hoverColor: "hover:bg-black hover:border-black",
   },
   {
     icon: LinkedinIcon,
     label: "LinkedIn",
-    href: "https://linkedin.com/company/tradiehub",
-    bgColor: "hover:bg-[#0A66C2]",
-    borderColor: "hover:border-[#0A66C2]",
-    textColor: "hover:text-[#0A66C2]",
+    href: "/",
+    hoverColor: "hover:bg-[#0A66C2] hover:border-[#0A66C2]",
   },
 ];
 
-// Footer navigation columns
+// Only routes that actually exist in the app
 const columns = [
   {
     heading: "For customers",
     links: [
       { label: "Find a tradie", href: "/search" },
       { label: "How it works", href: "/#how-it-works" },
-      { label: "Browse trades", href: "/search" },
-      { label: "Customer reviews", href: "/reviews" },
     ],
   },
   {
@@ -141,74 +118,42 @@ const columns = [
     links: [
       { label: "Join as a tradie", href: "/register?role=tradie" },
       { label: "Tradie dashboard", href: "/dashboard" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Success stories", href: "/stories" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "About us", href: "/about" },
-      { label: "Contact", href: "/contact" },
-      { label: "Careers", href: "/careers" },
-      { label: "Blog", href: "/blog" },
     ],
   },
 ];
 
-// Legal pages
-const legalLinks = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Cookie Policy", href: "/cookies" },
-  { label: "Sitemap", href: "/sitemap.xml" },
-];
-
-// Social media links with real profiles (update these)
-
-// Trust badges
 const trustBadges = [
   {
     icon: ShieldCheck,
     label: "Licensed & Verified",
     color: "text-emerald-400",
   },
-  { icon: Star, label: "4.9/5 Rating", color: "text-amber-400" },
-  { icon: CheckCircle2, label: "100% Secure", color: "text-blue-400" },
+  { icon: CreditCard, label: "Secure Payments", color: "text-blue-400" },
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Handle scroll-to-top visibility
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 500);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      // Add your newsletter API call here
-      console.log("Subscribing email:", email);
-      setIsSubscribed(true);
-      setEmail("");
-      setTimeout(() => setIsSubscribed(false), 3000);
-    }
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="relative border-t border-slate-800 bg-slate-900">
-      {/* Back to top button */}
+    <footer className=" relative border-t-2 border-slate-400/20 bg-slate-900">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
       {showScrollTop && (
         <button
           onClick={scrollToTop}
@@ -219,10 +164,8 @@ export function Footer() {
         </button>
       )}
 
-      {/* Main footer content */}
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-5">
-          {/* Brand column */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
           <div className="col-span-1 space-y-4 sm:col-span-2">
             <Link href="/" className="inline-block">
               <span className="text-2xl font-bold text-white transition-colors hover:text-amber-400">
@@ -231,10 +174,9 @@ export function Footer() {
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-slate-400">
               Connecting Australians with trusted local tradies. Licensed,
-              verified, and reviewed by real customers.
+              verified, and secure from booking to payment.
             </p>
 
-            {/* Trust badges */}
             <div className="flex flex-wrap gap-4 pt-2">
               {trustBadges.map(({ icon: Icon, label, color }) => (
                 <div key={label} className="flex items-center gap-1.5">
@@ -243,17 +185,13 @@ export function Footer() {
                 </div>
               ))}
             </div>
-
-            {/* Social links */}
             <div className="flex gap-2 pt-2">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
+              {socialLinks.map(({ icon: Icon, label, href, hoverColor }) => (
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 transition-all hover:scale-110 hover:border-amber-400 hover:bg-amber-500/10 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 transition-all hover:scale-110 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 ${hoverColor}`}
                 >
                   <Icon size={18} />
                 </a>
@@ -261,7 +199,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation columns */}
           {columns.map((col) => (
             <div key={col.heading} className="col-span-1">
               <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -283,85 +220,13 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Newsletter section */}
-        <div className="mt-12 border-t border-slate-800 pt-8">
-          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h4 className="text-sm font-semibold text-white">
-                Subscribe to our newsletter
-              </h4>
-              <p className="text-xs text-slate-400">
-                Get updates on new tradies, special offers, and home maintenance
-                tips.
-              </p>
-            </div>
-            <form
-              onSubmit={handleNewsletterSubmit}
-              className="flex w-full max-w-sm gap-2"
-            >
-              <div className="relative flex-1">
-                <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="h-10 pl-9 pr-3 text-sm bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-amber-400"
-                  required
-                  disabled={isSubscribed}
-                />
-              </div>
-              <Button
-                type="submit"
-                size="sm"
-                variant="accent"
-                disabled={isSubscribed}
-                className="h-10 whitespace-nowrap"
-              >
-                {isSubscribed ? (
-                  <>
-                    <CheckCircle2 size={16} className="mr-1.5" />
-                    Subscribed!
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} className="mr-1.5" />
-                    Subscribe
-                  </>
-                )}
-              </Button>
-            </form>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center gap-4 border-t border-slate-800 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-between">
-          <div className="flex flex-wrap items-center gap-4">
-            <span>
-              © {new Date().getFullYear()} TradieHub. All rights reserved.
-            </span>
-            <span className="hidden h-3 w-px bg-slate-700 sm:block" />
-            <span className="font-mono text-[10px] tracking-wider">
-              Built with ❤️ in Canberra, Australia
-            </span>
-          </div>
-
-          {/* Legal links */}
-          <div className="flex flex-wrap items-center gap-4">
-            {legalLinks.map((link, index) => (
-              <span key={link.label} className="flex items-center gap-4">
-                <Link
-                  href={link.href}
-                  className="text-xs text-slate-500 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900"
-                >
-                  {link.label}
-                </Link>
-                {index < legalLinks.length - 1 && (
-                  <span className="h-3 w-px bg-slate-700" />
-                )}
-              </span>
-            ))}
-          </div>
+        <div className="mt-8 flex flex-col items-center gap-2 border-t border-slate-800 pt-6 text-xs text-slate-500 sm:flex-row sm:justify-between">
+          <span>
+            © {new Date().getFullYear()} TradieHub. All rights reserved.
+          </span>
+          <span className="font-mono text-[10px] tracking-wider">
+            Built in Canberra, Australia
+          </span>
         </div>
       </div>
     </footer>
