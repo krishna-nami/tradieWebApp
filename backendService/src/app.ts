@@ -4,6 +4,7 @@ import router from "./routes/index.js";
 import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import webhookRoutes from "./routes/webhook.routes.js";
 
 const app = express();
 app.use(helmet());
@@ -13,6 +14,7 @@ app.use(
     credentials: true,
   }),
 );
+app.use("/api/v1/webhook", webhookRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

@@ -69,6 +69,16 @@ export type QuoteLineItem = $Result.DefaultSelection<Prisma.$QuoteLineItemPayloa
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
 /**
+ * Model RefundRequest
+ * 
+ */
+export type RefundRequest = $Result.DefaultSelection<Prisma.$RefundRequestPayload>
+/**
+ * Model PayoutRecord
+ * 
+ */
+export type PayoutRecord = $Result.DefaultSelection<Prisma.$PayoutRecordPayload>
+/**
  * Model Review
  * 
  */
@@ -158,6 +168,19 @@ export const PaymentStatus: {
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
+export const RefundRequestStatus: {
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  REJECTED_BY_PARTY: 'REJECTED_BY_PARTY',
+  PENDING_ADMIN: 'PENDING_ADMIN',
+  REJECTED_BY_ADMIN: 'REJECTED_BY_ADMIN',
+  APPROVED: 'APPROVED',
+  PROCESSED: 'PROCESSED',
+  FAILED: 'FAILED'
+};
+
+export type RefundRequestStatus = (typeof RefundRequestStatus)[keyof typeof RefundRequestStatus]
+
+
 export const NotificationType: {
   EMAIL: 'EMAIL',
   SMS: 'SMS',
@@ -191,6 +214,10 @@ export const BookingStatus: typeof $Enums.BookingStatus
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type RefundRequestStatus = $Enums.RefundRequestStatus
+
+export const RefundRequestStatus: typeof $Enums.RefundRequestStatus
 
 export type NotificationType = $Enums.NotificationType
 
@@ -426,6 +453,26 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.refundRequest`: Exposes CRUD operations for the **RefundRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RefundRequests
+    * const refundRequests = await prisma.refundRequest.findMany()
+    * ```
+    */
+  get refundRequest(): Prisma.RefundRequestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.payoutRecord`: Exposes CRUD operations for the **PayoutRecord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PayoutRecords
+    * const payoutRecords = await prisma.payoutRecord.findMany()
+    * ```
+    */
+  get payoutRecord(): Prisma.PayoutRecordDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.review`: Exposes CRUD operations for the **Review** model.
@@ -901,6 +948,8 @@ export namespace Prisma {
     Quote: 'Quote',
     QuoteLineItem: 'QuoteLineItem',
     Payment: 'Payment',
+    RefundRequest: 'RefundRequest',
+    PayoutRecord: 'PayoutRecord',
     Review: 'Review',
     Notification: 'Notification',
     StripeAccount: 'StripeAccount'
@@ -919,7 +968,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "tradieAvailabilitySlot" | "tradieSpecialisation" | "job" | "jobImage" | "booking" | "bookingStatusHistory" | "quote" | "quoteLineItem" | "payment" | "review" | "notification" | "stripeAccount"
+      modelProps: "user" | "profile" | "tradieAvailabilitySlot" | "tradieSpecialisation" | "job" | "jobImage" | "booking" | "bookingStatusHistory" | "quote" | "quoteLineItem" | "payment" | "refundRequest" | "payoutRecord" | "review" | "notification" | "stripeAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1737,6 +1786,154 @@ export namespace Prisma {
           }
         }
       }
+      RefundRequest: {
+        payload: Prisma.$RefundRequestPayload<ExtArgs>
+        fields: Prisma.RefundRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RefundRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RefundRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.RefundRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RefundRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          findMany: {
+            args: Prisma.RefundRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>[]
+          }
+          create: {
+            args: Prisma.RefundRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          createMany: {
+            args: Prisma.RefundRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RefundRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.RefundRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          update: {
+            args: Prisma.RefundRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.RefundRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RefundRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RefundRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.RefundRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefundRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.RefundRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRefundRequest>
+          }
+          groupBy: {
+            args: Prisma.RefundRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RefundRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RefundRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<RefundRequestCountAggregateOutputType> | number
+          }
+        }
+      }
+      PayoutRecord: {
+        payload: Prisma.$PayoutRecordPayload<ExtArgs>
+        fields: Prisma.PayoutRecordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PayoutRecordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PayoutRecordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          findFirst: {
+            args: Prisma.PayoutRecordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PayoutRecordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          findMany: {
+            args: Prisma.PayoutRecordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>[]
+          }
+          create: {
+            args: Prisma.PayoutRecordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          createMany: {
+            args: Prisma.PayoutRecordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PayoutRecordCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>[]
+          }
+          delete: {
+            args: Prisma.PayoutRecordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          update: {
+            args: Prisma.PayoutRecordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          deleteMany: {
+            args: Prisma.PayoutRecordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PayoutRecordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PayoutRecordUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>[]
+          }
+          upsert: {
+            args: Prisma.PayoutRecordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRecordPayload>
+          }
+          aggregate: {
+            args: Prisma.PayoutRecordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePayoutRecord>
+          }
+          groupBy: {
+            args: Prisma.PayoutRecordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PayoutRecordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PayoutRecordCountArgs<ExtArgs>
+            result: $Utils.Optional<PayoutRecordCountAggregateOutputType> | number
+          }
+        }
+      }
       Review: {
         payload: Prisma.$ReviewPayload<ExtArgs>
         fields: Prisma.ReviewFieldRefs
@@ -2078,6 +2275,8 @@ export namespace Prisma {
     quote?: QuoteOmit
     quoteLineItem?: QuoteLineItemOmit
     payment?: PaymentOmit
+    refundRequest?: RefundRequestOmit
+    payoutRecord?: PayoutRecordOmit
     review?: ReviewOmit
     notification?: NotificationOmit
     stripeAccount?: StripeAccountOmit
@@ -2167,6 +2366,7 @@ export namespace Prisma {
     assignJobs: number
     reviewsGiven: number
     reviewsRecieved: number
+    payoutRecords: number
     notifications: number
   }
 
@@ -2177,6 +2377,7 @@ export namespace Prisma {
     assignJobs?: boolean | UserCountOutputTypeCountAssignJobsArgs
     reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
     reviewsRecieved?: boolean | UserCountOutputTypeCountReviewsRecievedArgs
+    payoutRecords?: boolean | UserCountOutputTypeCountPayoutRecordsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
@@ -2231,6 +2432,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReviewsRecievedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPayoutRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayoutRecordWhereInput
   }
 
   /**
@@ -2371,6 +2579,37 @@ export namespace Prisma {
    */
   export type QuoteCountOutputTypeCountLineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuoteLineItemWhereInput
+  }
+
+
+  /**
+   * Count Type PaymentCountOutputType
+   */
+
+  export type PaymentCountOutputType = {
+    refundRequests: number
+  }
+
+  export type PaymentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    refundRequests?: boolean | PaymentCountOutputTypeCountRefundRequestsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PaymentCountOutputType without action
+   */
+  export type PaymentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentCountOutputType
+     */
+    select?: PaymentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PaymentCountOutputType without action
+   */
+  export type PaymentCountOutputTypeCountRefundRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefundRequestWhereInput
   }
 
 
@@ -2597,6 +2836,7 @@ export namespace Prisma {
     assignJobs?: boolean | User$assignJobsArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     reviewsRecieved?: boolean | User$reviewsRecievedArgs<ExtArgs>
+    payoutRecords?: boolean | User$payoutRecordsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     stripeAccount?: boolean | User$stripeAccountArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2653,6 +2893,7 @@ export namespace Prisma {
     assignJobs?: boolean | User$assignJobsArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     reviewsRecieved?: boolean | User$reviewsRecievedArgs<ExtArgs>
+    payoutRecords?: boolean | User$payoutRecordsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     stripeAccount?: boolean | User$stripeAccountArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2670,6 +2911,7 @@ export namespace Prisma {
       assignJobs: Prisma.$BookingPayload<ExtArgs>[]
       reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
       reviewsRecieved: Prisma.$ReviewPayload<ExtArgs>[]
+      payoutRecords: Prisma.$PayoutRecordPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       stripeAccount: Prisma.$StripeAccountPayload<ExtArgs> | null
     }
@@ -3086,6 +3328,7 @@ export namespace Prisma {
     assignJobs<T extends User$assignJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewsGiven<T extends User$reviewsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewsRecieved<T extends User$reviewsRecievedArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsRecievedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payoutRecords<T extends User$payoutRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$payoutRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stripeAccount<T extends User$stripeAccountArgs<ExtArgs> = {}>(args?: Subset<T, User$stripeAccountArgs<ExtArgs>>): Prisma__StripeAccountClient<$Result.GetResult<Prisma.$StripeAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3681,6 +3924,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.payoutRecords
+   */
+  export type User$payoutRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    where?: PayoutRecordWhereInput
+    orderBy?: PayoutRecordOrderByWithRelationInput | PayoutRecordOrderByWithRelationInput[]
+    cursor?: PayoutRecordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayoutRecordScalarFieldEnum | PayoutRecordScalarFieldEnum[]
   }
 
   /**
@@ -9919,6 +10186,7 @@ export namespace Prisma {
     payment?: boolean | Booking$paymentArgs<ExtArgs>
     review?: boolean | Booking$reviewArgs<ExtArgs>
     quote?: boolean | Booking$quoteArgs<ExtArgs>
+    payoutRecord?: boolean | Booking$payoutRecordArgs<ExtArgs>
     statusHistory?: boolean | Booking$statusHistoryArgs<ExtArgs>
     _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
@@ -9982,6 +10250,7 @@ export namespace Prisma {
     payment?: boolean | Booking$paymentArgs<ExtArgs>
     review?: boolean | Booking$reviewArgs<ExtArgs>
     quote?: boolean | Booking$quoteArgs<ExtArgs>
+    payoutRecord?: boolean | Booking$payoutRecordArgs<ExtArgs>
     statusHistory?: boolean | Booking$statusHistoryArgs<ExtArgs>
     _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -10005,6 +10274,7 @@ export namespace Prisma {
       payment: Prisma.$PaymentPayload<ExtArgs> | null
       review: Prisma.$ReviewPayload<ExtArgs> | null
       quote: Prisma.$QuotePayload<ExtArgs> | null
+      payoutRecord: Prisma.$PayoutRecordPayload<ExtArgs> | null
       statusHistory: Prisma.$BookingStatusHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -10420,6 +10690,7 @@ export namespace Prisma {
     payment<T extends Booking$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Booking$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     review<T extends Booking$reviewArgs<ExtArgs> = {}>(args?: Subset<T, Booking$reviewArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     quote<T extends Booking$quoteArgs<ExtArgs> = {}>(args?: Subset<T, Booking$quoteArgs<ExtArgs>>): Prisma__QuoteClient<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    payoutRecord<T extends Booking$payoutRecordArgs<ExtArgs> = {}>(args?: Subset<T, Booking$payoutRecordArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     statusHistory<T extends Booking$statusHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Booking$statusHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10917,6 +11188,25 @@ export namespace Prisma {
      */
     include?: QuoteInclude<ExtArgs> | null
     where?: QuoteWhereInput
+  }
+
+  /**
+   * Booking.payoutRecord
+   */
+  export type Booking$payoutRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    where?: PayoutRecordWhereInput
   }
 
   /**
@@ -14603,7 +14893,9 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    refundRequests?: boolean | Payment$refundRequestsArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
+    _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14646,7 +14938,9 @@ export namespace Prisma {
 
   export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "stripePaymentId" | "amount" | "platformFee" | "currency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    refundRequests?: boolean | Payment$refundRequestsArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
+    _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -14658,6 +14952,7 @@ export namespace Prisma {
   export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Payment"
     objects: {
+      refundRequests: Prisma.$RefundRequestPayload<ExtArgs>[]
       booking: Prisma.$BookingPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -15064,6 +15359,7 @@ export namespace Prisma {
    */
   export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    refundRequests<T extends Payment$refundRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Payment$refundRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     booking<T extends BookingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookingDefaultArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15504,6 +15800,30 @@ export namespace Prisma {
   }
 
   /**
+   * Payment.refundRequests
+   */
+  export type Payment$refundRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    where?: RefundRequestWhereInput
+    orderBy?: RefundRequestOrderByWithRelationInput | RefundRequestOrderByWithRelationInput[]
+    cursor?: RefundRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RefundRequestScalarFieldEnum | RefundRequestScalarFieldEnum[]
+  }
+
+  /**
    * Payment without action
    */
   export type PaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15519,6 +15839,2338 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PaymentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RefundRequest
+   */
+
+  export type AggregateRefundRequest = {
+    _count: RefundRequestCountAggregateOutputType | null
+    _avg: RefundRequestAvgAggregateOutputType | null
+    _sum: RefundRequestSumAggregateOutputType | null
+    _min: RefundRequestMinAggregateOutputType | null
+    _max: RefundRequestMaxAggregateOutputType | null
+  }
+
+  export type RefundRequestAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type RefundRequestSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type RefundRequestMinAggregateOutputType = {
+    id: string | null
+    paymentId: string | null
+    bookingId: string | null
+    requestedBy: string | null
+    reason: string | null
+    amount: Decimal | null
+    status: $Enums.RefundRequestStatus | null
+    partyRejectReason: string | null
+    adminApprovedBy: string | null
+    adminRejectReason: string | null
+    stripeRefundId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RefundRequestMaxAggregateOutputType = {
+    id: string | null
+    paymentId: string | null
+    bookingId: string | null
+    requestedBy: string | null
+    reason: string | null
+    amount: Decimal | null
+    status: $Enums.RefundRequestStatus | null
+    partyRejectReason: string | null
+    adminApprovedBy: string | null
+    adminRejectReason: string | null
+    stripeRefundId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RefundRequestCountAggregateOutputType = {
+    id: number
+    paymentId: number
+    bookingId: number
+    requestedBy: number
+    reason: number
+    amount: number
+    status: number
+    partyRejectReason: number
+    adminApprovedBy: number
+    adminRejectReason: number
+    stripeRefundId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RefundRequestAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type RefundRequestSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type RefundRequestMinAggregateInputType = {
+    id?: true
+    paymentId?: true
+    bookingId?: true
+    requestedBy?: true
+    reason?: true
+    amount?: true
+    status?: true
+    partyRejectReason?: true
+    adminApprovedBy?: true
+    adminRejectReason?: true
+    stripeRefundId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RefundRequestMaxAggregateInputType = {
+    id?: true
+    paymentId?: true
+    bookingId?: true
+    requestedBy?: true
+    reason?: true
+    amount?: true
+    status?: true
+    partyRejectReason?: true
+    adminApprovedBy?: true
+    adminRejectReason?: true
+    stripeRefundId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RefundRequestCountAggregateInputType = {
+    id?: true
+    paymentId?: true
+    bookingId?: true
+    requestedBy?: true
+    reason?: true
+    amount?: true
+    status?: true
+    partyRejectReason?: true
+    adminApprovedBy?: true
+    adminRejectReason?: true
+    stripeRefundId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RefundRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefundRequest to aggregate.
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefundRequests to fetch.
+     */
+    orderBy?: RefundRequestOrderByWithRelationInput | RefundRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RefundRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefundRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefundRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RefundRequests
+    **/
+    _count?: true | RefundRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RefundRequestAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RefundRequestSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RefundRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RefundRequestMaxAggregateInputType
+  }
+
+  export type GetRefundRequestAggregateType<T extends RefundRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateRefundRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRefundRequest[P]>
+      : GetScalarType<T[P], AggregateRefundRequest[P]>
+  }
+
+
+
+
+  export type RefundRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefundRequestWhereInput
+    orderBy?: RefundRequestOrderByWithAggregationInput | RefundRequestOrderByWithAggregationInput[]
+    by: RefundRequestScalarFieldEnum[] | RefundRequestScalarFieldEnum
+    having?: RefundRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RefundRequestCountAggregateInputType | true
+    _avg?: RefundRequestAvgAggregateInputType
+    _sum?: RefundRequestSumAggregateInputType
+    _min?: RefundRequestMinAggregateInputType
+    _max?: RefundRequestMaxAggregateInputType
+  }
+
+  export type RefundRequestGroupByOutputType = {
+    id: string
+    paymentId: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal
+    status: $Enums.RefundRequestStatus
+    partyRejectReason: string | null
+    adminApprovedBy: string | null
+    adminRejectReason: string | null
+    stripeRefundId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RefundRequestCountAggregateOutputType | null
+    _avg: RefundRequestAvgAggregateOutputType | null
+    _sum: RefundRequestSumAggregateOutputType | null
+    _min: RefundRequestMinAggregateOutputType | null
+    _max: RefundRequestMaxAggregateOutputType | null
+  }
+
+  type GetRefundRequestGroupByPayload<T extends RefundRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RefundRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RefundRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RefundRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], RefundRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RefundRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentId?: boolean
+    bookingId?: boolean
+    requestedBy?: boolean
+    reason?: boolean
+    amount?: boolean
+    status?: boolean
+    partyRejectReason?: boolean
+    adminApprovedBy?: boolean
+    adminRejectReason?: boolean
+    stripeRefundId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refundRequest"]>
+
+  export type RefundRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentId?: boolean
+    bookingId?: boolean
+    requestedBy?: boolean
+    reason?: boolean
+    amount?: boolean
+    status?: boolean
+    partyRejectReason?: boolean
+    adminApprovedBy?: boolean
+    adminRejectReason?: boolean
+    stripeRefundId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refundRequest"]>
+
+  export type RefundRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentId?: boolean
+    bookingId?: boolean
+    requestedBy?: boolean
+    reason?: boolean
+    amount?: boolean
+    status?: boolean
+    partyRejectReason?: boolean
+    adminApprovedBy?: boolean
+    adminRejectReason?: boolean
+    stripeRefundId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refundRequest"]>
+
+  export type RefundRequestSelectScalar = {
+    id?: boolean
+    paymentId?: boolean
+    bookingId?: boolean
+    requestedBy?: boolean
+    reason?: boolean
+    amount?: boolean
+    status?: boolean
+    partyRejectReason?: boolean
+    adminApprovedBy?: boolean
+    adminRejectReason?: boolean
+    stripeRefundId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RefundRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paymentId" | "bookingId" | "requestedBy" | "reason" | "amount" | "status" | "partyRejectReason" | "adminApprovedBy" | "adminRejectReason" | "stripeRefundId" | "createdAt" | "updatedAt", ExtArgs["result"]["refundRequest"]>
+  export type RefundRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }
+  export type RefundRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }
+  export type RefundRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payment?: boolean | PaymentDefaultArgs<ExtArgs>
+  }
+
+  export type $RefundRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RefundRequest"
+    objects: {
+      payment: Prisma.$PaymentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      paymentId: string
+      bookingId: string
+      requestedBy: string
+      reason: string
+      amount: Prisma.Decimal
+      status: $Enums.RefundRequestStatus
+      partyRejectReason: string | null
+      adminApprovedBy: string | null
+      adminRejectReason: string | null
+      stripeRefundId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["refundRequest"]>
+    composites: {}
+  }
+
+  type RefundRequestGetPayload<S extends boolean | null | undefined | RefundRequestDefaultArgs> = $Result.GetResult<Prisma.$RefundRequestPayload, S>
+
+  type RefundRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RefundRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RefundRequestCountAggregateInputType | true
+    }
+
+  export interface RefundRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RefundRequest'], meta: { name: 'RefundRequest' } }
+    /**
+     * Find zero or one RefundRequest that matches the filter.
+     * @param {RefundRequestFindUniqueArgs} args - Arguments to find a RefundRequest
+     * @example
+     * // Get one RefundRequest
+     * const refundRequest = await prisma.refundRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RefundRequestFindUniqueArgs>(args: SelectSubset<T, RefundRequestFindUniqueArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RefundRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RefundRequestFindUniqueOrThrowArgs} args - Arguments to find a RefundRequest
+     * @example
+     * // Get one RefundRequest
+     * const refundRequest = await prisma.refundRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RefundRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, RefundRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefundRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestFindFirstArgs} args - Arguments to find a RefundRequest
+     * @example
+     * // Get one RefundRequest
+     * const refundRequest = await prisma.refundRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RefundRequestFindFirstArgs>(args?: SelectSubset<T, RefundRequestFindFirstArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefundRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestFindFirstOrThrowArgs} args - Arguments to find a RefundRequest
+     * @example
+     * // Get one RefundRequest
+     * const refundRequest = await prisma.refundRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RefundRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, RefundRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RefundRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RefundRequests
+     * const refundRequests = await prisma.refundRequest.findMany()
+     * 
+     * // Get first 10 RefundRequests
+     * const refundRequests = await prisma.refundRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const refundRequestWithIdOnly = await prisma.refundRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RefundRequestFindManyArgs>(args?: SelectSubset<T, RefundRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RefundRequest.
+     * @param {RefundRequestCreateArgs} args - Arguments to create a RefundRequest.
+     * @example
+     * // Create one RefundRequest
+     * const RefundRequest = await prisma.refundRequest.create({
+     *   data: {
+     *     // ... data to create a RefundRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends RefundRequestCreateArgs>(args: SelectSubset<T, RefundRequestCreateArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RefundRequests.
+     * @param {RefundRequestCreateManyArgs} args - Arguments to create many RefundRequests.
+     * @example
+     * // Create many RefundRequests
+     * const refundRequest = await prisma.refundRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RefundRequestCreateManyArgs>(args?: SelectSubset<T, RefundRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RefundRequests and returns the data saved in the database.
+     * @param {RefundRequestCreateManyAndReturnArgs} args - Arguments to create many RefundRequests.
+     * @example
+     * // Create many RefundRequests
+     * const refundRequest = await prisma.refundRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RefundRequests and only return the `id`
+     * const refundRequestWithIdOnly = await prisma.refundRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RefundRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, RefundRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RefundRequest.
+     * @param {RefundRequestDeleteArgs} args - Arguments to delete one RefundRequest.
+     * @example
+     * // Delete one RefundRequest
+     * const RefundRequest = await prisma.refundRequest.delete({
+     *   where: {
+     *     // ... filter to delete one RefundRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RefundRequestDeleteArgs>(args: SelectSubset<T, RefundRequestDeleteArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RefundRequest.
+     * @param {RefundRequestUpdateArgs} args - Arguments to update one RefundRequest.
+     * @example
+     * // Update one RefundRequest
+     * const refundRequest = await prisma.refundRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RefundRequestUpdateArgs>(args: SelectSubset<T, RefundRequestUpdateArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RefundRequests.
+     * @param {RefundRequestDeleteManyArgs} args - Arguments to filter RefundRequests to delete.
+     * @example
+     * // Delete a few RefundRequests
+     * const { count } = await prisma.refundRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RefundRequestDeleteManyArgs>(args?: SelectSubset<T, RefundRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefundRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RefundRequests
+     * const refundRequest = await prisma.refundRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RefundRequestUpdateManyArgs>(args: SelectSubset<T, RefundRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefundRequests and returns the data updated in the database.
+     * @param {RefundRequestUpdateManyAndReturnArgs} args - Arguments to update many RefundRequests.
+     * @example
+     * // Update many RefundRequests
+     * const refundRequest = await prisma.refundRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RefundRequests and only return the `id`
+     * const refundRequestWithIdOnly = await prisma.refundRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RefundRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, RefundRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RefundRequest.
+     * @param {RefundRequestUpsertArgs} args - Arguments to update or create a RefundRequest.
+     * @example
+     * // Update or create a RefundRequest
+     * const refundRequest = await prisma.refundRequest.upsert({
+     *   create: {
+     *     // ... data to create a RefundRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RefundRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RefundRequestUpsertArgs>(args: SelectSubset<T, RefundRequestUpsertArgs<ExtArgs>>): Prisma__RefundRequestClient<$Result.GetResult<Prisma.$RefundRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RefundRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestCountArgs} args - Arguments to filter RefundRequests to count.
+     * @example
+     * // Count the number of RefundRequests
+     * const count = await prisma.refundRequest.count({
+     *   where: {
+     *     // ... the filter for the RefundRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends RefundRequestCountArgs>(
+      args?: Subset<T, RefundRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RefundRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RefundRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RefundRequestAggregateArgs>(args: Subset<T, RefundRequestAggregateArgs>): Prisma.PrismaPromise<GetRefundRequestAggregateType<T>>
+
+    /**
+     * Group by RefundRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefundRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RefundRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RefundRequestGroupByArgs['orderBy'] }
+        : { orderBy?: RefundRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RefundRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRefundRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RefundRequest model
+   */
+  readonly fields: RefundRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RefundRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RefundRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    payment<T extends PaymentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PaymentDefaultArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RefundRequest model
+   */
+  interface RefundRequestFieldRefs {
+    readonly id: FieldRef<"RefundRequest", 'String'>
+    readonly paymentId: FieldRef<"RefundRequest", 'String'>
+    readonly bookingId: FieldRef<"RefundRequest", 'String'>
+    readonly requestedBy: FieldRef<"RefundRequest", 'String'>
+    readonly reason: FieldRef<"RefundRequest", 'String'>
+    readonly amount: FieldRef<"RefundRequest", 'Decimal'>
+    readonly status: FieldRef<"RefundRequest", 'RefundRequestStatus'>
+    readonly partyRejectReason: FieldRef<"RefundRequest", 'String'>
+    readonly adminApprovedBy: FieldRef<"RefundRequest", 'String'>
+    readonly adminRejectReason: FieldRef<"RefundRequest", 'String'>
+    readonly stripeRefundId: FieldRef<"RefundRequest", 'String'>
+    readonly createdAt: FieldRef<"RefundRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"RefundRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RefundRequest findUnique
+   */
+  export type RefundRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which RefundRequest to fetch.
+     */
+    where: RefundRequestWhereUniqueInput
+  }
+
+  /**
+   * RefundRequest findUniqueOrThrow
+   */
+  export type RefundRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which RefundRequest to fetch.
+     */
+    where: RefundRequestWhereUniqueInput
+  }
+
+  /**
+   * RefundRequest findFirst
+   */
+  export type RefundRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which RefundRequest to fetch.
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefundRequests to fetch.
+     */
+    orderBy?: RefundRequestOrderByWithRelationInput | RefundRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefundRequests.
+     */
+    cursor?: RefundRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefundRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefundRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefundRequests.
+     */
+    distinct?: RefundRequestScalarFieldEnum | RefundRequestScalarFieldEnum[]
+  }
+
+  /**
+   * RefundRequest findFirstOrThrow
+   */
+  export type RefundRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which RefundRequest to fetch.
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefundRequests to fetch.
+     */
+    orderBy?: RefundRequestOrderByWithRelationInput | RefundRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefundRequests.
+     */
+    cursor?: RefundRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefundRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefundRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefundRequests.
+     */
+    distinct?: RefundRequestScalarFieldEnum | RefundRequestScalarFieldEnum[]
+  }
+
+  /**
+   * RefundRequest findMany
+   */
+  export type RefundRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which RefundRequests to fetch.
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefundRequests to fetch.
+     */
+    orderBy?: RefundRequestOrderByWithRelationInput | RefundRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RefundRequests.
+     */
+    cursor?: RefundRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefundRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefundRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefundRequests.
+     */
+    distinct?: RefundRequestScalarFieldEnum | RefundRequestScalarFieldEnum[]
+  }
+
+  /**
+   * RefundRequest create
+   */
+  export type RefundRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RefundRequest.
+     */
+    data: XOR<RefundRequestCreateInput, RefundRequestUncheckedCreateInput>
+  }
+
+  /**
+   * RefundRequest createMany
+   */
+  export type RefundRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RefundRequests.
+     */
+    data: RefundRequestCreateManyInput | RefundRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RefundRequest createManyAndReturn
+   */
+  export type RefundRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many RefundRequests.
+     */
+    data: RefundRequestCreateManyInput | RefundRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RefundRequest update
+   */
+  export type RefundRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RefundRequest.
+     */
+    data: XOR<RefundRequestUpdateInput, RefundRequestUncheckedUpdateInput>
+    /**
+     * Choose, which RefundRequest to update.
+     */
+    where: RefundRequestWhereUniqueInput
+  }
+
+  /**
+   * RefundRequest updateMany
+   */
+  export type RefundRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RefundRequests.
+     */
+    data: XOR<RefundRequestUpdateManyMutationInput, RefundRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which RefundRequests to update
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * Limit how many RefundRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefundRequest updateManyAndReturn
+   */
+  export type RefundRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update RefundRequests.
+     */
+    data: XOR<RefundRequestUpdateManyMutationInput, RefundRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which RefundRequests to update
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * Limit how many RefundRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RefundRequest upsert
+   */
+  export type RefundRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RefundRequest to update in case it exists.
+     */
+    where: RefundRequestWhereUniqueInput
+    /**
+     * In case the RefundRequest found by the `where` argument doesn't exist, create a new RefundRequest with this data.
+     */
+    create: XOR<RefundRequestCreateInput, RefundRequestUncheckedCreateInput>
+    /**
+     * In case the RefundRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RefundRequestUpdateInput, RefundRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * RefundRequest delete
+   */
+  export type RefundRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+    /**
+     * Filter which RefundRequest to delete.
+     */
+    where: RefundRequestWhereUniqueInput
+  }
+
+  /**
+   * RefundRequest deleteMany
+   */
+  export type RefundRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefundRequests to delete
+     */
+    where?: RefundRequestWhereInput
+    /**
+     * Limit how many RefundRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefundRequest without action
+   */
+  export type RefundRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefundRequest
+     */
+    select?: RefundRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefundRequest
+     */
+    omit?: RefundRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefundRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PayoutRecord
+   */
+
+  export type AggregatePayoutRecord = {
+    _count: PayoutRecordCountAggregateOutputType | null
+    _avg: PayoutRecordAvgAggregateOutputType | null
+    _sum: PayoutRecordSumAggregateOutputType | null
+    _min: PayoutRecordMinAggregateOutputType | null
+    _max: PayoutRecordMaxAggregateOutputType | null
+  }
+
+  export type PayoutRecordAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PayoutRecordSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PayoutRecordMinAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    tradieId: string | null
+    stripeTransferId: string | null
+    amount: Decimal | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PayoutRecordMaxAggregateOutputType = {
+    id: string | null
+    bookingId: string | null
+    tradieId: string | null
+    stripeTransferId: string | null
+    amount: Decimal | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PayoutRecordCountAggregateOutputType = {
+    id: number
+    bookingId: number
+    tradieId: number
+    stripeTransferId: number
+    amount: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PayoutRecordAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type PayoutRecordSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type PayoutRecordMinAggregateInputType = {
+    id?: true
+    bookingId?: true
+    tradieId?: true
+    stripeTransferId?: true
+    amount?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PayoutRecordMaxAggregateInputType = {
+    id?: true
+    bookingId?: true
+    tradieId?: true
+    stripeTransferId?: true
+    amount?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PayoutRecordCountAggregateInputType = {
+    id?: true
+    bookingId?: true
+    tradieId?: true
+    stripeTransferId?: true
+    amount?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PayoutRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PayoutRecord to aggregate.
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRecords to fetch.
+     */
+    orderBy?: PayoutRecordOrderByWithRelationInput | PayoutRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PayoutRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PayoutRecords
+    **/
+    _count?: true | PayoutRecordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PayoutRecordAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PayoutRecordSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PayoutRecordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PayoutRecordMaxAggregateInputType
+  }
+
+  export type GetPayoutRecordAggregateType<T extends PayoutRecordAggregateArgs> = {
+        [P in keyof T & keyof AggregatePayoutRecord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePayoutRecord[P]>
+      : GetScalarType<T[P], AggregatePayoutRecord[P]>
+  }
+
+
+
+
+  export type PayoutRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayoutRecordWhereInput
+    orderBy?: PayoutRecordOrderByWithAggregationInput | PayoutRecordOrderByWithAggregationInput[]
+    by: PayoutRecordScalarFieldEnum[] | PayoutRecordScalarFieldEnum
+    having?: PayoutRecordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PayoutRecordCountAggregateInputType | true
+    _avg?: PayoutRecordAvgAggregateInputType
+    _sum?: PayoutRecordSumAggregateInputType
+    _min?: PayoutRecordMinAggregateInputType
+    _max?: PayoutRecordMaxAggregateInputType
+  }
+
+  export type PayoutRecordGroupByOutputType = {
+    id: string
+    bookingId: string
+    tradieId: string
+    stripeTransferId: string
+    amount: Decimal
+    status: string
+    createdAt: Date
+    _count: PayoutRecordCountAggregateOutputType | null
+    _avg: PayoutRecordAvgAggregateOutputType | null
+    _sum: PayoutRecordSumAggregateOutputType | null
+    _min: PayoutRecordMinAggregateOutputType | null
+    _max: PayoutRecordMaxAggregateOutputType | null
+  }
+
+  type GetPayoutRecordGroupByPayload<T extends PayoutRecordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PayoutRecordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PayoutRecordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PayoutRecordGroupByOutputType[P]>
+            : GetScalarType<T[P], PayoutRecordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PayoutRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    tradieId?: boolean
+    stripeTransferId?: boolean
+    amount?: boolean
+    status?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["payoutRecord"]>
+
+  export type PayoutRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    tradieId?: boolean
+    stripeTransferId?: boolean
+    amount?: boolean
+    status?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["payoutRecord"]>
+
+  export type PayoutRecordSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookingId?: boolean
+    tradieId?: boolean
+    stripeTransferId?: boolean
+    amount?: boolean
+    status?: boolean
+    createdAt?: boolean
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["payoutRecord"]>
+
+  export type PayoutRecordSelectScalar = {
+    id?: boolean
+    bookingId?: boolean
+    tradieId?: boolean
+    stripeTransferId?: boolean
+    amount?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type PayoutRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "tradieId" | "stripeTransferId" | "amount" | "status" | "createdAt", ExtArgs["result"]["payoutRecord"]>
+  export type PayoutRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PayoutRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PayoutRecordIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | BookingDefaultArgs<ExtArgs>
+    tradie?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PayoutRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PayoutRecord"
+    objects: {
+      booking: Prisma.$BookingPayload<ExtArgs>
+      tradie: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bookingId: string
+      tradieId: string
+      stripeTransferId: string
+      amount: Prisma.Decimal
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["payoutRecord"]>
+    composites: {}
+  }
+
+  type PayoutRecordGetPayload<S extends boolean | null | undefined | PayoutRecordDefaultArgs> = $Result.GetResult<Prisma.$PayoutRecordPayload, S>
+
+  type PayoutRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PayoutRecordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PayoutRecordCountAggregateInputType | true
+    }
+
+  export interface PayoutRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PayoutRecord'], meta: { name: 'PayoutRecord' } }
+    /**
+     * Find zero or one PayoutRecord that matches the filter.
+     * @param {PayoutRecordFindUniqueArgs} args - Arguments to find a PayoutRecord
+     * @example
+     * // Get one PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PayoutRecordFindUniqueArgs>(args: SelectSubset<T, PayoutRecordFindUniqueArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PayoutRecord that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PayoutRecordFindUniqueOrThrowArgs} args - Arguments to find a PayoutRecord
+     * @example
+     * // Get one PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PayoutRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, PayoutRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PayoutRecord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordFindFirstArgs} args - Arguments to find a PayoutRecord
+     * @example
+     * // Get one PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PayoutRecordFindFirstArgs>(args?: SelectSubset<T, PayoutRecordFindFirstArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PayoutRecord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordFindFirstOrThrowArgs} args - Arguments to find a PayoutRecord
+     * @example
+     * // Get one PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PayoutRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, PayoutRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PayoutRecords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PayoutRecords
+     * const payoutRecords = await prisma.payoutRecord.findMany()
+     * 
+     * // Get first 10 PayoutRecords
+     * const payoutRecords = await prisma.payoutRecord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const payoutRecordWithIdOnly = await prisma.payoutRecord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PayoutRecordFindManyArgs>(args?: SelectSubset<T, PayoutRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PayoutRecord.
+     * @param {PayoutRecordCreateArgs} args - Arguments to create a PayoutRecord.
+     * @example
+     * // Create one PayoutRecord
+     * const PayoutRecord = await prisma.payoutRecord.create({
+     *   data: {
+     *     // ... data to create a PayoutRecord
+     *   }
+     * })
+     * 
+     */
+    create<T extends PayoutRecordCreateArgs>(args: SelectSubset<T, PayoutRecordCreateArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PayoutRecords.
+     * @param {PayoutRecordCreateManyArgs} args - Arguments to create many PayoutRecords.
+     * @example
+     * // Create many PayoutRecords
+     * const payoutRecord = await prisma.payoutRecord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PayoutRecordCreateManyArgs>(args?: SelectSubset<T, PayoutRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PayoutRecords and returns the data saved in the database.
+     * @param {PayoutRecordCreateManyAndReturnArgs} args - Arguments to create many PayoutRecords.
+     * @example
+     * // Create many PayoutRecords
+     * const payoutRecord = await prisma.payoutRecord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PayoutRecords and only return the `id`
+     * const payoutRecordWithIdOnly = await prisma.payoutRecord.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PayoutRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, PayoutRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PayoutRecord.
+     * @param {PayoutRecordDeleteArgs} args - Arguments to delete one PayoutRecord.
+     * @example
+     * // Delete one PayoutRecord
+     * const PayoutRecord = await prisma.payoutRecord.delete({
+     *   where: {
+     *     // ... filter to delete one PayoutRecord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PayoutRecordDeleteArgs>(args: SelectSubset<T, PayoutRecordDeleteArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PayoutRecord.
+     * @param {PayoutRecordUpdateArgs} args - Arguments to update one PayoutRecord.
+     * @example
+     * // Update one PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PayoutRecordUpdateArgs>(args: SelectSubset<T, PayoutRecordUpdateArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PayoutRecords.
+     * @param {PayoutRecordDeleteManyArgs} args - Arguments to filter PayoutRecords to delete.
+     * @example
+     * // Delete a few PayoutRecords
+     * const { count } = await prisma.payoutRecord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PayoutRecordDeleteManyArgs>(args?: SelectSubset<T, PayoutRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PayoutRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PayoutRecords
+     * const payoutRecord = await prisma.payoutRecord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PayoutRecordUpdateManyArgs>(args: SelectSubset<T, PayoutRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PayoutRecords and returns the data updated in the database.
+     * @param {PayoutRecordUpdateManyAndReturnArgs} args - Arguments to update many PayoutRecords.
+     * @example
+     * // Update many PayoutRecords
+     * const payoutRecord = await prisma.payoutRecord.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PayoutRecords and only return the `id`
+     * const payoutRecordWithIdOnly = await prisma.payoutRecord.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PayoutRecordUpdateManyAndReturnArgs>(args: SelectSubset<T, PayoutRecordUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PayoutRecord.
+     * @param {PayoutRecordUpsertArgs} args - Arguments to update or create a PayoutRecord.
+     * @example
+     * // Update or create a PayoutRecord
+     * const payoutRecord = await prisma.payoutRecord.upsert({
+     *   create: {
+     *     // ... data to create a PayoutRecord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PayoutRecord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PayoutRecordUpsertArgs>(args: SelectSubset<T, PayoutRecordUpsertArgs<ExtArgs>>): Prisma__PayoutRecordClient<$Result.GetResult<Prisma.$PayoutRecordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PayoutRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordCountArgs} args - Arguments to filter PayoutRecords to count.
+     * @example
+     * // Count the number of PayoutRecords
+     * const count = await prisma.payoutRecord.count({
+     *   where: {
+     *     // ... the filter for the PayoutRecords we want to count
+     *   }
+     * })
+    **/
+    count<T extends PayoutRecordCountArgs>(
+      args?: Subset<T, PayoutRecordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PayoutRecordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PayoutRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PayoutRecordAggregateArgs>(args: Subset<T, PayoutRecordAggregateArgs>): Prisma.PrismaPromise<GetPayoutRecordAggregateType<T>>
+
+    /**
+     * Group by PayoutRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRecordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PayoutRecordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PayoutRecordGroupByArgs['orderBy'] }
+        : { orderBy?: PayoutRecordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PayoutRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPayoutRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PayoutRecord model
+   */
+  readonly fields: PayoutRecordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PayoutRecord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PayoutRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    booking<T extends BookingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookingDefaultArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tradie<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PayoutRecord model
+   */
+  interface PayoutRecordFieldRefs {
+    readonly id: FieldRef<"PayoutRecord", 'String'>
+    readonly bookingId: FieldRef<"PayoutRecord", 'String'>
+    readonly tradieId: FieldRef<"PayoutRecord", 'String'>
+    readonly stripeTransferId: FieldRef<"PayoutRecord", 'String'>
+    readonly amount: FieldRef<"PayoutRecord", 'Decimal'>
+    readonly status: FieldRef<"PayoutRecord", 'String'>
+    readonly createdAt: FieldRef<"PayoutRecord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PayoutRecord findUnique
+   */
+  export type PayoutRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRecord to fetch.
+     */
+    where: PayoutRecordWhereUniqueInput
+  }
+
+  /**
+   * PayoutRecord findUniqueOrThrow
+   */
+  export type PayoutRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRecord to fetch.
+     */
+    where: PayoutRecordWhereUniqueInput
+  }
+
+  /**
+   * PayoutRecord findFirst
+   */
+  export type PayoutRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRecord to fetch.
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRecords to fetch.
+     */
+    orderBy?: PayoutRecordOrderByWithRelationInput | PayoutRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PayoutRecords.
+     */
+    cursor?: PayoutRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PayoutRecords.
+     */
+    distinct?: PayoutRecordScalarFieldEnum | PayoutRecordScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRecord findFirstOrThrow
+   */
+  export type PayoutRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRecord to fetch.
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRecords to fetch.
+     */
+    orderBy?: PayoutRecordOrderByWithRelationInput | PayoutRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PayoutRecords.
+     */
+    cursor?: PayoutRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PayoutRecords.
+     */
+    distinct?: PayoutRecordScalarFieldEnum | PayoutRecordScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRecord findMany
+   */
+  export type PayoutRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRecords to fetch.
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRecords to fetch.
+     */
+    orderBy?: PayoutRecordOrderByWithRelationInput | PayoutRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PayoutRecords.
+     */
+    cursor?: PayoutRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PayoutRecords.
+     */
+    distinct?: PayoutRecordScalarFieldEnum | PayoutRecordScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRecord create
+   */
+  export type PayoutRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PayoutRecord.
+     */
+    data: XOR<PayoutRecordCreateInput, PayoutRecordUncheckedCreateInput>
+  }
+
+  /**
+   * PayoutRecord createMany
+   */
+  export type PayoutRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PayoutRecords.
+     */
+    data: PayoutRecordCreateManyInput | PayoutRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PayoutRecord createManyAndReturn
+   */
+  export type PayoutRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * The data used to create many PayoutRecords.
+     */
+    data: PayoutRecordCreateManyInput | PayoutRecordCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PayoutRecord update
+   */
+  export type PayoutRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PayoutRecord.
+     */
+    data: XOR<PayoutRecordUpdateInput, PayoutRecordUncheckedUpdateInput>
+    /**
+     * Choose, which PayoutRecord to update.
+     */
+    where: PayoutRecordWhereUniqueInput
+  }
+
+  /**
+   * PayoutRecord updateMany
+   */
+  export type PayoutRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PayoutRecords.
+     */
+    data: XOR<PayoutRecordUpdateManyMutationInput, PayoutRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which PayoutRecords to update
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * Limit how many PayoutRecords to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PayoutRecord updateManyAndReturn
+   */
+  export type PayoutRecordUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * The data used to update PayoutRecords.
+     */
+    data: XOR<PayoutRecordUpdateManyMutationInput, PayoutRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which PayoutRecords to update
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * Limit how many PayoutRecords to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PayoutRecord upsert
+   */
+  export type PayoutRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PayoutRecord to update in case it exists.
+     */
+    where: PayoutRecordWhereUniqueInput
+    /**
+     * In case the PayoutRecord found by the `where` argument doesn't exist, create a new PayoutRecord with this data.
+     */
+    create: XOR<PayoutRecordCreateInput, PayoutRecordUncheckedCreateInput>
+    /**
+     * In case the PayoutRecord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PayoutRecordUpdateInput, PayoutRecordUncheckedUpdateInput>
+  }
+
+  /**
+   * PayoutRecord delete
+   */
+  export type PayoutRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
+    /**
+     * Filter which PayoutRecord to delete.
+     */
+    where: PayoutRecordWhereUniqueInput
+  }
+
+  /**
+   * PayoutRecord deleteMany
+   */
+  export type PayoutRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PayoutRecords to delete
+     */
+    where?: PayoutRecordWhereInput
+    /**
+     * Limit how many PayoutRecords to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PayoutRecord without action
+   */
+  export type PayoutRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRecord
+     */
+    select?: PayoutRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayoutRecord
+     */
+    omit?: PayoutRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRecordInclude<ExtArgs> | null
   }
 
 
@@ -19039,6 +21691,38 @@ export namespace Prisma {
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+  export const RefundRequestScalarFieldEnum: {
+    id: 'id',
+    paymentId: 'paymentId',
+    bookingId: 'bookingId',
+    requestedBy: 'requestedBy',
+    reason: 'reason',
+    amount: 'amount',
+    status: 'status',
+    partyRejectReason: 'partyRejectReason',
+    adminApprovedBy: 'adminApprovedBy',
+    adminRejectReason: 'adminRejectReason',
+    stripeRefundId: 'stripeRefundId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RefundRequestScalarFieldEnum = (typeof RefundRequestScalarFieldEnum)[keyof typeof RefundRequestScalarFieldEnum]
+
+
+  export const PayoutRecordScalarFieldEnum: {
+    id: 'id',
+    bookingId: 'bookingId',
+    tradieId: 'tradieId',
+    stripeTransferId: 'stripeTransferId',
+    amount: 'amount',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type PayoutRecordScalarFieldEnum = (typeof PayoutRecordScalarFieldEnum)[keyof typeof PayoutRecordScalarFieldEnum]
+
+
   export const ReviewScalarFieldEnum: {
     id: 'id',
     bookingId: 'bookingId',
@@ -19270,6 +21954,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'RefundRequestStatus'
+   */
+  export type EnumRefundRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RefundRequestStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'RefundRequestStatus[]'
+   */
+  export type ListEnumRefundRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RefundRequestStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'NotificationType'
    */
   export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
@@ -19308,6 +22006,7 @@ export namespace Prisma {
     assignJobs?: BookingListRelationFilter
     reviewsGiven?: ReviewListRelationFilter
     reviewsRecieved?: ReviewListRelationFilter
+    payoutRecords?: PayoutRecordListRelationFilter
     notifications?: NotificationListRelationFilter
     stripeAccount?: XOR<StripeAccountNullableScalarRelationFilter, StripeAccountWhereInput> | null
   }
@@ -19331,6 +22030,7 @@ export namespace Prisma {
     assignJobs?: BookingOrderByRelationAggregateInput
     reviewsGiven?: ReviewOrderByRelationAggregateInput
     reviewsRecieved?: ReviewOrderByRelationAggregateInput
+    payoutRecords?: PayoutRecordOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     stripeAccount?: StripeAccountOrderByWithRelationInput
   }
@@ -19357,6 +22057,7 @@ export namespace Prisma {
     assignJobs?: BookingListRelationFilter
     reviewsGiven?: ReviewListRelationFilter
     reviewsRecieved?: ReviewListRelationFilter
+    payoutRecords?: PayoutRecordListRelationFilter
     notifications?: NotificationListRelationFilter
     stripeAccount?: XOR<StripeAccountNullableScalarRelationFilter, StripeAccountWhereInput> | null
   }, "id" | "email">
@@ -19849,6 +22550,7 @@ export namespace Prisma {
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
     quote?: XOR<QuoteNullableScalarRelationFilter, QuoteWhereInput> | null
+    payoutRecord?: XOR<PayoutRecordNullableScalarRelationFilter, PayoutRecordWhereInput> | null
     statusHistory?: BookingStatusHistoryListRelationFilter
   }
 
@@ -19871,6 +22573,7 @@ export namespace Prisma {
     payment?: PaymentOrderByWithRelationInput
     review?: ReviewOrderByWithRelationInput
     quote?: QuoteOrderByWithRelationInput
+    payoutRecord?: PayoutRecordOrderByWithRelationInput
     statusHistory?: BookingStatusHistoryOrderByRelationAggregateInput
   }
 
@@ -19896,6 +22599,7 @@ export namespace Prisma {
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
     quote?: XOR<QuoteNullableScalarRelationFilter, QuoteWhereInput> | null
+    payoutRecord?: XOR<PayoutRecordNullableScalarRelationFilter, PayoutRecordWhereInput> | null
     statusHistory?: BookingStatusHistoryListRelationFilter
   }, "id" | "jobId">
 
@@ -20162,6 +22866,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
+    refundRequests?: RefundRequestListRelationFilter
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
   }
 
@@ -20175,6 +22880,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refundRequests?: RefundRequestOrderByRelationAggregateInput
     booking?: BookingOrderByWithRelationInput
   }
 
@@ -20191,6 +22897,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
+    refundRequests?: RefundRequestListRelationFilter
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
   }, "id" | "bookingId" | "stripePaymentId">
 
@@ -20224,6 +22931,173 @@ export namespace Prisma {
     status?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
+  }
+
+  export type RefundRequestWhereInput = {
+    AND?: RefundRequestWhereInput | RefundRequestWhereInput[]
+    OR?: RefundRequestWhereInput[]
+    NOT?: RefundRequestWhereInput | RefundRequestWhereInput[]
+    id?: StringFilter<"RefundRequest"> | string
+    paymentId?: StringFilter<"RefundRequest"> | string
+    bookingId?: StringFilter<"RefundRequest"> | string
+    requestedBy?: StringFilter<"RefundRequest"> | string
+    reason?: StringFilter<"RefundRequest"> | string
+    amount?: DecimalFilter<"RefundRequest"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFilter<"RefundRequest"> | $Enums.RefundRequestStatus
+    partyRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    adminApprovedBy?: StringNullableFilter<"RefundRequest"> | string | null
+    adminRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    stripeRefundId?: StringNullableFilter<"RefundRequest"> | string | null
+    createdAt?: DateTimeFilter<"RefundRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"RefundRequest"> | Date | string
+    payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
+  }
+
+  export type RefundRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    bookingId?: SortOrder
+    requestedBy?: SortOrder
+    reason?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    partyRejectReason?: SortOrderInput | SortOrder
+    adminApprovedBy?: SortOrderInput | SortOrder
+    adminRejectReason?: SortOrderInput | SortOrder
+    stripeRefundId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    payment?: PaymentOrderByWithRelationInput
+  }
+
+  export type RefundRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RefundRequestWhereInput | RefundRequestWhereInput[]
+    OR?: RefundRequestWhereInput[]
+    NOT?: RefundRequestWhereInput | RefundRequestWhereInput[]
+    paymentId?: StringFilter<"RefundRequest"> | string
+    bookingId?: StringFilter<"RefundRequest"> | string
+    requestedBy?: StringFilter<"RefundRequest"> | string
+    reason?: StringFilter<"RefundRequest"> | string
+    amount?: DecimalFilter<"RefundRequest"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFilter<"RefundRequest"> | $Enums.RefundRequestStatus
+    partyRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    adminApprovedBy?: StringNullableFilter<"RefundRequest"> | string | null
+    adminRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    stripeRefundId?: StringNullableFilter<"RefundRequest"> | string | null
+    createdAt?: DateTimeFilter<"RefundRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"RefundRequest"> | Date | string
+    payment?: XOR<PaymentScalarRelationFilter, PaymentWhereInput>
+  }, "id">
+
+  export type RefundRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    bookingId?: SortOrder
+    requestedBy?: SortOrder
+    reason?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    partyRejectReason?: SortOrderInput | SortOrder
+    adminApprovedBy?: SortOrderInput | SortOrder
+    adminRejectReason?: SortOrderInput | SortOrder
+    stripeRefundId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RefundRequestCountOrderByAggregateInput
+    _avg?: RefundRequestAvgOrderByAggregateInput
+    _max?: RefundRequestMaxOrderByAggregateInput
+    _min?: RefundRequestMinOrderByAggregateInput
+    _sum?: RefundRequestSumOrderByAggregateInput
+  }
+
+  export type RefundRequestScalarWhereWithAggregatesInput = {
+    AND?: RefundRequestScalarWhereWithAggregatesInput | RefundRequestScalarWhereWithAggregatesInput[]
+    OR?: RefundRequestScalarWhereWithAggregatesInput[]
+    NOT?: RefundRequestScalarWhereWithAggregatesInput | RefundRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RefundRequest"> | string
+    paymentId?: StringWithAggregatesFilter<"RefundRequest"> | string
+    bookingId?: StringWithAggregatesFilter<"RefundRequest"> | string
+    requestedBy?: StringWithAggregatesFilter<"RefundRequest"> | string
+    reason?: StringWithAggregatesFilter<"RefundRequest"> | string
+    amount?: DecimalWithAggregatesFilter<"RefundRequest"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusWithAggregatesFilter<"RefundRequest"> | $Enums.RefundRequestStatus
+    partyRejectReason?: StringNullableWithAggregatesFilter<"RefundRequest"> | string | null
+    adminApprovedBy?: StringNullableWithAggregatesFilter<"RefundRequest"> | string | null
+    adminRejectReason?: StringNullableWithAggregatesFilter<"RefundRequest"> | string | null
+    stripeRefundId?: StringNullableWithAggregatesFilter<"RefundRequest"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RefundRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RefundRequest"> | Date | string
+  }
+
+  export type PayoutRecordWhereInput = {
+    AND?: PayoutRecordWhereInput | PayoutRecordWhereInput[]
+    OR?: PayoutRecordWhereInput[]
+    NOT?: PayoutRecordWhereInput | PayoutRecordWhereInput[]
+    id?: StringFilter<"PayoutRecord"> | string
+    bookingId?: StringFilter<"PayoutRecord"> | string
+    tradieId?: StringFilter<"PayoutRecord"> | string
+    stripeTransferId?: StringFilter<"PayoutRecord"> | string
+    amount?: DecimalFilter<"PayoutRecord"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PayoutRecord"> | string
+    createdAt?: DateTimeFilter<"PayoutRecord"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+    tradie?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PayoutRecordOrderByWithRelationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    tradieId?: SortOrder
+    stripeTransferId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    booking?: BookingOrderByWithRelationInput
+    tradie?: UserOrderByWithRelationInput
+  }
+
+  export type PayoutRecordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    bookingId?: string
+    stripeTransferId?: string
+    AND?: PayoutRecordWhereInput | PayoutRecordWhereInput[]
+    OR?: PayoutRecordWhereInput[]
+    NOT?: PayoutRecordWhereInput | PayoutRecordWhereInput[]
+    tradieId?: StringFilter<"PayoutRecord"> | string
+    amount?: DecimalFilter<"PayoutRecord"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PayoutRecord"> | string
+    createdAt?: DateTimeFilter<"PayoutRecord"> | Date | string
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
+    tradie?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "bookingId" | "stripeTransferId">
+
+  export type PayoutRecordOrderByWithAggregationInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    tradieId?: SortOrder
+    stripeTransferId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: PayoutRecordCountOrderByAggregateInput
+    _avg?: PayoutRecordAvgOrderByAggregateInput
+    _max?: PayoutRecordMaxOrderByAggregateInput
+    _min?: PayoutRecordMinOrderByAggregateInput
+    _sum?: PayoutRecordSumOrderByAggregateInput
+  }
+
+  export type PayoutRecordScalarWhereWithAggregatesInput = {
+    AND?: PayoutRecordScalarWhereWithAggregatesInput | PayoutRecordScalarWhereWithAggregatesInput[]
+    OR?: PayoutRecordScalarWhereWithAggregatesInput[]
+    NOT?: PayoutRecordScalarWhereWithAggregatesInput | PayoutRecordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PayoutRecord"> | string
+    bookingId?: StringWithAggregatesFilter<"PayoutRecord"> | string
+    tradieId?: StringWithAggregatesFilter<"PayoutRecord"> | string
+    stripeTransferId?: StringWithAggregatesFilter<"PayoutRecord"> | string
+    amount?: DecimalWithAggregatesFilter<"PayoutRecord"> | Decimal | DecimalJsLike | number | string
+    status?: StringWithAggregatesFilter<"PayoutRecord"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PayoutRecord"> | Date | string
   }
 
   export type ReviewWhereInput = {
@@ -20453,6 +23327,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -20476,6 +23351,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -20499,6 +23375,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -20522,6 +23399,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -21063,6 +23941,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -21082,6 +23961,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -21101,6 +23981,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -21120,6 +24001,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -21399,6 +24281,7 @@ export namespace Prisma {
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    refundRequests?: RefundRequestCreateNestedManyWithoutPaymentInput
     booking: BookingCreateNestedOneWithoutPaymentInput
   }
 
@@ -21412,6 +24295,7 @@ export namespace Prisma {
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    refundRequests?: RefundRequestUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUpdateInput = {
@@ -21423,6 +24307,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refundRequests?: RefundRequestUpdateManyWithoutPaymentNestedInput
     booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
   }
 
@@ -21436,6 +24321,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refundRequests?: RefundRequestUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentCreateManyInput = {
@@ -21471,6 +24357,185 @@ export namespace Prisma {
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefundRequestCreateInput = {
+    id?: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment: PaymentCreateNestedOneWithoutRefundRequestsInput
+  }
+
+  export type RefundRequestUncheckedCreateInput = {
+    id?: string
+    paymentId: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RefundRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUpdateOneRequiredWithoutRefundRequestsNestedInput
+  }
+
+  export type RefundRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefundRequestCreateManyInput = {
+    id?: string
+    paymentId: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RefundRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefundRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRecordCreateInput = {
+    id?: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    booking: BookingCreateNestedOneWithoutPayoutRecordInput
+    tradie: UserCreateNestedOneWithoutPayoutRecordsInput
+  }
+
+  export type PayoutRecordUncheckedCreateInput = {
+    id?: string
+    bookingId: string
+    tradieId: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PayoutRecordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutPayoutRecordNestedInput
+    tradie?: UserUpdateOneRequiredWithoutPayoutRecordsNestedInput
+  }
+
+  export type PayoutRecordUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRecordCreateManyInput = {
+    id?: string
+    bookingId: string
+    tradieId: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PayoutRecordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRecordUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewCreateInput = {
@@ -21772,6 +24837,12 @@ export namespace Prisma {
     none?: ReviewWhereInput
   }
 
+  export type PayoutRecordListRelationFilter = {
+    every?: PayoutRecordWhereInput
+    some?: PayoutRecordWhereInput
+    none?: PayoutRecordWhereInput
+  }
+
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
@@ -21797,6 +24868,10 @@ export namespace Prisma {
   }
 
   export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PayoutRecordOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22365,6 +25440,11 @@ export namespace Prisma {
     isNot?: QuoteWhereInput | null
   }
 
+  export type PayoutRecordNullableScalarRelationFilter = {
+    is?: PayoutRecordWhereInput | null
+    isNot?: PayoutRecordWhereInput | null
+  }
+
   export type BookingStatusHistoryListRelationFilter = {
     every?: BookingStatusHistoryWhereInput
     some?: BookingStatusHistoryWhereInput
@@ -22662,6 +25742,16 @@ export namespace Prisma {
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
   }
 
+  export type RefundRequestListRelationFilter = {
+    every?: RefundRequestWhereInput
+    some?: RefundRequestWhereInput
+    none?: RefundRequestWhereInput
+  }
+
+  export type RefundRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PaymentCountOrderByAggregateInput = {
     id?: SortOrder
     bookingId?: SortOrder
@@ -22716,6 +25806,122 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type EnumRefundRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RefundRequestStatus | EnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRefundRequestStatusFilter<$PrismaModel> | $Enums.RefundRequestStatus
+  }
+
+  export type PaymentScalarRelationFilter = {
+    is?: PaymentWhereInput
+    isNot?: PaymentWhereInput
+  }
+
+  export type RefundRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    bookingId?: SortOrder
+    requestedBy?: SortOrder
+    reason?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    partyRejectReason?: SortOrder
+    adminApprovedBy?: SortOrder
+    adminRejectReason?: SortOrder
+    stripeRefundId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RefundRequestAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type RefundRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    bookingId?: SortOrder
+    requestedBy?: SortOrder
+    reason?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    partyRejectReason?: SortOrder
+    adminApprovedBy?: SortOrder
+    adminRejectReason?: SortOrder
+    stripeRefundId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RefundRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    bookingId?: SortOrder
+    requestedBy?: SortOrder
+    reason?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    partyRejectReason?: SortOrder
+    adminApprovedBy?: SortOrder
+    adminRejectReason?: SortOrder
+    stripeRefundId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RefundRequestSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumRefundRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RefundRequestStatus | EnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRefundRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.RefundRequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRefundRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumRefundRequestStatusFilter<$PrismaModel>
+  }
+
+  export type PayoutRecordCountOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    tradieId?: SortOrder
+    stripeTransferId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PayoutRecordAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type PayoutRecordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    tradieId?: SortOrder
+    stripeTransferId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PayoutRecordMinOrderByAggregateInput = {
+    id?: SortOrder
+    bookingId?: SortOrder
+    tradieId?: SortOrder
+    stripeTransferId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PayoutRecordSumOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type ReviewCountOrderByAggregateInput = {
@@ -22884,6 +26090,13 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type PayoutRecordCreateNestedManyWithoutTradieInput = {
+    create?: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput> | PayoutRecordCreateWithoutTradieInput[] | PayoutRecordUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutTradieInput | PayoutRecordCreateOrConnectWithoutTradieInput[]
+    createMany?: PayoutRecordCreateManyTradieInputEnvelope
+    connect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+  }
+
   export type NotificationCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -22943,6 +26156,13 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
     createMany?: ReviewCreateManyRevieweeInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type PayoutRecordUncheckedCreateNestedManyWithoutTradieInput = {
+    create?: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput> | PayoutRecordCreateWithoutTradieInput[] | PayoutRecordUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutTradieInput | PayoutRecordCreateOrConnectWithoutTradieInput[]
+    createMany?: PayoutRecordCreateManyTradieInputEnvelope
+    connect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -23076,6 +26296,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type PayoutRecordUpdateManyWithoutTradieNestedInput = {
+    create?: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput> | PayoutRecordCreateWithoutTradieInput[] | PayoutRecordUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutTradieInput | PayoutRecordCreateOrConnectWithoutTradieInput[]
+    upsert?: PayoutRecordUpsertWithWhereUniqueWithoutTradieInput | PayoutRecordUpsertWithWhereUniqueWithoutTradieInput[]
+    createMany?: PayoutRecordCreateManyTradieInputEnvelope
+    set?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    disconnect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    delete?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    connect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    update?: PayoutRecordUpdateWithWhereUniqueWithoutTradieInput | PayoutRecordUpdateWithWhereUniqueWithoutTradieInput[]
+    updateMany?: PayoutRecordUpdateManyWithWhereWithoutTradieInput | PayoutRecordUpdateManyWithWhereWithoutTradieInput[]
+    deleteMany?: PayoutRecordScalarWhereInput | PayoutRecordScalarWhereInput[]
+  }
+
   export type NotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -23192,6 +26426,20 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutRevieweeInput | ReviewUpdateWithWhereUniqueWithoutRevieweeInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutRevieweeInput | ReviewUpdateManyWithWhereWithoutRevieweeInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput = {
+    create?: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput> | PayoutRecordCreateWithoutTradieInput[] | PayoutRecordUncheckedCreateWithoutTradieInput[]
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutTradieInput | PayoutRecordCreateOrConnectWithoutTradieInput[]
+    upsert?: PayoutRecordUpsertWithWhereUniqueWithoutTradieInput | PayoutRecordUpsertWithWhereUniqueWithoutTradieInput[]
+    createMany?: PayoutRecordCreateManyTradieInputEnvelope
+    set?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    disconnect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    delete?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    connect?: PayoutRecordWhereUniqueInput | PayoutRecordWhereUniqueInput[]
+    update?: PayoutRecordUpdateWithWhereUniqueWithoutTradieInput | PayoutRecordUpdateWithWhereUniqueWithoutTradieInput[]
+    updateMany?: PayoutRecordUpdateManyWithWhereWithoutTradieInput | PayoutRecordUpdateManyWithWhereWithoutTradieInput[]
+    deleteMany?: PayoutRecordScalarWhereInput | PayoutRecordScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -23530,6 +26778,12 @@ export namespace Prisma {
     connect?: QuoteWhereUniqueInput
   }
 
+  export type PayoutRecordCreateNestedOneWithoutBookingInput = {
+    create?: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutBookingInput
+    connect?: PayoutRecordWhereUniqueInput
+  }
+
   export type BookingStatusHistoryCreateNestedManyWithoutBookingInput = {
     create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
     connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
@@ -23553,6 +26807,12 @@ export namespace Prisma {
     create?: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
     connectOrCreate?: QuoteCreateOrConnectWithoutBookingInput
     connect?: QuoteWhereUniqueInput
+  }
+
+  export type PayoutRecordUncheckedCreateNestedOneWithoutBookingInput = {
+    create?: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutBookingInput
+    connect?: PayoutRecordWhereUniqueInput
   }
 
   export type BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput = {
@@ -23628,6 +26888,16 @@ export namespace Prisma {
     update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutBookingInput, QuoteUpdateWithoutBookingInput>, QuoteUncheckedUpdateWithoutBookingInput>
   }
 
+  export type PayoutRecordUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutBookingInput
+    upsert?: PayoutRecordUpsertWithoutBookingInput
+    disconnect?: PayoutRecordWhereInput | boolean
+    delete?: PayoutRecordWhereInput | boolean
+    connect?: PayoutRecordWhereUniqueInput
+    update?: XOR<XOR<PayoutRecordUpdateToOneWithWhereWithoutBookingInput, PayoutRecordUpdateWithoutBookingInput>, PayoutRecordUncheckedUpdateWithoutBookingInput>
+  }
+
   export type BookingStatusHistoryUpdateManyWithoutBookingNestedInput = {
     create?: XOR<BookingStatusHistoryCreateWithoutBookingInput, BookingStatusHistoryUncheckedCreateWithoutBookingInput> | BookingStatusHistoryCreateWithoutBookingInput[] | BookingStatusHistoryUncheckedCreateWithoutBookingInput[]
     connectOrCreate?: BookingStatusHistoryCreateOrConnectWithoutBookingInput | BookingStatusHistoryCreateOrConnectWithoutBookingInput[]
@@ -23670,6 +26940,16 @@ export namespace Prisma {
     delete?: QuoteWhereInput | boolean
     connect?: QuoteWhereUniqueInput
     update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutBookingInput, QuoteUpdateWithoutBookingInput>, QuoteUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: PayoutRecordCreateOrConnectWithoutBookingInput
+    upsert?: PayoutRecordUpsertWithoutBookingInput
+    disconnect?: PayoutRecordWhereInput | boolean
+    delete?: PayoutRecordWhereInput | boolean
+    connect?: PayoutRecordWhereUniqueInput
+    update?: XOR<XOR<PayoutRecordUpdateToOneWithWhereWithoutBookingInput, PayoutRecordUpdateWithoutBookingInput>, PayoutRecordUncheckedUpdateWithoutBookingInput>
   }
 
   export type BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput = {
@@ -23786,14 +27066,42 @@ export namespace Prisma {
     update?: XOR<XOR<QuoteUpdateToOneWithWhereWithoutLineItemsInput, QuoteUpdateWithoutLineItemsInput>, QuoteUncheckedUpdateWithoutLineItemsInput>
   }
 
+  export type RefundRequestCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput> | RefundRequestCreateWithoutPaymentInput[] | RefundRequestUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: RefundRequestCreateOrConnectWithoutPaymentInput | RefundRequestCreateOrConnectWithoutPaymentInput[]
+    createMany?: RefundRequestCreateManyPaymentInputEnvelope
+    connect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+  }
+
   export type BookingCreateNestedOneWithoutPaymentInput = {
     create?: XOR<BookingCreateWithoutPaymentInput, BookingUncheckedCreateWithoutPaymentInput>
     connectOrCreate?: BookingCreateOrConnectWithoutPaymentInput
     connect?: BookingWhereUniqueInput
   }
 
+  export type RefundRequestUncheckedCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput> | RefundRequestCreateWithoutPaymentInput[] | RefundRequestUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: RefundRequestCreateOrConnectWithoutPaymentInput | RefundRequestCreateOrConnectWithoutPaymentInput[]
+    createMany?: RefundRequestCreateManyPaymentInputEnvelope
+    connect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+  }
+
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
+  }
+
+  export type RefundRequestUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput> | RefundRequestCreateWithoutPaymentInput[] | RefundRequestUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: RefundRequestCreateOrConnectWithoutPaymentInput | RefundRequestCreateOrConnectWithoutPaymentInput[]
+    upsert?: RefundRequestUpsertWithWhereUniqueWithoutPaymentInput | RefundRequestUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: RefundRequestCreateManyPaymentInputEnvelope
+    set?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    disconnect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    delete?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    connect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    update?: RefundRequestUpdateWithWhereUniqueWithoutPaymentInput | RefundRequestUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: RefundRequestUpdateManyWithWhereWithoutPaymentInput | RefundRequestUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: RefundRequestScalarWhereInput | RefundRequestScalarWhereInput[]
   }
 
   export type BookingUpdateOneRequiredWithoutPaymentNestedInput = {
@@ -23802,6 +27110,66 @@ export namespace Prisma {
     upsert?: BookingUpsertWithoutPaymentInput
     connect?: BookingWhereUniqueInput
     update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutPaymentInput, BookingUpdateWithoutPaymentInput>, BookingUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type RefundRequestUncheckedUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput> | RefundRequestCreateWithoutPaymentInput[] | RefundRequestUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: RefundRequestCreateOrConnectWithoutPaymentInput | RefundRequestCreateOrConnectWithoutPaymentInput[]
+    upsert?: RefundRequestUpsertWithWhereUniqueWithoutPaymentInput | RefundRequestUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: RefundRequestCreateManyPaymentInputEnvelope
+    set?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    disconnect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    delete?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    connect?: RefundRequestWhereUniqueInput | RefundRequestWhereUniqueInput[]
+    update?: RefundRequestUpdateWithWhereUniqueWithoutPaymentInput | RefundRequestUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: RefundRequestUpdateManyWithWhereWithoutPaymentInput | RefundRequestUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: RefundRequestScalarWhereInput | RefundRequestScalarWhereInput[]
+  }
+
+  export type PaymentCreateNestedOneWithoutRefundRequestsInput = {
+    create?: XOR<PaymentCreateWithoutRefundRequestsInput, PaymentUncheckedCreateWithoutRefundRequestsInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutRefundRequestsInput
+    connect?: PaymentWhereUniqueInput
+  }
+
+  export type EnumRefundRequestStatusFieldUpdateOperationsInput = {
+    set?: $Enums.RefundRequestStatus
+  }
+
+  export type PaymentUpdateOneRequiredWithoutRefundRequestsNestedInput = {
+    create?: XOR<PaymentCreateWithoutRefundRequestsInput, PaymentUncheckedCreateWithoutRefundRequestsInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutRefundRequestsInput
+    upsert?: PaymentUpsertWithoutRefundRequestsInput
+    connect?: PaymentWhereUniqueInput
+    update?: XOR<XOR<PaymentUpdateToOneWithWhereWithoutRefundRequestsInput, PaymentUpdateWithoutRefundRequestsInput>, PaymentUncheckedUpdateWithoutRefundRequestsInput>
+  }
+
+  export type BookingCreateNestedOneWithoutPayoutRecordInput = {
+    create?: XOR<BookingCreateWithoutPayoutRecordInput, BookingUncheckedCreateWithoutPayoutRecordInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutPayoutRecordInput
+    connect?: BookingWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPayoutRecordsInput = {
+    create?: XOR<UserCreateWithoutPayoutRecordsInput, UserUncheckedCreateWithoutPayoutRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPayoutRecordsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BookingUpdateOneRequiredWithoutPayoutRecordNestedInput = {
+    create?: XOR<BookingCreateWithoutPayoutRecordInput, BookingUncheckedCreateWithoutPayoutRecordInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutPayoutRecordInput
+    upsert?: BookingUpsertWithoutPayoutRecordInput
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutPayoutRecordInput, BookingUpdateWithoutPayoutRecordInput>, BookingUncheckedUpdateWithoutPayoutRecordInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPayoutRecordsNestedInput = {
+    create?: XOR<UserCreateWithoutPayoutRecordsInput, UserUncheckedCreateWithoutPayoutRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPayoutRecordsInput
+    upsert?: UserUpsertWithoutPayoutRecordsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPayoutRecordsInput, UserUpdateWithoutPayoutRecordsInput>, UserUncheckedUpdateWithoutPayoutRecordsInput>
   }
 
   export type BookingCreateNestedOneWithoutReviewInput = {
@@ -24268,6 +27636,23 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumRefundRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RefundRequestStatus | EnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRefundRequestStatusFilter<$PrismaModel> | $Enums.RefundRequestStatus
+  }
+
+  export type NestedEnumRefundRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RefundRequestStatus | EnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RefundRequestStatus[] | ListEnumRefundRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRefundRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.RefundRequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRefundRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumRefundRequestStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -24453,6 +27838,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -24471,6 +27857,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -24499,6 +27886,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -24517,6 +27905,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -24583,6 +27972,34 @@ export namespace Prisma {
 
   export type ReviewCreateManyRevieweeInputEnvelope = {
     data: ReviewCreateManyRevieweeInput | ReviewCreateManyRevieweeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayoutRecordCreateWithoutTradieInput = {
+    id?: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    booking: BookingCreateNestedOneWithoutPayoutRecordInput
+  }
+
+  export type PayoutRecordUncheckedCreateWithoutTradieInput = {
+    id?: string
+    bookingId: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PayoutRecordCreateOrConnectWithoutTradieInput = {
+    where: PayoutRecordWhereUniqueInput
+    create: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput>
+  }
+
+  export type PayoutRecordCreateManyTradieInputEnvelope = {
+    data: PayoutRecordCreateManyTradieInput | PayoutRecordCreateManyTradieInput[]
     skipDuplicates?: boolean
   }
 
@@ -24847,6 +28264,35 @@ export namespace Prisma {
     data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutRevieweeInput>
   }
 
+  export type PayoutRecordUpsertWithWhereUniqueWithoutTradieInput = {
+    where: PayoutRecordWhereUniqueInput
+    update: XOR<PayoutRecordUpdateWithoutTradieInput, PayoutRecordUncheckedUpdateWithoutTradieInput>
+    create: XOR<PayoutRecordCreateWithoutTradieInput, PayoutRecordUncheckedCreateWithoutTradieInput>
+  }
+
+  export type PayoutRecordUpdateWithWhereUniqueWithoutTradieInput = {
+    where: PayoutRecordWhereUniqueInput
+    data: XOR<PayoutRecordUpdateWithoutTradieInput, PayoutRecordUncheckedUpdateWithoutTradieInput>
+  }
+
+  export type PayoutRecordUpdateManyWithWhereWithoutTradieInput = {
+    where: PayoutRecordScalarWhereInput
+    data: XOR<PayoutRecordUpdateManyMutationInput, PayoutRecordUncheckedUpdateManyWithoutTradieInput>
+  }
+
+  export type PayoutRecordScalarWhereInput = {
+    AND?: PayoutRecordScalarWhereInput | PayoutRecordScalarWhereInput[]
+    OR?: PayoutRecordScalarWhereInput[]
+    NOT?: PayoutRecordScalarWhereInput | PayoutRecordScalarWhereInput[]
+    id?: StringFilter<"PayoutRecord"> | string
+    bookingId?: StringFilter<"PayoutRecord"> | string
+    tradieId?: StringFilter<"PayoutRecord"> | string
+    stripeTransferId?: StringFilter<"PayoutRecord"> | string
+    amount?: DecimalFilter<"PayoutRecord"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PayoutRecord"> | string
+    createdAt?: DateTimeFilter<"PayoutRecord"> | Date | string
+  }
+
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
@@ -24976,6 +28422,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -24998,6 +28445,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -25092,6 +28540,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -25114,6 +28563,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -25360,6 +28810,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -25382,6 +28833,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -25409,6 +28861,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -25431,6 +28884,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -25455,6 +28909,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -25473,6 +28928,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -25532,6 +28988,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -25554,6 +29011,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -25587,6 +29045,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -25609,6 +29068,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -25639,6 +29099,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -25657,6 +29118,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -25845,6 +29307,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -25867,6 +29330,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -25894,6 +29358,7 @@ export namespace Prisma {
     bookings?: BookingCreateNestedManyWithoutCustomerInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -25916,6 +29381,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedCreateNestedManyWithoutCustomerInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -25934,6 +29400,7 @@ export namespace Prisma {
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    refundRequests?: RefundRequestCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutBookingInput = {
@@ -25945,6 +29412,7 @@ export namespace Prisma {
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    refundRequests?: RefundRequestUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentCreateOrConnectWithoutBookingInput = {
@@ -26004,6 +29472,29 @@ export namespace Prisma {
   export type QuoteCreateOrConnectWithoutBookingInput = {
     where: QuoteWhereUniqueInput
     create: XOR<QuoteCreateWithoutBookingInput, QuoteUncheckedCreateWithoutBookingInput>
+  }
+
+  export type PayoutRecordCreateWithoutBookingInput = {
+    id?: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    tradie: UserCreateNestedOneWithoutPayoutRecordsInput
+  }
+
+  export type PayoutRecordUncheckedCreateWithoutBookingInput = {
+    id?: string
+    tradieId: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PayoutRecordCreateOrConnectWithoutBookingInput = {
+    where: PayoutRecordWhereUniqueInput
+    create: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
   }
 
   export type BookingStatusHistoryCreateWithoutBookingInput = {
@@ -26114,6 +29605,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -26136,6 +29628,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -26169,6 +29662,7 @@ export namespace Prisma {
     bookings?: BookingUpdateManyWithoutCustomerNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -26191,6 +29685,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutCustomerNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -26215,6 +29710,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refundRequests?: RefundRequestUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutBookingInput = {
@@ -26226,6 +29722,7 @@ export namespace Prisma {
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refundRequests?: RefundRequestUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type ReviewUpsertWithoutBookingInput = {
@@ -26294,6 +29791,35 @@ export namespace Prisma {
     lineItems?: QuoteLineItemUncheckedUpdateManyWithoutQuoteNestedInput
   }
 
+  export type PayoutRecordUpsertWithoutBookingInput = {
+    update: XOR<PayoutRecordUpdateWithoutBookingInput, PayoutRecordUncheckedUpdateWithoutBookingInput>
+    create: XOR<PayoutRecordCreateWithoutBookingInput, PayoutRecordUncheckedCreateWithoutBookingInput>
+    where?: PayoutRecordWhereInput
+  }
+
+  export type PayoutRecordUpdateToOneWithWhereWithoutBookingInput = {
+    where?: PayoutRecordWhereInput
+    data: XOR<PayoutRecordUpdateWithoutBookingInput, PayoutRecordUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type PayoutRecordUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tradie?: UserUpdateOneRequiredWithoutPayoutRecordsNestedInput
+  }
+
+  export type PayoutRecordUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BookingStatusHistoryUpsertWithWhereUniqueWithoutBookingInput = {
     where: BookingStatusHistoryWhereUniqueInput
     update: XOR<BookingStatusHistoryUpdateWithoutBookingInput, BookingStatusHistoryUncheckedUpdateWithoutBookingInput>
@@ -26339,6 +29865,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutStatusHistoryInput = {
@@ -26357,6 +29884,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutStatusHistoryInput = {
@@ -26391,6 +29919,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutStatusHistoryInput = {
@@ -26409,6 +29938,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingCreateWithoutQuoteInput = {
@@ -26426,6 +29956,7 @@ export namespace Prisma {
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     review?: ReviewCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -26444,6 +29975,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -26504,6 +30036,7 @@ export namespace Prisma {
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -26522,6 +30055,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -26621,6 +30155,46 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RefundRequestCreateWithoutPaymentInput = {
+    id?: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RefundRequestUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RefundRequestCreateOrConnectWithoutPaymentInput = {
+    where: RefundRequestWhereUniqueInput
+    create: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type RefundRequestCreateManyPaymentInputEnvelope = {
+    data: RefundRequestCreateManyPaymentInput | RefundRequestCreateManyPaymentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BookingCreateWithoutPaymentInput = {
     id?: string
     status?: $Enums.BookingStatus
@@ -26636,6 +30210,7 @@ export namespace Prisma {
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     review?: ReviewCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -26654,12 +30229,48 @@ export namespace Prisma {
     updatedAt?: Date | string
     review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutPaymentInput = {
     where: BookingWhereUniqueInput
     create: XOR<BookingCreateWithoutPaymentInput, BookingUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type RefundRequestUpsertWithWhereUniqueWithoutPaymentInput = {
+    where: RefundRequestWhereUniqueInput
+    update: XOR<RefundRequestUpdateWithoutPaymentInput, RefundRequestUncheckedUpdateWithoutPaymentInput>
+    create: XOR<RefundRequestCreateWithoutPaymentInput, RefundRequestUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type RefundRequestUpdateWithWhereUniqueWithoutPaymentInput = {
+    where: RefundRequestWhereUniqueInput
+    data: XOR<RefundRequestUpdateWithoutPaymentInput, RefundRequestUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type RefundRequestUpdateManyWithWhereWithoutPaymentInput = {
+    where: RefundRequestScalarWhereInput
+    data: XOR<RefundRequestUpdateManyMutationInput, RefundRequestUncheckedUpdateManyWithoutPaymentInput>
+  }
+
+  export type RefundRequestScalarWhereInput = {
+    AND?: RefundRequestScalarWhereInput | RefundRequestScalarWhereInput[]
+    OR?: RefundRequestScalarWhereInput[]
+    NOT?: RefundRequestScalarWhereInput | RefundRequestScalarWhereInput[]
+    id?: StringFilter<"RefundRequest"> | string
+    paymentId?: StringFilter<"RefundRequest"> | string
+    bookingId?: StringFilter<"RefundRequest"> | string
+    requestedBy?: StringFilter<"RefundRequest"> | string
+    reason?: StringFilter<"RefundRequest"> | string
+    amount?: DecimalFilter<"RefundRequest"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFilter<"RefundRequest"> | $Enums.RefundRequestStatus
+    partyRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    adminApprovedBy?: StringNullableFilter<"RefundRequest"> | string | null
+    adminRejectReason?: StringNullableFilter<"RefundRequest"> | string | null
+    stripeRefundId?: StringNullableFilter<"RefundRequest"> | string | null
+    createdAt?: DateTimeFilter<"RefundRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"RefundRequest"> | Date | string
   }
 
   export type BookingUpsertWithoutPaymentInput = {
@@ -26688,6 +30299,7 @@ export namespace Prisma {
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -26706,7 +30318,272 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type PaymentCreateWithoutRefundRequestsInput = {
+    id?: string
+    stripePaymentId: string
+    amount: Decimal | DecimalJsLike | number | string
+    platformFee: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking: BookingCreateNestedOneWithoutPaymentInput
+  }
+
+  export type PaymentUncheckedCreateWithoutRefundRequestsInput = {
+    id?: string
+    bookingId: string
+    stripePaymentId: string
+    amount: Decimal | DecimalJsLike | number | string
+    platformFee: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentCreateOrConnectWithoutRefundRequestsInput = {
+    where: PaymentWhereUniqueInput
+    create: XOR<PaymentCreateWithoutRefundRequestsInput, PaymentUncheckedCreateWithoutRefundRequestsInput>
+  }
+
+  export type PaymentUpsertWithoutRefundRequestsInput = {
+    update: XOR<PaymentUpdateWithoutRefundRequestsInput, PaymentUncheckedUpdateWithoutRefundRequestsInput>
+    create: XOR<PaymentCreateWithoutRefundRequestsInput, PaymentUncheckedCreateWithoutRefundRequestsInput>
+    where?: PaymentWhereInput
+  }
+
+  export type PaymentUpdateToOneWithWhereWithoutRefundRequestsInput = {
+    where?: PaymentWhereInput
+    data: XOR<PaymentUpdateWithoutRefundRequestsInput, PaymentUncheckedUpdateWithoutRefundRequestsInput>
+  }
+
+  export type PaymentUpdateWithoutRefundRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    platformFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
+  }
+
+  export type PaymentUncheckedUpdateWithoutRefundRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    platformFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateWithoutPayoutRecordInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    job: JobCreateNestedOneWithoutBookingInput
+    customer: UserCreateNestedOneWithoutBookingsInput
+    tradie: UserCreateNestedOneWithoutAssignJobsInput
+    payment?: PaymentCreateNestedOneWithoutBookingInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
+    quote?: QuoteCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutPayoutRecordInput = {
+    id?: string
+    jobId: string
+    customerId: string
+    tradieId: string
+    status?: $Enums.BookingStatus
+    scheduledAt: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    declineReason?: string | null
+    cancelReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
+    quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutPayoutRecordInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutPayoutRecordInput, BookingUncheckedCreateWithoutPayoutRecordInput>
+  }
+
+  export type UserCreateWithoutPayoutRecordsInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    isVerified?: boolean
+    emailVerifyToken?: string | null
+    emailVerifyExpiry?: Date | string | null
+    passwordResettoken?: string | null
+    passwordResetExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    jobsPosted?: JobCreateNestedManyWithoutCustomerInput
+    jobsAssigned?: JobCreateNestedManyWithoutTradieInput
+    bookings?: BookingCreateNestedManyWithoutCustomerInput
+    assignJobs?: BookingCreateNestedManyWithoutTradieInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPayoutRecordsInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    isVerified?: boolean
+    emailVerifyToken?: string | null
+    emailVerifyExpiry?: Date | string | null
+    passwordResettoken?: string | null
+    passwordResetExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    jobsPosted?: JobUncheckedCreateNestedManyWithoutCustomerInput
+    jobsAssigned?: JobUncheckedCreateNestedManyWithoutTradieInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutCustomerInput
+    assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPayoutRecordsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPayoutRecordsInput, UserUncheckedCreateWithoutPayoutRecordsInput>
+  }
+
+  export type BookingUpsertWithoutPayoutRecordInput = {
+    update: XOR<BookingUpdateWithoutPayoutRecordInput, BookingUncheckedUpdateWithoutPayoutRecordInput>
+    create: XOR<BookingCreateWithoutPayoutRecordInput, BookingUncheckedCreateWithoutPayoutRecordInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutPayoutRecordInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutPayoutRecordInput, BookingUncheckedUpdateWithoutPayoutRecordInput>
+  }
+
+  export type BookingUpdateWithoutPayoutRecordInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    job?: JobUpdateOneRequiredWithoutBookingNestedInput
+    customer?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
+    payment?: PaymentUpdateOneWithoutBookingNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutPayoutRecordInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    tradieId?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    declineReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
+    quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type UserUpsertWithoutPayoutRecordsInput = {
+    update: XOR<UserUpdateWithoutPayoutRecordsInput, UserUncheckedUpdateWithoutPayoutRecordsInput>
+    create: XOR<UserCreateWithoutPayoutRecordsInput, UserUncheckedCreateWithoutPayoutRecordsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPayoutRecordsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPayoutRecordsInput, UserUncheckedUpdateWithoutPayoutRecordsInput>
+  }
+
+  export type UserUpdateWithoutPayoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifyToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerifyExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResettoken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    jobsPosted?: JobUpdateManyWithoutCustomerNestedInput
+    jobsAssigned?: JobUpdateManyWithoutTradieNestedInput
+    bookings?: BookingUpdateManyWithoutCustomerNestedInput
+    assignJobs?: BookingUpdateManyWithoutTradieNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPayoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifyToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerifyExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResettoken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    jobsPosted?: JobUncheckedUpdateManyWithoutCustomerNestedInput
+    jobsAssigned?: JobUncheckedUpdateManyWithoutTradieNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutCustomerNestedInput
+    assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type BookingCreateWithoutReviewInput = {
@@ -26724,6 +30601,7 @@ export namespace Prisma {
     tradie: UserCreateNestedOneWithoutAssignJobsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
     quote?: QuoteCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryCreateNestedManyWithoutBookingInput
   }
 
@@ -26742,6 +30620,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     quote?: QuoteUncheckedCreateNestedOneWithoutBookingInput
+    payoutRecord?: PayoutRecordUncheckedCreateNestedOneWithoutBookingInput
     statusHistory?: BookingStatusHistoryUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -26768,6 +30647,7 @@ export namespace Prisma {
     bookings?: BookingCreateNestedManyWithoutCustomerInput
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -26790,6 +30670,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedCreateNestedManyWithoutCustomerInput
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -26817,6 +30698,7 @@ export namespace Prisma {
     bookings?: BookingCreateNestedManyWithoutCustomerInput
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
@@ -26839,6 +30721,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedCreateNestedManyWithoutCustomerInput
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
@@ -26874,6 +30757,7 @@ export namespace Prisma {
     tradie?: UserUpdateOneRequiredWithoutAssignJobsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -26892,6 +30776,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -26924,6 +30809,7 @@ export namespace Prisma {
     bookings?: BookingUpdateManyWithoutCustomerNestedInput
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -26946,6 +30832,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutCustomerNestedInput
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -26979,6 +30866,7 @@ export namespace Prisma {
     bookings?: BookingUpdateManyWithoutCustomerNestedInput
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
@@ -27001,6 +30889,7 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutCustomerNestedInput
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -27024,6 +30913,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     stripeAccount?: StripeAccountCreateNestedOneWithoutUserInput
   }
 
@@ -27046,6 +30936,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     stripeAccount?: StripeAccountUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -27084,6 +30975,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     stripeAccount?: StripeAccountUpdateOneWithoutUserNestedInput
   }
 
@@ -27106,6 +30998,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     stripeAccount?: StripeAccountUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -27128,6 +31021,7 @@ export namespace Prisma {
     assignJobs?: BookingCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordCreateNestedManyWithoutTradieInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -27150,6 +31044,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedCreateNestedManyWithoutTradieInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     reviewsRecieved?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+    payoutRecords?: PayoutRecordUncheckedCreateNestedManyWithoutTradieInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -27188,6 +31083,7 @@ export namespace Prisma {
     assignJobs?: BookingUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -27210,6 +31106,7 @@ export namespace Prisma {
     assignJobs?: BookingUncheckedUpdateManyWithoutTradieNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     reviewsRecieved?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+    payoutRecords?: PayoutRecordUncheckedUpdateManyWithoutTradieNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -27292,6 +31189,15 @@ export namespace Prisma {
     reviewerId: string
     rating: number
     comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PayoutRecordCreateManyTradieInput = {
+    id?: string
+    bookingId: string
+    stripeTransferId: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: string
     createdAt?: Date | string
   }
 
@@ -27436,6 +31342,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -27454,6 +31361,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -27486,6 +31394,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     review?: ReviewUpdateOneWithoutBookingNestedInput
     quote?: QuoteUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUpdateManyWithoutBookingNestedInput
   }
 
@@ -27504,6 +31413,7 @@ export namespace Prisma {
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
     quote?: QuoteUncheckedUpdateOneWithoutBookingNestedInput
+    payoutRecord?: PayoutRecordUncheckedUpdateOneWithoutBookingNestedInput
     statusHistory?: BookingStatusHistoryUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -27572,6 +31482,33 @@ export namespace Prisma {
     reviewerId?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRecordUpdateWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: BookingUpdateOneRequiredWithoutPayoutRecordNestedInput
+  }
+
+  export type PayoutRecordUncheckedUpdateWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRecordUncheckedUpdateManyWithoutTradieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    stripeTransferId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27759,6 +31696,66 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type RefundRequestCreateManyPaymentInput = {
+    id?: string
+    bookingId: string
+    requestedBy: string
+    reason: string
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RefundRequestStatus
+    partyRejectReason?: string | null
+    adminApprovedBy?: string | null
+    adminRejectReason?: string | null
+    stripeRefundId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RefundRequestUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefundRequestUncheckedUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefundRequestUncheckedUpdateManyWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: StringFieldUpdateOperationsInput | string
+    requestedBy?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRefundRequestStatusFieldUpdateOperationsInput | $Enums.RefundRequestStatus
+    partyRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    adminApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    adminRejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeRefundId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

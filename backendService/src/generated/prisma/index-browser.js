@@ -260,6 +260,32 @@ exports.Prisma.PaymentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RefundRequestScalarFieldEnum = {
+  id: 'id',
+  paymentId: 'paymentId',
+  bookingId: 'bookingId',
+  requestedBy: 'requestedBy',
+  reason: 'reason',
+  amount: 'amount',
+  status: 'status',
+  partyRejectReason: 'partyRejectReason',
+  adminApprovedBy: 'adminApprovedBy',
+  adminRejectReason: 'adminRejectReason',
+  stripeRefundId: 'stripeRefundId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayoutRecordScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  tradieId: 'tradieId',
+  stripeTransferId: 'stripeTransferId',
+  amount: 'amount',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
@@ -357,6 +383,16 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   REFUNDED: 'REFUNDED'
 };
 
+exports.RefundRequestStatus = exports.$Enums.RefundRequestStatus = {
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  REJECTED_BY_PARTY: 'REJECTED_BY_PARTY',
+  PENDING_ADMIN: 'PENDING_ADMIN',
+  REJECTED_BY_ADMIN: 'REJECTED_BY_ADMIN',
+  APPROVED: 'APPROVED',
+  PROCESSED: 'PROCESSED',
+  FAILED: 'FAILED'
+};
+
 exports.NotificationType = exports.$Enums.NotificationType = {
   EMAIL: 'EMAIL',
   SMS: 'SMS',
@@ -375,6 +411,8 @@ exports.Prisma.ModelName = {
   Quote: 'Quote',
   QuoteLineItem: 'QuoteLineItem',
   Payment: 'Payment',
+  RefundRequest: 'RefundRequest',
+  PayoutRecord: 'PayoutRecord',
   Review: 'Review',
   Notification: 'Notification',
   StripeAccount: 'StripeAccount'

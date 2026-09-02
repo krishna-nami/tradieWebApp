@@ -8,6 +8,7 @@ import { Prisma } from "../generated/prisma/index.js";
 import { userSummarySelect } from "../utils/prismaSelects.js";
 import { validateTransition } from "../utils/validateTransition.js";
 import { AuthUser } from "../types/auth.js";
+import { createPayoutForCompletedBooking } from "./payout.service.js";
 
 //Creating a booking
 export const createbookingService = async (
@@ -322,5 +323,13 @@ export const completeBookingService = async (id: string, traideId: string) => {
     });
     return result;
   });
+  // Trigger payout after the transaction commits — if this fails, the
+  // booking is still correctly marked COMPLETED; payout can be retried separately.
+  try {
+    await createPayoutForCompletedBooking(id);
+  } catch (err) {
+    console.error(`Payout Failed for boooking ${id}`, err);
+    // Not re-thrown — job completion shouldn't fail just because payout had an issue
+  }
   return updatedBooking;
 };

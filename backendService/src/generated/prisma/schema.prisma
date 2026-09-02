@@ -59,6 +59,16 @@ enum PaymentStatus {
   REFUNDED
 }
 
+enum RefundRequestStatus {
+  PENDING_APPROVAL
+  REJECTED_BY_PARTY
+  PENDING_ADMIN
+  REJECTED_BY_ADMIN
+  APPROVED
+  PROCESSED
+  FAILED
+}
+
 enum NotificationType {
   EMAIL
   SMS
@@ -85,6 +95,7 @@ model User {
   assignJobs      Booking[]      @relation("TradieBookings")
   reviewsGiven    Review[]       @relation("ReviewsGiven")
   reviewsRecieved Review[]       @relation("ReviewsReceived")
+  payoutRecords   PayoutRecord[]
   notifications   Notification[]
   stripeAccount   StripeAccount?
 
@@ -199,6 +210,7 @@ model Booking {
   payment       Payment?
   review        Review?
   quote         Quote?
+  payoutRecord  PayoutRecord?
   statusHistory BookingStatusHistory[]
 
   @@map("bookings")
@@ -244,19 +256,53 @@ model QuoteLineItem {
 }
 
 model Payment {
-  id              String        @id @default(uuid())
-  bookingId       String        @unique
-  stripePaymentId String        @unique
-  amount          Decimal       @db.Decimal(10, 2)
-  platformFee     Decimal       @db.Decimal(10, 2) // your cut
-  currency        String        @default("aud")
-  status          PaymentStatus @default(PENDING)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id              String          @id @default(uuid())
+  bookingId       String          @unique
+  stripePaymentId String          @unique
+  amount          Decimal         @db.Decimal(10, 2)
+  platformFee     Decimal         @db.Decimal(10, 2) // your cut
+  currency        String          @default("aud")
+  status          PaymentStatus   @default(PENDING)
+  refundRequests  RefundRequest[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 
   booking Booking @relation(fields: [bookingId], references: [id])
 
   @@map("payments")
+}
+
+model RefundRequest {
+  id                String              @id @default(uuid())
+  paymentId         String
+  payment           Payment             @relation(fields: [paymentId], references: [id])
+  bookingId         String
+  requestedBy       String // userId of whoever requested it
+  reason            String
+  amount            Decimal             @db.Decimal(10, 2)
+  status            RefundRequestStatus @default(PENDING_APPROVAL)
+  partyRejectReason String?
+  adminApprovedBy   String?
+  adminRejectReason String?
+  stripeRefundId    String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@map("refund_requests")
+}
+
+model PayoutRecord {
+  id               String   @id @default(uuid())
+  bookingId        String   @unique
+  booking          Booking  @relation(fields: [bookingId], references: [id])
+  tradieId         String
+  tradie           User     @relation(fields: [tradieId], references: [id])
+  stripeTransferId String   @unique
+  amount           Decimal  @db.Decimal(10, 2)
+  status           String   @default("SUCCEEDED")
+  createdAt        DateTime @default(now())
+
+  @@map("payout_records")
 }
 
 model Review {
