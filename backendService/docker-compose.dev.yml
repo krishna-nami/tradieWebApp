@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tradiehub-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tradiehub
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: tradiehub_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tradiehub -d tradiehub_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: tradiehub-backend-dev
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5002:5002"
+    environment:
+      DATABASE_URL: postgresql://tradiehub:devpassword@postgres:5432/tradiehub_dev
+      NODE_ENV: development
+    env_file:
+      - .env.docker
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgres_dev_data:
