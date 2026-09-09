@@ -1,0 +1,32 @@
+services:
+  backend:
+    image: 321659418230.dkr.ecr.ap-southeast-2.amazonaws.com/traide-backend:latest
+    container_name: traidehub-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - "5002"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:5002', r=> process.exit(r.statusCode < 500 ? 0:1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: traidehub-nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
