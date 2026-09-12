@@ -29,4 +29,5 @@ export const handleStripeWebhookController = async (
   } catch (err) {
     console.error(`Error processing webhook event ${event.type}:`, err);
   }
+  return;
 };

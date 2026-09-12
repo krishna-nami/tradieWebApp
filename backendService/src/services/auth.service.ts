@@ -177,6 +177,7 @@ export const forgetPasswordService = async (data: ForgetPasswordInput) => {
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${rawToken}`;
 
   //Push to que- notidication microservices and send email from Resend
+  console.info(`Password reset link for ${user.email}: ${resetUrl}`);
 };
 
 export const resetPasswordService = async (data: ResetPasswordInput) => {

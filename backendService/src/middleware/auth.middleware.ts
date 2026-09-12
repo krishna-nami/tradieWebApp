@@ -6,7 +6,7 @@ import { prisma } from "../config/db.js";
 
 export const requireAuth = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   try {

@@ -4,7 +4,7 @@ import { ZodError, treeifyError } from "zod";
 
 export const errorMiddleware = (
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
 ) => {

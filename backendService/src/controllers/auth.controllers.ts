@@ -150,7 +150,7 @@ export const login = async (req: Request, res: Response) => {
     }),
   );
 };
-export const logout = (req: Request, res: Response) => {
+export const logout = (_req: Request, res: Response) => {
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
