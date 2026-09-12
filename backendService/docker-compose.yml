@@ -1,6 +1,6 @@
 services:
   backend:
-    image: 321659418230.dkr.ecr.ap-southeast-2.amazonaws.com/traide-backend:latest
+    image: 321659418230.dkr.ecr.ap-southeast-2.amazonaws.com/tradie-backend:latest
     container_name: traidehub-backend
     restart: unless-stopped
     env_file:
