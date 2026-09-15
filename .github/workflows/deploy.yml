@@ -1,0 +1,102 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backendService/**"
+      - ".github/workflows/deploy.yml"
+
+env:
+  AWS_REGION: ap-southeast-2
+  ECR_REPOSITORY: tradie-backend
+  ECR_REGISTRY: 321659418230.dkr.ecr.ap-southeast-2.amazonaws.com
+
+jobs:
+  # Job 1 — lint & type-check, fail fast before wasting time on a build
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backendService
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+          cache-dependency-path: backendService/package-lock.json
+      - run: npm install
+      - run: npm run lint
+      - run: npx tsc --noEmit
+
+  # Job 2 — build the image and push to ECR
+  build-and-push:
+    needs: lint-and-typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backendService
+    outputs:
+      image-tag: ${{ steps.vars.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set image tag
+        id: vars
+        run: echo "tag=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push image
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+  # Job 3 — SSH into EC2, pull the new image, restart the stack
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~
+            aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
+            docker compose pull
+            docker compose up -d --force-recreate
+            docker image prune -f
+
+  # Job 4 — confirm the live endpoint is actually responding after deploy
+  smoke-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for server to be ready
+        run: sleep 10
+
+      - name: Hit the live API
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://api.gettradiehub.com)
+          if [ "$response" -ne 200 ] && [ "$response" -ne 404 ]; then
+            echo "Smoke test failed — got HTTP $response"
+            exit 1
+          fi
+          echo "Smoke test passed — got HTTP $response"
