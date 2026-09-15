@@ -20,7 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (_req: Request, res: Response) => {
-  res.json({ message: "Our TradieHub API is running" });
+  res.json({
+    message: "Our TradieHub API is running now in server successfully",
+  });
 });
 app.use("/api/v1", router);
 app.use(errorMiddleware);
