@@ -162,7 +162,6 @@ export const setAvailabilityService = async (
   return getAvailabilityService(id);
 };
 export const getAvailabilityService = async (id: string) => {
-  console.log(id);
   if (!id) {
     console.log("Id not forunt");
   }

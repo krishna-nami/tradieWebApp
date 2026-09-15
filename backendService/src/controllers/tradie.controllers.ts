@@ -91,7 +91,6 @@ export const getAvailabilityController = async (
   res: Response,
 ) => {
   const id = req.user.id;
-  console.log("Id is ", id);
   if (!id) {
     throw new ApiError(401, "You are unauthorized");
   }

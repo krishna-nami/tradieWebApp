@@ -10,7 +10,7 @@ import {
   setAvailabilityController,
   traideProfileConroller,
   updateProfileController,
-} from "../controllers/tradie.controlers.js";
+} from "../controllers/tradie.controllers.js";
 
 const tradieRoutes = Router();
 
@@ -66,4 +66,3 @@ tradieRoutes.delete(
 tradieRoutes.get("/:id", getTradieByIdController);
 
 export default tradieRoutes;
-``;
