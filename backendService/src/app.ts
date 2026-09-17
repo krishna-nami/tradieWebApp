@@ -8,9 +8,23 @@ import webhookRoutes from "./routes/webhook.routes.js";
 
 const app = express();
 app.use(helmet());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://gettradiehub.com",
+  "https://www.gettradiehub.com",
+  "https://tradie-app-eight.vercel.app", // your Vercel default subdomain — keep for testing
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      // origin is undefined for same-origin/non-browser requests (e.g. curl, Postman) — allow those
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
