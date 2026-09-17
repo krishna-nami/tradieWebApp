@@ -30,7 +30,7 @@ export const getConnectOnboardingLink = () =>
     .get<ApiResponse<{ url: string }>>("/payment/connect/onboard")
     .then((res) => res.data);
 export const downloadInvoice = async (bookingId: string) => {
-  const response = await api.get(`/paymentt/${bookingId}/invoice`, {
+  const response = await api.get(`/payment/${bookingId}/invoice`, {
     responseType: "blob",
   });
   const blob = new Blob([response.data], { type: "application/pdf" });

@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import Link from "next/link";
 
 function BookingDetailContent() {
   const params = useParams<{ id: string }>();
@@ -77,9 +78,9 @@ function BookingDetailContent() {
 
       {booking.quote?.status === "ACCEPTED" && (
         <div className="mt-4">
-          <Button className="w-full" disabled>
-            Pay now (coming soon)
-          </Button>
+          <Link href={`/checkout/${booking.id}`}>
+            <Button className="w-full">Pay now</Button>
+          </Link>
         </div>
       )}
 
