@@ -24,7 +24,7 @@ export function QuoteView({
 }: {
   quote: Quote;
   bookingId: string;
-  readOnly: boolean;
+  readOnly?: boolean;
 }) {
   const { accept, decline } = useQuoteActions(bookingId);
   const [showDeclineInput, setShowDeclineInput] = useState(false);
