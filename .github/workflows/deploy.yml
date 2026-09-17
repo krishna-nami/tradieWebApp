@@ -82,7 +82,7 @@ jobs:
             aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
             docker compose pull
             docker compose up -d --force-recreate
-            docker image prune -f
+            docker image prune -af
 
   # Job 4 — confirm the live endpoint is actually responding after deploy
   smoke-test:
