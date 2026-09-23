@@ -1,7 +1,7 @@
 // app/(auth)/register/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
@@ -39,6 +39,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/Spinner";
+import { useAuthStore } from "@/store/authStore";
 
 const AU_STATES = [
   "ACT",
@@ -63,6 +64,17 @@ function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [pendingEmail, setPendingEmail] = useState("");
+  const { hasHydrated, isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    if (hasHydrated && isAuthenticated) {
+      router.replace("/");
+    }
+  }, [hasHydrated, isAuthenticated, router]);
+
+  if (!hasHydrated || isAuthenticated) {
+    return null;
+  }
 
   // ---------- Step 1: Account ----------
   const accountForm = useForm<RegisterFormValues>({

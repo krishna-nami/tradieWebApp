@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
@@ -25,12 +25,24 @@ interface LoginData {
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { isAuthenticated, hasHydrated } = useAuthStore();
   const router = useRouter();
   const login = useAuthStore((s) => s.login);
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
+
+  useEffect(() => {
+    if (hasHydrated && isAuthenticated) {
+      router.replace("/");
+    }
+  }, [hasHydrated, isAuthenticated, router]);
+
+  if (!hasHydrated || isAuthenticated) {
+    return null;
+  }
+
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
