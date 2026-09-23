@@ -72,7 +72,7 @@ function RegisterForm() {
     }
   }, [hasHydrated, isAuthenticated, router]);
 
-  if (!hasHydrated || isAuthenticated) {
+  if (!hasHydrated || !isAuthenticated) {
     return null;
   }
 
