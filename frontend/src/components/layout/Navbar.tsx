@@ -47,10 +47,25 @@ export function Navbar() {
                     name={`${user?.profile.firstName} ${user?.profile.lastName}`}
                     size="sm"
                   />
+
                   <span className="text-sm font-medium text-slate-700">
                     {user?.profile.firstName}
                   </span>
                 </Link>
+                {user?.role === "CUSTOMER" ? (
+                  <Link href="/bookings" className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-slate-700">
+                      My Bookings
+                    </span>
+                  </Link>
+                ) : (
+                  <Link href="/jobs" className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-slate-700">
+                      My Jobs
+                    </span>
+                  </Link>
+                )}
+
                 <Button variant="ghost" size="sm" onClick={logout}>
                   Log out
                 </Button>

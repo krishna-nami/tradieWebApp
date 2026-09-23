@@ -111,13 +111,15 @@ const columns = [
     links: [
       { label: "Find a tradie", href: "/search" },
       { label: "How it works", href: "/#how-it-works" },
+      { label: "My Bookings", href: "/bookings" },
     ],
   },
   {
     heading: "For tradies",
     links: [
-      { label: "Join as a tradie", href: "/register?role=tradie" },
+      { label: "Join as a tradie", href: "/register?role=TRADIE" },
       { label: "Tradie dashboard", href: "/dashboard" },
+      { label: "My Jobs", href: "/jobs" },
     ],
   },
 ];
