@@ -72,10 +72,6 @@ function RegisterForm() {
     }
   }, [hasHydrated, isAuthenticated, router]);
 
-  if (!hasHydrated || !isAuthenticated) {
-    return null;
-  }
-
   // ---------- Step 1: Account ----------
   const accountForm = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -145,6 +141,9 @@ function RegisterForm() {
     setAccesstoken(null);
     router.push(`/verify-email?email=${encodeURIComponent(pendingEmail)}`);
   };
+  if (!hasHydrated || isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-slate-50 px-4 py-8">

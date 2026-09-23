@@ -39,10 +39,6 @@ export default function LoginPage() {
     }
   }, [hasHydrated, isAuthenticated, router]);
 
-  if (!hasHydrated || !isAuthenticated) {
-    return null;
-  }
-
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
@@ -62,6 +58,9 @@ export default function LoginPage() {
     console.log(values);
     loginMutation.mutate(values);
   };
+  if (!hasHydrated || isAuthenticated) {
+    return null;
+  }
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-slate-50 px-4">
       <Card className="w-full max-w-sm">
