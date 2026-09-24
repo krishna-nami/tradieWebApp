@@ -28,6 +28,7 @@ export default function LoginPage() {
   const { isAuthenticated, hasHydrated } = useAuthStore();
   const router = useRouter();
   const login = useAuthStore((s) => s.login);
+
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },

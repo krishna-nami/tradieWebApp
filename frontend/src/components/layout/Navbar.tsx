@@ -8,8 +8,10 @@ import { useAuthStore } from "@/store/authStore";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Sidebar } from "./Sidebar";
+import { useIdleLogout } from "@/hooks/useIdleLogout";
 
 export function Navbar() {
+  useIdleLogout();
   const { user, isAuthenticated, hasHydrated, logout } = useAuthStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
