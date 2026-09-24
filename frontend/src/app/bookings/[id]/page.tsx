@@ -2,7 +2,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { MapPin, Calendar, DollarSign } from "lucide-react";
+import { MapPin, Calendar, DollarSign, User } from "lucide-react";
 import { useBooking } from "@/hooks/useBookings";
 import { BookingStatus } from "@/components/booking/BookingStatus";
 import { StatusTimeline } from "@/components/booking/StatusTimeline";
@@ -68,6 +68,21 @@ function BookingDetailContent() {
           {booking.notes && (
             <p className="text-slate-500">Notes: {booking.notes}</p>
           )}
+        </CardContent>
+      </Card>
+      <Card className="mt-4">
+        <CardContent className="flex items-center gap-3 p-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+            <User size={18} />
+          </div>
+          <div>
+            <p className="text-xs text-slate-400">Tradie</p>
+            <p className="font-medium text-slate-900">
+              {booking.tradie.profile.firstName}{" "}
+              {booking.tradie.profile.lastName}
+            </p>
+            <p className="text-xs text-slate-500">{booking.tradie.email}</p>
+          </div>
         </CardContent>
       </Card>
 
