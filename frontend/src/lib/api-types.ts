@@ -171,6 +171,16 @@ export interface BookingDetail {
     reason: string | null;
     createdAt: string;
   }[];
+  payment: {
+    id: string;
+    stripePaymentId: string;
+    amount: string;
+    platformFee: string;
+    currency: string;
+    status: "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED" | "REFUNDED";
+    createdAt: string;
+    updatedAt: string;
+  } | null;
 }
 // lib/api-types.ts — add
 export interface TradieFullProfile {

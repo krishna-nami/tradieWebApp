@@ -133,6 +133,7 @@ export const getBookingByIdService = async (
         include: { lineItems: true },
       },
       statusHistory: { orderBy: { createdAt: "asc" } },
+      payment: true,
     },
   });
 

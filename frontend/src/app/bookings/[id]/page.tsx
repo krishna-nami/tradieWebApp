@@ -12,6 +12,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Link from "next/link";
+import { PaymentDetails } from "@/components/booking/PaymentDetails";
 
 function BookingDetailContent() {
   const params = useParams<{ id: string }>();
@@ -76,13 +77,25 @@ function BookingDetailContent() {
         </div>
       )}
 
-      {booking.quote?.status === "ACCEPTED" && (
+      {/* {booking.quote?.status === "ACCEPTED" && (
         <div className="mt-4">
           <Link href={`/checkout/${booking.id}`}>
             <Button className="w-full">Pay now</Button>
           </Link>
         </div>
-      )}
+      )} */}
+      {booking.payment ? (
+        <div className="mt-4">
+          <PaymentDetails payment={booking.payment} />
+        </div>
+      ) : booking.status === "CONFIRMED" &&
+        booking.quote?.status === "ACCEPTED" ? (
+        <div className="mt-4">
+          <Link href={`/checkout/${booking.id}`}>
+            <Button className="w-full">Pay now</Button>
+          </Link>
+        </div>
+      ) : null}
 
       <Card className="mt-4">
         <CardHeader>
