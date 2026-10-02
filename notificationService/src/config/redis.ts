@@ -9,6 +9,7 @@ if (!process.env.REDIS_URL) {
 
 export const redisConnection = new Redis(process.env.REDIS_URL, {
   maxRetriesPerRequest: null,
+  family: 4,
 });
 
 redisConnection.on("connect", () => {
