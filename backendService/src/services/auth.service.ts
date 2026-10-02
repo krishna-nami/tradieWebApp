@@ -13,6 +13,7 @@ import {
 } from "../validators/auth.validator.js";
 import { prisma } from "../config/db.js";
 import { ApiError } from "../utils/ApiError.js";
+import { notificationClient } from "../config/queue.notification.client.js";
 
 const SALT_NUMBER = 12;
 const RESET_TOKEN_EXPIRY_MS = 15 * 60 * 1000;
@@ -75,6 +76,21 @@ export const userRegister = async (data: RegisterInput) => {
   const refreshToken = generateRefreshToken({
     userId: user.id,
   });
+  const verifyUrl = `${process.env.FRONTEND_URL}/verify-email/confirm?token=${emailVerifyToken}`;
+
+  if (user.profile?.firstName) {
+    notificationClient
+      .sendVerifyEmail(user.email, user.profile.firstName, verifyUrl)
+      .catch((err) => console.error("Failed to queue verify email:", err));
+
+    notificationClient
+      .sendWelcomeEmail(user.email, user.profile.firstName)
+      .catch((err) => console.error("failed ot que welcome email", err));
+  } else {
+    console.warn(
+      `User ${user.id} has no firstName set in profile- it skips welcome/verify email`,
+    );
+  }
 
   return { user, accessToken, refreshToken, emailVerifyToken };
 };
