@@ -7,14 +7,15 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 import webhookRoutes from "./routes/webhook.routes.js";
 
 const app = express();
-app.use(helmet());
+
 const allowedOrigins = [
   "http://localhost:3000",
   "https://gettradiehub.com",
   "https://www.gettradiehub.com",
   "https://tradie-app-eight.vercel.app", // your Vercel default subdomain — keep for testing
 ];
-
+app.set("trust proxy", 1);
+app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
